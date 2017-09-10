@@ -19,11 +19,11 @@
 # VARIABLES SECTION
 # ------------------------------------
 # mypath=$PWD;
-usr=(vanea);
+usr=(crt);
 ipinf=(ipinfo.io/ip);
 bckp=(bckp);
 dns_provider=(dnscrypt.eu-nl);
-hstnm=(ion.catlab.bl);
+hstnm=(bear.hostname.local);
 
 # FUNCTIONS
 
