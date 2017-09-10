@@ -304,7 +304,7 @@ if [[ ! $? -eq 0 ]]; then
                   appcli="screen mc htop iptraf ntp ntpdate tmux unattended-upgrades sysbench git curl whois arp-scan rig rcconf sysv-rc-conf python-pip exfat-fuse exfat-utils lm-sensors autoconf tig cmus wavemon testdisk glances xclip powerline default-jre default-jdk tasksel ffmpeg dtrx apt-listchanges clamav clamav-daemon clamav-freshclam debconf-utils p7zip redshift fail2ban shellcheck";
 
                   # GUI Applications
-                  appgui="virtualbox-5.1 kodi 0ad keepassx gimp gimp-gmic gmic gimp-plugin-registry inkscape krita digikam5 darktable rawtherapee filezilla gramps kate amarok k3b ktorrent gnucash homebank kmymoney audacity gnome-sushi vlc handbrake bleachbit soundconverter easytag sound-juicer gwenview nautilus-actions yakuake terminator aptoncd gresolver uget gpodder virt-viewer clamtk redshift-gtk mysql-workbench gpick workrave"
+                  appgui="virtualbox-5.1 kodi 0ad keepassx gimp gimp-gmic gmic gimp-plugin-registry inkscape krita digikam5 darktable rawtherapee filezilla gramps kate amarok k3b ktorrent gnucash homebank kmymoney audacity gnome-sushi vlc handbrake bleachbit soundconverter easytag sound-juicer gwenview nautilus-actions yakuake terminator aptoncd gresolver uget gpodder virt-viewer clamtk redshift-gtk mysql-workbench gpick workrave brasero"
 
                   # The main multi-loop for installing apps/libs
                   for d in $applib $appcli $appgui; do
