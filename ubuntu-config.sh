@@ -17,7 +17,7 @@
 
 
 # VARIABLES SECTION
-# ----------------------------------
+# ------------------------------------
 # mypath=$PWD;
 usr=(vanea);
 ipinf=(ipinfo.io/ip);
