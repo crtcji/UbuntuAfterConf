@@ -11,3 +11,5 @@
 
 
 # // TODO volume shortcuts. Find a way to save all the adjustments made in this app
+
+# // TODO tiling windows divede in 4 regions
