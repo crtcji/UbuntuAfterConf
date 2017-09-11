@@ -320,27 +320,26 @@ if [[ ! $? -eq 0 ]]; then
 
                   # Here is a list of options that need to be autoanswered once during the installation process of the apps listed in the second variable ($debsel2)
 
-                  # // FIXME debsel: does not autoanswer
-                  # debsel=(
-                  #   "opera-stable opera-stable/add-deb-source select false"
-                  #   "macchanger/automatically_run select true"
-                  #   "wireshark-common/install-setuid select true"
-                  #   "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true"
-                  # )
-                  #
-                  # # The applications that shows pop-ups during the their installation
-                  # debsel2=(
-                  #   "opera-stable"
-                  #   "macchanger"
-                  #   "wireshark"
-                  #   "ubuntu-restricted-extras"
-                  # )
-                  #
-                  # # The loop
-                  # for e in ${!debsel[*]}; do
-                  #   inst_echo "${debsel2[$e]}";
-                  #   echo "${debsel[$e]}" | debconf-set-selections && quietinst "${debsel2[$e]}";
-                  # done
+                  debsel=(
+                    "opera-stable opera-stable/add-deb-source select false"
+                    "macchanger macchanger/automatically_run select true"
+                    "wireshark-common wireshark-common/install-setuid select true"
+                    "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true"
+                  );
+
+                  # The applications that shows pop-ups during the their installation
+                  debsel2=(
+                    "opera-stable"
+                    "macchanger"
+                    "wireshark"
+                    "ubuntu-restricted-extras"
+                  );
+
+                  # The loop
+                  for e in ${!debsel[*]}; do
+                    inst_echo "${debsel2[$e]}";
+                    echo "${debsel[$e]}" | debconf-set-selections && quietinst "${debsel2[$e]}";
+                  done
 
                   # Installing RKHunter
                   inst_echo RKHunter;
