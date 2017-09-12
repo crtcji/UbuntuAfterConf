@@ -670,6 +670,8 @@ if [[ ! $? -eq 0 ]]; then
                   if [ $RESULT -eq 0 ]; then
                     upd_echo rkhunter;
                     # Updating our data files.
+                    # // FIXME: The following two commands are a temporary workaround because for the first time of running it gives eq=1, so there is a need to tun it for the second time in order to get eq=0 so that the rest of the statements are executed.
+                    rkhunter --update #> $dn;
                     rkhunter --update #> $dn;
 
                     RESULT2=$?
