@@ -298,7 +298,8 @@ if [[ ! $? -eq 0 ]]; then
                   # Libraries for the CLI/GUI Applications
                   # libc6:i386 - for ESET Antivirus for Linux
                   # (python2.7 - this package is already installed) python-gtk2 glade python-gtk-vnc python-glade2 python-configobj: for openxenmanager
-                  applib="software-properties-common libpng16-16 libqt5core5a libqt5widgets5 libsdl1.2debian libqt5x11extras5 libsdl-ttf2.0-0 python-gtk2 glade python-gtk-vnc python-glade2 python-configobj libgtk2-appindicator-perl libc6:i386 gedit-plugins";
+                  # transcode - for K3B to rip DVDs
+                  applib="software-properties-common libpng16-16 libqt5core5a libqt5widgets5 libsdl1.2debian libqt5x11extras5 libsdl-ttf2.0-0 python-gtk2 glade python-gtk-vnc python-glade2 python-configobj libgtk2-appindicator-perl libc6:i386 gedit-plugins transcode";
 
                   # CLI Applications
                   appcli="screen mc htop iptraf ntp ntpdate tmux unattended-upgrades sysbench git curl whois arp-scan rig rcconf sysv-rc-conf python-pip exfat-fuse exfat-utils lm-sensors autoconf tig cmus wavemon testdisk glances xclip powerline default-jre default-jdk tasksel ffmpeg dtrx apt-listchanges clamav clamav-daemon clamav-freshclam debconf-utils p7zip redshift fail2ban shellcheck";
@@ -662,7 +663,7 @@ if [[ ! $? -eq 0 ]]; then
                   # RKHunter configuration section
 
                   # The first thing we should do is ensure that our rkhunter version is up-to-date.
-                  rkhunter --versioncheck #> $dn;
+                  rkhunter --versioncheck; #> $dn;
 
                   # Verifying if the previous command run successfully (exit status 0) then it goes to the next step
                   RESULT=$?
@@ -671,7 +672,6 @@ if [[ ! $? -eq 0 ]]; then
                     # Updating our data files.
                     rkhunter --update #> $dn;
 
-                    # FIXME rkhunter: for some reason this statement fails to update signatures
                     RESULT2=$?
                     if [ $RESULT2 -eq 0 ]; then
                       upd_echo rkhunter signatures;
