@@ -204,8 +204,26 @@ if [[ ! $? -eq 0 ]]; then
         # ufw status verbose; # for analyze only
 
         # Opening outgoing ports using UFW. Redirecting UFW output to /dev/null device
-        # 7539/tcp - for IJC
-        ufw_ports="80/tcp 443/tcp 443/udp 53/tcp 123/udp 43/tcp 22/tcp 8000:8054/tcp 7539/tcp";
+        # 80/tcp - for Web
+        # 443/tcp - for secure Web (https) TCP
+        # 443/udp - for secure Web (https) UDP
+        # 53/tcp - for DNS TCP
+        # 53/udp - for DNS UDP
+        # 123/udp - for NTP
+        # 43/tcp - for whois app to work properly
+        # 22/tcp - for general SSH connections
+        # 7539/tcp - for IJC VPS's SSH
+        # 22170/tcp - for IJC Office's SSH
+        # 2083/tcp - for cPanel SSL TCP
+        # 2096/tcp - for cPanel Webmail SSL TCP
+
+        # 51413/tcp - for Transmission
+        # 8000:8054/tcp - for audio feed of the Romanian Radio Broadcasting Society
+        # 8078/tcp - for eTeatru audio feed of the Romanian Radio Broadcasting Society
+
+
+
+        ufw_ports="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413/tcp 8000:8054/tcp 8078/tcp";
 
         for a in $ufw_ports; do
           ufw allow out $a #> $dn1;
