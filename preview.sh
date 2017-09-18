@@ -19,7 +19,7 @@
 # VARIABLES SECTION
 # -----------------------------------
 # mypath=$PWD;
-usr=(crt);
+usr=(vanea);
 ipinf=(ipinfo.io/ip);
 bckp=(bckp);
 dns_provider=(dnscrypt.eu-nl);
@@ -34,7 +34,7 @@ up () {
   upvar="update upgrade dist-upgrade";
   for upup in $upvar; do
     echo -e "Executing \e[1m\e[34m$upup\e[0m";
-    apt-get -y $upup #> $dn;
+    apt-get -yqq $upup > $dn;
   done
 }
 
@@ -77,7 +77,7 @@ cfg_echo () {
 
 # Echoes that a specific application ($@) is being purged with the reason
 rm_echo () {
-  echo && echo -e "Removing \e[1m\e[34m$1\e[0m package because \e[1m\e[32m$2\e[0m ...";
+  echo -e "Removing \e[1m\e[34m$1\e[0m package because \e[1m\e[32m$2\e[0m ...";
 }
 
 # Echoes that a specific repository ($@) is being added
@@ -128,7 +128,7 @@ bckup () {
 
 # Quiet installation
   quietinst () {
-  DEBIAN_FRONTEND=noninteractive apt-get -yf install -qq $@ < /dev/null #> $dn1;
+  DEBIAN_FRONTEND=noninteractive apt-get -yf install -qq $@ < /dev/null > $dn1;
 }
 
 chg_unat10 () {
@@ -226,7 +226,7 @@ if [[ ! $? -eq 0 ]]; then
         ufw_ports="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413/tcp 8000:8054/tcp 8078/tcp";
 
         for a in $ufw_ports; do
-          ufw allow out $a #> $dn1;
+          ufw allow out $a > $dn1;
           echo -e "Opening outgoing port: \e[1m\e[34m$a\e[0m ...";
         done
 
@@ -256,18 +256,18 @@ if [[ ! $? -eq 0 ]]; then
 
             # Updating repository lists
             echo "Updating repository lists ...";
-            apt-get -y update #> $dn;
+            apt-get -yqq update > $dn;
 
             # Installing dnscrypt-proxy
             inst_echo dnscrypt-proxy;
-            apt-get -y install dnscrypt-proxy #> $dn1;
+            apt-get -yqq install dnscrypt-proxy > $dn1;
 
             # Configuring DNSCrypt-Proxy
             cfg_echo dnscrypt-proxy;
             dnscr_cfg=(/etc/default/dnscrypt-proxy);
 
             # Checking if DNSCrypt-Proxy is running
-            if ! /etc/init.d/dnscrypt-proxy status -l | grep -w "Stopped DNSCrypt proxy." #> $dn1;
+            if ! /etc/init.d/dnscrypt-proxy status -l | grep -w "Stopped DNSCrypt proxy." > $dn1;
              then
 
               # Checking if the /etc/default/dnscrypt-proxy exists
@@ -280,9 +280,9 @@ if [[ ! $? -eq 0 ]]; then
                 service dnscrypt-proxy restart;
 
                 # Checking if DNSCrypt-Proxy is ON and running the chosen DNS Provider
-                # if ! /etc/init.d/dnscrypt-proxy status -l | grep -w "Stopped DNSCrypt proxy." #> $dn1
-                # && /etc/init.d/dnscrypt-proxy status -l | grep  -w "resolver-name=$dns_provider" #> $dn1;
-                if ! /etc/init.d/dnscrypt-proxy status -l | grep -w "Stopped DNSCrypt proxy." && /etc/init.d/dnscrypt-proxy status -l | grep  -w "resolver-name=$dns_provider";
+                if ! /etc/init.d/dnscrypt-proxy status -l | grep -w "Stopped DNSCrypt proxy." > $dn1 && /etc/init.d/dnscrypt-proxy status -l | grep  -w "resolver-name=$dns_provider" > $dn1;
+
+                # if ! /etc/init.d/dnscrypt-proxy status -l | grep -w "Stopped DNSCrypt proxy." && /etc/init.d/dnscrypt-proxy status -l | grep  -w "resolver-name=$dns_provider";
                 then
 
                   # Updating repository lists as well as updating/upgrading the system
@@ -297,7 +297,7 @@ if [[ ! $? -eq 0 ]]; then
 
                   for b in "${apprepo[@]}"; do
                     addrepo_echo "${b[@]}";
-                    add-apt-repository -y "${b[@]}" #> $dn;
+                    add-apt-repository -y "${b[@]}" > $dn;
                   done
 
 
@@ -308,7 +308,7 @@ if [[ ! $? -eq 0 ]]; then
 
                   for c in "${apprepokey[@]}"; do
                     addrepokey_echo "${c[@]}";
-                    wget -qO- "${c[@]}" | sudo apt-key add - #> $dn;
+                    wget -qO- "${c[@]}" | sudo apt-key add - > $dn;
                   done
 
                   up;
@@ -323,12 +323,12 @@ if [[ ! $? -eq 0 ]]; then
                   appcli="screen mc htop iptraf ntp ntpdate tmux unattended-upgrades sysbench git curl whois arp-scan rig rcconf sysv-rc-conf python-pip exfat-fuse exfat-utils lm-sensors autoconf tig cmus wavemon testdisk glances xclip powerline default-jre default-jdk tasksel ffmpeg dtrx apt-listchanges clamav clamav-daemon clamav-freshclam debconf-utils p7zip redshift fail2ban shellcheck";
 
                   # GUI Applications
-                  appgui="virtualbox-5.1 kodi 0ad keepassx gimp gimp-gmic gmic gimp-plugin-registry inkscape krita digikam5 darktable rawtherapee filezilla gramps kate amarok k3b ktorrent gnucash homebank kmymoney audacity gnome-sushi vlc handbrake bleachbit soundconverter easytag sound-juicer gwenview nautilus-actions yakuake terminator aptoncd gresolver uget gpodder virt-viewer clamtk redshift-gtk mysql-workbench gpick workrave brasero unity-tweak-tool"
+                  appgui="virtualbox-5.1 kodi keepassx gimp gimp-gmic gmic gimp-plugin-registry inkscape krita digikam5 darktable rawtherapee filezilla gramps kate amarok k3b ktorrent gnucash homebank kmymoney audacity gnome-sushi vlc handbrake bleachbit soundconverter easytag sound-juicer gwenview nautilus-actions yakuake terminator aptoncd gresolver uget gpodder virt-viewer clamtk redshift-gtk mysql-workbench gpick workrave brasero unity-tweak-tool"
 
                   # The main multi-loop for installing apps/libs
                   for d in $applib $appcli $appgui; do
                     inst_echo $d;
-                    apt-get -y install $d #> $dn;
+                    apt-get -yqq install $d > $dn;
                   done
 
                   up;
@@ -363,7 +363,7 @@ if [[ ! $? -eq 0 ]]; then
                   # Installing RKHunter
                   inst_echo RKHunter;
                   debconf-set-selections <<< "postfix postfix/mailname string "$hstnm"" && debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Local Only'" && quietinst rkhunter;
-                  # apt-get -y install rkhunter #> $dn1;
+                  # apt-get -y install rkhunter > $dn1;
 
                   up;
 
@@ -505,7 +505,7 @@ if [[ ! $? -eq 0 ]]; then
 
                   # Calibre
                   inst_echo Calibre;
-                  sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()" #> $dn;
+                  sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()" > $dn;
 
                   # Netbeans
                   nb_lnk=(http://download.netbeans.org/netbeans/8.2/final/bundles/netbeans-8.2-linux.sh);
@@ -548,11 +548,11 @@ if [[ ! $? -eq 0 ]]; then
 
                   # Updating Python PIP
                   echo -e "Updating \e[1m\e[34mpip\e[0m ...";
-                  pip install --upgrade pip #> $dn;
+                  pip install --upgrade pip > $dn;
 
                   # Installing Speedest-CLI
                   inst_echo Speedtest;
-                  pip install speedtest-cli --upgrade #> $dn;
+                  pip install speedtest-cli --upgrade > $dn;
 
                   # Installing Micro Editor
                   #inst_echo Micro Editor;
@@ -631,7 +631,7 @@ if [[ ! $? -eq 0 ]]; then
                   # The loop
                   for f in ${!telepack[*]}; do
                     rm_echo "${telepack[$f]}" "${telepack2[$f]}" ;
-                    apt-get -y purge "${telepack[$f]}"  #> $dn1;
+                    apt-get -yqq purge "${telepack[$f]}"  > $dn1;
                   done
 
 
@@ -656,7 +656,7 @@ if [[ ! $? -eq 0 ]]; then
 
                   # Scanning the whole system and palcing all the infected files list on a particular file
                   # echo "ClamAV is scanning the OS ...";
-                  # clamscan -r / | grep FOUND >> $rprtfldr/clamscan_first_scan.txt #> $dn;
+                  # clamscan -r / | grep FOUND >> $rprtfldr/clamscan_first_scan.txt > $dn;
 
                   # Crontab: The daily scan
 
@@ -672,7 +672,7 @@ if [[ ! $? -eq 0 ]]; then
                   # 30 01 * * * /usr/bin/freshclam --quiet; /usr/bin/clamscan --recursive --no-summary --infected / 2>/dev/null >> $rprtfldr/clamscan_daily.txt"; } | crontab -
 
                   # This way, Anacron ensures that if the computer is off during the time interval when it is supposed to be scanned by the daemon, it will be scanned next time it is turned on, no matter today or another day.
-                  echo "Creating cronjob for the ClamAV ...";
+                  echo -e "Creating a \e[1m\e[34mcronjob\e[0m for the ClamAV ...";
 		  echo -e '#!/bin/bash\n\n/usr/bin/freshclam --quiet;\n/usr/bin/clamscan --recursive --exclude-dir=/media/ --no-summary --infected / 2>/dev/null >> '$rprtfldr'/clamscan_daily_$(date +"%m-%d-%Y").txt;' >> /etc/cron.daily/clamscan.sh && chmod 755 /etc/cron.daily/clamscan.sh;
 
                   # END: ClamAV section: configuration and the first scan
@@ -681,7 +681,7 @@ if [[ ! $? -eq 0 ]]; then
                   # RKHunter configuration section
 
                   # The first thing we should do is ensure that our rkhunter version is up-to-date.
-                  rkhunter --versioncheck; #> $dn;
+                  rkhunter --versioncheck > $dn;
 
                   # Verifying if the previous command run successfully (exit status 0) then it goes to the next step
                   RESULT=$?
@@ -689,14 +689,14 @@ if [[ ! $? -eq 0 ]]; then
                     upd_echo rkhunter;
                     # Updating our data files.
                     # // FIXME: The following two commands are a temporary workaround because for the first time of running it gives eq=1, so there is a need to tun it for the second time in order to get eq=0 so that the rest of the statements are executed.
-                    rkhunter --update #> $dn;
-                    rkhunter --update #> $dn;
+                    rkhunter --update > $dn;
+                    rkhunter --update > $dn;
 
                     RESULT2=$?
                     if [ $RESULT2 -eq 0 ]; then
                       upd_echo rkhunter signatures;
                       # With our database files refreshed, we can set our baseline file properties so that rkhunter can alert us if any of the essential configuration files it tracks are altered. We need to tell rkhunter to check the current values and store them as known-good values:
-                      rkhunter --propupd #> $dn;
+                      rkhunter --propupd > $dn;
 
                       RESULT3=$?
                       if [ $RESULT3 -eq 0 ]; then
@@ -706,7 +706,7 @@ if [[ ! $? -eq 0 ]]; then
 
                         # Note: This will be executed only if the previous one was executed
                         # Another alternative to checking the log is to have rkhunter print out only warnings to the screen, instead of all checks:
-                        rkhunter -c --enable all --disable none --rwo #> $dn;
+                        rkhunter -c --enable all --disable none --rwo > $dn;
 
                       else
                         echo "\e[1m\e[34mRKHunter\e[0m scanning the OS \e[1m\e[31mFAILED\e[0m.";
@@ -909,14 +909,17 @@ if [[ ! $? -eq 0 ]]; then
                   # The loop
                   echo -e "Setting Startup GUI Applications: ";
                   for f in ${!appshrt[*]}; do
-                    echo -e "\e[32m"${appshrt[$f]}"\e[0m";
+                    echo -e "\e[1m\e[32m"${appshrt[$f]}"\e[0m";
                     echo "${appshrt2[$f]}" > /home/$usr/.config/autostart/"${appshrt[$f]}";
                   done
 
                   # END: Startup Applications (GUI)
 
-                  apt-get -y autoremove;
-                  cd / && rm -rf $tmpth ;
+                  echo "Autoremoving unused packages ...";
+                  apt-get -yqq autoremove > $dn;
+
+                  echo "Deleting temporary directory created at the beginning of this script ...";
+                  cd / && rm -rf $tmpth;
 
 
 
