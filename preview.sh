@@ -34,8 +34,10 @@ up () {
   upvar="update upgrade dist-upgrade";
   for upup in $upvar; do
     echo -e "Executing \e[1m\e[34m$upup\e[0m";
-    apt-get -yqq $upup > $dn;
+    #apt-get -yqq -o=Dpkg::Use-Pty=0 $upup > $dn;
+    apt-get -yqq $upup > /dev/null 2>&1;
   done
+  blnk_echo;
 }
 
 
@@ -65,9 +67,14 @@ notrun () {
   echo -e "\e[1m\e[31m$@\e[0m \e[31mis not running.\e[0m";
 }
 
-# Echoes that a specific application ($@) is being backed up
+# Echoes that a specific application ($@) is being installed
 inst_echo () {
   echo -e "Installing \e[1m\e[34m$@\e[0m application ...";
+}
+
+# Echoes that a specific application ($@) is being downloaded
+dwnl_echo () {
+  echo -e "Downloading \e[1m\e[34m$@\e[0m application ...";
 }
 
 # Echoes that a specific application ($@) is being backed up
@@ -128,7 +135,7 @@ bckup () {
 
 # Quiet installation
   quietinst () {
-  DEBIAN_FRONTEND=noninteractive apt-get -yf install -qq $@ < /dev/null > $dn1;
+  DEBIAN_FRONTEND=noninteractive apt-get -yf install -qq $@ < /dev/null > /dev/null;
 }
 
 chg_unat10 () {
@@ -140,6 +147,9 @@ chg_unat10 () {
     APT::Periodic::Unattended-Upgrade "1";" > $unat10;
 }
 
+blnk_echo () {
+  echo ""
+}
 # ------------------------------------------
 # END VARIABLES SECTION
 
@@ -220,10 +230,11 @@ if [[ ! $? -eq 0 ]]; then
         # 51413/tcp - for Transmission
         # 8000:8054/tcp - for audio feed of the Romanian Radio Broadcasting Society
         # 8078/tcp - for eTeatru audio feed of the Romanian Radio Broadcasting Society
+        # 9128/tcp - for MagicFM and RockFM from Romania
 
 
 
-        ufw_ports="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413/tcp 8000:8054/tcp 8078/tcp";
+        ufw_ports="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413/tcp 8000:8054/tcp 8078/tcp 9128/tcp";
 
         for a in $ufw_ports; do
           ufw allow out $a > $dn1;
@@ -263,7 +274,6 @@ if [[ ! $? -eq 0 ]]; then
             apt-get -yqq install dnscrypt-proxy > $dn1;
 
             # Configuring DNSCrypt-Proxy
-            cfg_echo dnscrypt-proxy;
             dnscr_cfg=(/etc/default/dnscrypt-proxy);
 
             # Checking if DNSCrypt-Proxy is running
@@ -274,6 +284,7 @@ if [[ ! $? -eq 0 ]]; then
               if [ -f $dnscr_cfg ]; then
 
                 bckup $dnscr_cfg;
+                cfg_echo dnscrypt-proxy;
 
                 # Replacing the default DNS provider in the /etc/default/dnscrypt-proxy configuration file to the $dns_provider
                 sed -i -e "/DNSCRYPT_PROXY_RESOLVER_NAME=/c\DNSCRYPT_PROXY_RESOLVER_NAME=$dns_provider" $dnscr_cfg;
@@ -286,6 +297,7 @@ if [[ ! $? -eq 0 ]]; then
                 then
 
                   # Updating repository lists as well as updating/upgrading the system
+                  blnk_echo;
                   up;
 
                   # Installing applications
@@ -297,8 +309,10 @@ if [[ ! $? -eq 0 ]]; then
 
                   for b in "${apprepo[@]}"; do
                     addrepo_echo "${b[@]}";
-                    add-apt-repository -y "${b[@]}" > $dn;
+                    add-apt-repository -y "${b[@]}" > /dev/null 2>&1;
                   done
+
+                  blnk_echo;
 
 
                   # Adding external repositories keys
@@ -311,26 +325,29 @@ if [[ ! $? -eq 0 ]]; then
                     wget -qO- "${c[@]}" | sudo apt-key add - > $dn;
                   done
 
+                  blnk_echo;
                   up;
 
                   # Libraries for the CLI/GUI Applications
                   # libc6:i386 - for ESET Antivirus for Linux
                   # (python2.7 - this package is already installed) python-gtk2 glade python-gtk-vnc python-glade2 python-configobj: for openxenmanager
                   # transcode - for K3B to rip DVDs
-                  applib="software-properties-common libpng16-16 libqt5core5a libqt5widgets5 libsdl1.2debian libqt5x11extras5 libsdl-ttf2.0-0 python-gtk2 glade python-gtk-vnc python-glade2 python-configobj libgtk2-appindicator-perl libc6:i386 gedit-plugins transcode";
+                  applib="software-properties-common libpng16-16 libqt5core5a libqt5widgets5 libsdl1.2debian libqt5x11extras5 libsdl-ttf2.0-0 python-gtk2 glade python-gtk-vnc python-glade2 python-configobj libgtk2-appindicator-perl libc6:i386 gedit-plugins transcode folder-color rhythmbox-plugin-alternative-toolbar";
 
                   # CLI Applications
                   appcli="screen mc htop iptraf ntp ntpdate tmux unattended-upgrades sysbench git curl whois arp-scan rig rcconf sysv-rc-conf python-pip exfat-fuse exfat-utils lm-sensors autoconf tig cmus wavemon testdisk glances xclip powerline default-jre default-jdk tasksel ffmpeg dtrx apt-listchanges clamav clamav-daemon clamav-freshclam debconf-utils p7zip redshift fail2ban shellcheck";
 
                   # GUI Applications
-                  appgui="virtualbox-5.1 kodi keepassx gimp gimp-gmic gmic gimp-plugin-registry inkscape krita digikam5 darktable rawtherapee filezilla gramps kate amarok k3b ktorrent gnucash homebank kmymoney audacity gnome-sushi vlc handbrake bleachbit soundconverter easytag sound-juicer gwenview nautilus-actions yakuake terminator aptoncd gresolver uget gpodder virt-viewer clamtk redshift-gtk mysql-workbench gpick workrave brasero unity-tweak-tool"
+                  appgui="virtualbox-5.1 kodi keepassx gimp gimp-gmic gmic gimp-plugin-registry inkscape krita digikam5 darktable rawtherapee filezilla gramps kate amarok k3b ktorrent gnucash homebank kmymoney audacity gnome-sushi vlc handbrake bleachbit soundconverter easytag sound-juicer gwenview nautilus-actions yakuake terminator aptoncd gresolver uget gpodder virt-viewer clamtk redshift-gtk mysql-workbench gpick workrave brasero unity-tweak-tool indicator-multiload shutter openttd gnome-control-center gnome-online-accounts"
 
                   # The main multi-loop for installing apps/libs
                   for d in $applib $appcli $appgui; do
                     inst_echo $d;
-                    apt-get -yqq install $d > $dn;
+                    #apt-get -yqq install $d > $dn;
+                    apt-get -yqq install $d > /dev/null 2>&1;
                   done
 
+                  blnk_echo;
                   up;
 
                   # Separate installation subsection (1st)
@@ -360,11 +377,15 @@ if [[ ! $? -eq 0 ]]; then
                     echo "${debsel[$e]}" | debconf-set-selections && quietinst "${debsel2[$e]}";
                   done
 
+
+                  blnk_echo;
+
                   # Installing RKHunter
                   inst_echo RKHunter;
                   debconf-set-selections <<< "postfix postfix/mailname string "$hstnm"" && debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Local Only'" && quietinst rkhunter;
-                  # apt-get -y install rkhunter > $dn1;
+                  apt-get -yqq install rkhunter > $dn1;
 
+                  blnk_echo;
                   up;
 
                   # END: Separate installation subsection (1st)
@@ -400,7 +421,7 @@ if [[ ! $? -eq 0 ]]; then
                     );
 
                   # Checking if there is any internet connection by getting ones public IP
-                  if [[ $(curl $ipinf) ]]; then
+                  if [[ $(curl --silent $ipinf) ]]; then
 
                     for f in ${!app[*]}; do
 
@@ -408,7 +429,7 @@ if [[ ! $? -eq 0 ]]; then
                       if curl -L --output /dev/null --silent --fail -r 0-0 "${app[$f]}"; then
 
                         # Getting the actual installation package
-                        curl -L "${app[$f]}" > "${app3[$f]}";
+                        curl -L --silent "${app[$f]}" > "${app3[$f]}";
 
                         # Verifying the SHA256SUM of the package
                         if [[ $(shasum -a 256 "${app3[$f]}" | grep "${app2[$f]}") ]]; then
@@ -427,6 +448,8 @@ if [[ ! $? -eq 0 ]]; then
                       fi;
 
                     done
+
+                    blnk_echo;
 
                   else
                       nonet_echo;
@@ -465,7 +488,7 @@ if [[ ! $? -eq 0 ]]; then
                     );
 
                   # Checking if there is any internet connection by getting ones public IP
-                  if [[ $(curl $ipinf) ]]; then
+                  if [[ $(curl --silent $ipinf) ]]; then
 
                     for f in ${!app[*]}; do
 
@@ -473,7 +496,8 @@ if [[ ! $? -eq 0 ]]; then
                       if curl -L --output /dev/null --silent --fail -r 0-0 "${app[$f]}"; then
 
                         # Getting the actual installation package
-                        curl -L "${app[$f]}" > "${app3[$f]}";
+                         dwnl_echo "${app3[$f]}";
+                         curl -L --silent "${app[$f]}" > "${app3[$f]}";
 
                         # Verifying the SHA256SUM of the package
                         if [[ $(shasum -a 256 "${app3[$f]}" | grep "${app2[$f]}") ]]; then
@@ -513,13 +537,13 @@ if [[ ! $? -eq 0 ]]; then
                   nb=(netbeans-8.2-linux.sh);
 
                   # Checking if there is any internet connection by getting ones public IP
-                  if [[ $(curl $ipinf) ]]; then
+                  if [[ $(curl --silent $ipinf) ]]; then
 
                     # Checking if the required link is valid
                     if curl -L --output /dev/null --silent --fail -r 0-0 $nb_lnk; then
 
                       # Getting the actual installation package
-                      curl -L $nb_lnk > $nb;
+                      curl -L --silent $nb_lnk > $nb;
 
                       # Verifying the SHA256SUM of the archive
                       if [[ $(shasum -a 256 $nb | grep $nb_shsm) ]]; then
@@ -558,6 +582,7 @@ if [[ ! $? -eq 0 ]]; then
                   #inst_echo Micro Editor;
                   #snap install micro --edge --classic;
 
+                  blnk_echo;
                   up;
 
                   # END: Separate installation subsection (4th)
@@ -634,6 +659,8 @@ if [[ ! $? -eq 0 ]]; then
                     apt-get -yqq purge "${telepack[$f]}"  > $dn1;
                   done
 
+                  blnk_echo;
+
 
                   # END: Telemetry section
 
@@ -673,7 +700,9 @@ if [[ ! $? -eq 0 ]]; then
 
                   # This way, Anacron ensures that if the computer is off during the time interval when it is supposed to be scanned by the daemon, it will be scanned next time it is turned on, no matter today or another day.
                   echo -e "Creating a \e[1m\e[34mcronjob\e[0m for the ClamAV ...";
-		  echo -e '#!/bin/bash\n\n/usr/bin/freshclam --quiet;\n/usr/bin/clamscan --recursive --exclude-dir=/media/ --no-summary --infected / 2>/dev/null >> '$rprtfldr'/clamscan_daily_$(date +"%m-%d-%Y").txt;' >> /etc/cron.daily/clamscan.sh && chmod 755 /etc/cron.daily/clamscan.sh;
+                  echo -e '#!/bin/bash\n\n/usr/bin/freshclam --quiet;\n/usr/bin/clamscan --recursive --exclude-dir=/media/ --no-summary --infected / 2>/dev/null >> '$rprtfldr'/clamscan_daily_$(date +"%m-%d-%Y").txt;' >> /etc/cron.daily/clamscan.sh && chmod 755 /etc/cron.daily/clamscan.sh;
+
+                  blnk_echo;
 
                   # END: ClamAV section: configuration and the first scan
 
@@ -733,6 +762,8 @@ if [[ ! $? -eq 0 ]]; then
                   # The --cronjob option tells rkhunter to not output in a colored format and to not require interactive key presses. The update option ensures that our definitions are up-to-date. The quiet option suppresses all output.
                   echo -e '#!/bin/bash\n\n/usr/bin/rkhunter --cronjob --update --quiet;' >> /etc/cron.daily/rkhunter_scan.sh && chmod 755 /etc/cron.daily/rkhunter_scan.sh;
 
+                  blnk_echo;
+
                   # END: RKHunter configuration section
 
 
@@ -742,7 +773,7 @@ if [[ ! $? -eq 0 ]]; then
                   unat50=(/etc/apt/apt.conf.d/50unattended-upgrades);
                   unat10=(/etc/apt/apt.conf.d/10periodic);
 
-                  # Cheking the existence of the $unat20 configuration file
+                  # Cheking the existence of the $unat20, $unat50, $unat10 configuration files
                   if [[ -f $unat20 ]] && [[ -f $unat50 ]] && [[ -f $unat10 ]]; then
 
                     for k in $unat20 $unat50 $unat10; do
@@ -835,6 +866,8 @@ if [[ ! $? -eq 0 ]]; then
                         # The results of unattended-upgrades will be logged to /var/log/unattended-upgrades.
                         # For more tweaks nano /etc/apt/apt.conf.d/50unattended-upgrades
 
+                  blnk_echo;
+
                   else
                     nofile_echo $unat20 or $unat50 or $unat10;
                     std_echo;
@@ -851,6 +884,8 @@ if [[ ! $? -eq 0 ]]; then
                     "veracrypt.desktop"
                     "atom.desktop"
                     "redshift-gtk.desktop"
+                    "rhythmbox.desktop"
+                    "virtualbox.desktop"
                   );
 
                   # The list of the shortcuts names content
@@ -901,6 +936,28 @@ if [[ ! $? -eq 0 ]]; then
                     Icon=redshift
                     Hidden=false
                     Type=Application"
+
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=rhythmbox-client --play-uri=http://89.238.227.6:8004/
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Rhythmbox
+                    Name=Rhythmbox
+                    Comment[en_US]=Rhythmbox
+                    Comment=Rhythmbox"
+
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=virtualbox
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=VirtualBox
+                    Name=VirtualBox
+                    Comment[en_US]=VirtualBox
+                    Comment=VirtualBox"
                   );
 
                   # There is no autostart directory, so we are going to make it
@@ -913,13 +970,17 @@ if [[ ! $? -eq 0 ]]; then
                     echo "${appshrt2[$f]}" > /home/$usr/.config/autostart/"${appshrt[$f]}";
                   done
 
+                  blnk_echo;
+
                   # END: Startup Applications (GUI)
 
                   echo "Autoremoving unused packages ...";
                   apt-get -yqq autoremove > $dn;
+                  blnk_echo;
 
                   echo "Deleting temporary directory created at the beginning of this script ...";
                   cd / && rm -rf $tmpth;
+                  blnk_echo;
 
 
 
