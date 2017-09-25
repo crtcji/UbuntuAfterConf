@@ -25,6 +25,54 @@ Set of bash scripts to automate the configuration of the freshly install Ubuntu 
 ###### At this point there will be still no internet connection
 Wait for the Ubuntu asking to save the passphrase for the encrypted home directory. When the window will popup just press "Run this action now" and enter you user's password in the automatically opened terminal. Then save somewhere the passphrase. It's needed when restoring access to the home folder.  
 
+#### Settings   
+##### Desktop   
+  * Look  
+    * Choose time-changing-wallpapers  
+  * Behavior  
+    * Auto-hide the launcher
+    * Enable workspaces
+
+##### Brightness & Lock
+  * 3 minutes  
+  * Lock: ON  
+    * 10 minutes
+    * Require password
+
+##### Security and privacy
+  * Security
+    * Waking from suspend  
+    * Returning from blank screen  
+    * 10 minutes
+  * Search  
+    * OFF  
+  * Diagnostics  
+    * Uncheck both options   
+
+##### Text entry
+  * Romanian (standard)  
+  * Russian  
+
+##### Bluetooth
+  * OFF  
+
+##### Keyboard
+  * Shortcuts
+    * Custom shortcuts  
+      * Volume +  
+        `amixer -D pulse sset Master 3%+`  
+      * Volume -  
+        `amixer -D pulse sset Master 3%-`    
+      * Suspend _(Shift+AltS)_  
+        `systemctl suspend`  
+
+##### Time and Date  
+  * Clock
+    * 24-hour time  
+    * Seconds   
+s
+
+
 
 1. Disable Telemetry
 - System Settings -> Security and Privacy -> Diagnostics
