@@ -135,7 +135,7 @@ bckup () {
 
 # Quiet installation
   quietinst () {
-  DEBIAN_FRONTEND=noninteractive apt-get -yf install -qq $@ < /dev/null > /dev/null;
+  DEBIAN_FRONTEND=noninteractive apt-get -yqqf install $@ < /dev/null > /dev/null;
 }
 
 chg_unat10 () {
@@ -159,8 +159,8 @@ blnk_echo () {
 # ----------------------------------
 
 # Disabling the Ubuntu Network Manager
-echo -e "Switching \e[1m\e[31mOFF\e[0m the network connection ...";
-nmcli networking off;
+blnk_echo && echo -e "Switching \e[1m\e[31mOFF\e[0m the network connection ...";
+nmcli networking off && blnk_echo;
 
 # Checking if there is NO internet connection
 #if [[ ! $(curl -s ipinfo.io/ip) ]]; then
@@ -177,7 +177,7 @@ if [[ ! $? -eq 0 ]]; then
     bckup $srclst;
 
     # Enabling the Multiverse, Universe and Partner repositories as well as switching to the main (UK) repository servers.
-    echo -e "Adding \e[1m\e[34mMultiverse\e[0m, \e[1m\e[34mUniverse\e[0m and \e[1m\e[34mPartner\e[0m repositories as well as switching to the main \e[1m\e[34m(UK)\e[0m repository server ... ";
+    echo -e "Adding \e[1m\e[34mMultiverse\e[0m, \e[1m\e[34mUniverse\e[0m and \e[1m\e[34mPartner\e[0m repositories as well as switching to the main \e[1m\e[34m(UK)\e[0m repository server ... " && blnk_echo;
     echo "
     deb http://archive.ubuntu.com/ubuntu xenial main restricted
     deb http://archive.ubuntu.com/ubuntu xenial-updates main restricted
@@ -210,7 +210,7 @@ if [[ ! $? -eq 0 ]]; then
         echo -e "Disabling \e[1m\e[34mIPV6\e[0m in \e[1m\e[34mUFW\e[0m ...";
 
         # Applying UFW policies
-        ufw default deny outgoing && ufw default deny incoming && ufw enable;
+        ufw default deny outgoing > $dn && ufw default deny incoming > $dn && ufw enable;
         # ufw status verbose; # for analyze only
 
         # Opening outgoing ports using UFW. Redirecting UFW output to /dev/null device
@@ -241,7 +241,7 @@ if [[ ! $? -eq 0 ]]; then
           echo -e "Opening outgoing port: \e[1m\e[34m$a\e[0m ...";
         done
 
-        ufw reload;
+        ufw reload && blnk_echo;
 
         # Checks if the firewall is running
         if ufw status verbose | grep -qw "active"; then
@@ -249,10 +249,10 @@ if [[ ! $? -eq 0 ]]; then
 
           # Enabling the Ubuntu Network Manager
           echo -e "Switching \e[1m\e[32mON\e[0m the network connection ...";
-          nmcli networking on;
+          nmcli networking on && blnk_echo;
 
           # For some reason after enabling the firewall there is no way to make outgoing connections. The workaround is to disable the firewall, make an outgoing connection and the reenable it.
-          ufw disable && wget -q --tries=10 --timeout=20 --spider http://google.com && ufw enable;
+          ufw disable > $dn && wget -q --tries=10 --timeout=20 --spider http://google.com && ufw enable > $dn;
           # && ufw reload;
         	#/etc/init.d/ufw stop;
         	#/etc/init.d/ufw start;
@@ -266,8 +266,8 @@ if [[ ! $? -eq 0 ]]; then
           if [[ $? -eq 0 ]]; then
 
             # Updating repository lists
-            echo "Updating repository lists ...";
-            apt-get -yqq update > $dn;
+            "Updating repository lists ...";
+            apt-get -yqq update > $dn && blnk_echo;
 
             # Installing dnscrypt-proxy
             inst_echo dnscrypt-proxy;
@@ -304,7 +304,7 @@ if [[ ! $? -eq 0 ]]; then
 
                   # Adding external repositories
 
-                  apprepo=("ppa:team-xbmc/ppa" "ppa:wfg/0ad" "ppa:libreoffice/ppa" "ppa:otto-kesselgulasch/gimp" "ppa:inkscape.dev/stable" "ppa:philip5/extra" "ppa:pmjdebruijn/darktable-release" "deb https://deb.opera.com/opera-stable/ stable non-free" "deb http://download.virtualbox.org/virtualbox/debian xenial contrib");
+                  apprepo=("ppa:team-xbmc/ppa" "ppa:wfg/0ad" "ppa:libreoffice/ppa" "ppa:otto-kesselgulasch/gimp" "ppa:inkscape.dev/stable" "ppa:philip5/extra" "ppa:pmjdebruijn/darktable-release" "deb https://deb.opera.com/opera-stable/ stable non-free" "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" "deb https://download.sublimetext.com/ apt/stable/");
                   # "deb http://download.opensuse.org/repositories/home:/rawtherapee/xUbuntu_16.04/ /"
 
                   for b in "${apprepo[@]}"; do
@@ -317,7 +317,7 @@ if [[ ! $? -eq 0 ]]; then
 
                   # Adding external repositories keys
 
-                  apprepokey=("https://deb.opera.com/archive.key" "https://www.virtualbox.org/download/oracle_vbox_2016.asc" "https://www.virtualbox.org/download/oracle_vbox.asc");
+                  apprepokey=("https://deb.opera.com/archive.key" "https://www.virtualbox.org/download/oracle_vbox_2016.asc" "https://www.virtualbox.org/download/oracle_vbox.asc" "https://download.sublimetext.com/sublimehq-pub.gpg");
                   # "http://download.opensuse.org/repositories/home:/rawtherapee/xUbuntu_16.04/Release.key"
 
                   for c in "${apprepokey[@]}"; do
@@ -332,13 +332,17 @@ if [[ ! $? -eq 0 ]]; then
                   # libc6:i386 - for ESET Antivirus for Linux
                   # (python2.7 - this package is already installed) python-gtk2 glade python-gtk-vnc python-glade2 python-configobj: for openxenmanager
                   # transcode - for K3B to rip DVDs
-                  applib="software-properties-common libpng16-16 libqt5core5a libqt5widgets5 libsdl1.2debian libqt5x11extras5 libsdl-ttf2.0-0 python-gtk2 glade python-gtk-vnc python-glade2 python-configobj libgtk2-appindicator-perl libc6:i386 gedit-plugins transcode folder-color rhythmbox-plugin-alternative-toolbar";
+                  # applib="software-properties-common libpng16-16 libqt5core5a libqt5widgets5 libsdl1.2debian libqt5x11extras5 libsdl-ttf2.0-0 python-gtk2 glade python-gtk-vnc python-glade2 python-configobj libgtk2-appindicator-perl libc6:i386 gedit-plugins transcode folder-color rhythmbox-plugin-alternative-toolbar gnome-color-manager";
+                  applib="folder-color gedit-plugins glade gnome-color-manager libc6:i386 libgtk2-appindicator-perl libpng16-16 libqt5core5a libqt5widgets5 libqt5x11extras5 libsdl1.2debian libsdl-ttf2.0-0 python-configobj python-glade2 python-gtk2 python-gtk-vnc rhythmbox-plugin-alternative-toolbar software-properties-common transcode";
 
                   # CLI Applications
-                  appcli="screen mc htop iptraf ntp ntpdate tmux unattended-upgrades sysbench git curl whois arp-scan rig rcconf sysv-rc-conf python-pip exfat-fuse exfat-utils lm-sensors autoconf tig cmus wavemon testdisk glances xclip powerline default-jre default-jdk tasksel ffmpeg dtrx apt-listchanges clamav clamav-daemon clamav-freshclam debconf-utils p7zip redshift fail2ban shellcheck";
+                  # appcli="screen mc htop iptraf ntp ntpdate tmux unattended-upgrades sysbench git curl whois arp-scan rig rcconf sysv-rc-conf python-pip exfat-fuse exfat-utils lm-sensors autoconf tig cmus wavemon testdisk glances xclip powerline default-jre default-jdk tasksel ffmpeg dtrx apt-listchanges clamav clamav-daemon clamav-freshclam debconf-utils p7zip redshift fail2ban shellcheck";
+                  appcli="apt-listchanges arp-scan autoconf clamav clamav-daemon clamav-freshclam cmus curl debconf-utils default-jdk default-jre dtrx exfat-fuse exfat-utils fail2ban ffmpeg git glances htop iptraf lm-sensors mc ntp ntpdate p7zip powerline python-pip rcconf redshift rig screen shellcheck sysbench sysv-rc-conf tasksel testdisk tig tmux unattended-upgrades wavemon whois xclip";
 
                   # GUI Applications
-                  appgui="virtualbox-5.1 kodi keepassx gimp gimp-gmic gmic gimp-plugin-registry inkscape krita digikam5 darktable rawtherapee filezilla gramps kate amarok k3b ktorrent gnucash homebank kmymoney audacity gnome-sushi vlc handbrake bleachbit soundconverter easytag sound-juicer gwenview nautilus-actions yakuake terminator aptoncd gresolver uget gpodder virt-viewer clamtk redshift-gtk mysql-workbench gpick workrave brasero unity-tweak-tool indicator-multiload shutter openttd gnome-control-center gnome-online-accounts"
+                  # appgui="virtualbox-5.1 kodi keepassx gimp gimp-gmic gmic gimp-plugin-registry inkscape krita digikam5 darktable rawtherapee filezilla gramps kate amarok k3b ktorrent gnucash homebank kmymoney audacity gnome-sushi vlc handbrake bleachbit soundconverter easytag sound-juicer gwenview nautilus-actions yakuake terminator aptoncd gresolver uget gpodder virt-viewer clamtk redshift-gtk mysql-workbench gpick workrave brasero unity-tweak-tool indicator-multiload shutter openttd gnome-control-center gnome-online-accounts sublime-text";
+                  appgui="0ad amarok aptoncd audacity bleachbit brasero clamtk darktable digikam5 easytag filezilla gimp gimp-gmic gimp-plugin-registry gmic gnome-control-center gnome-online-accounts gnome-sushi gnucash gpick gpodder gramps gresolver gwenview handbrake homebank indicator-multiload inkscape k3b kate keepassx kmymoney kodi krita ktorrent mysql-workbench nautilus-actions openttd rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave yakuake";
+
 
                   # The main multi-loop for installing apps/libs
                   for d in $applib $appcli $appgui; do
@@ -383,7 +387,7 @@ if [[ ! $? -eq 0 ]]; then
                   # Installing RKHunter
                   inst_echo RKHunter;
                   debconf-set-selections <<< "postfix postfix/mailname string "$hstnm"" && debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Local Only'" && quietinst rkhunter;
-                  apt-get -yqq install rkhunter > $dn1;
+                  #apt-get -yqq install rkhunter > $dn1;
 
                   blnk_echo;
                   up;
@@ -398,10 +402,10 @@ if [[ ! $? -eq 0 ]]; then
 
                   # The list of direct links to the downloaded apps
                   app=(
-                    "http://media-azi.md/skypeforlinux-64.deb"
-                    "http://media-azi.md/atom.deb"
-                    "http://downloads.sourceforge.net/project/pacmanager/pac-4.0/pac-4.5.5.7-all.deb"
-                    "https://dbeaver.jkiss.org/files/4.2.0/dbeaver-ce_4.2.0_amd64.deb"
+                    "https://bitbucket.org/crtcji/ubuntunecessaryapps/raw/895b7a005785d11f63843787799b6a8dadfe2894/skype.deb"
+                    "https://bitbucket.org/crtcji/ubuntunecessaryapps/raw/895b7a005785d11f63843787799b6a8dadfe2894/atom.deb"
+                    "https://bitbucket.org/crtcji/ubuntunecessaryapps/raw/895b7a005785d11f63843787799b6a8dadfe2894/pac.deb"
+                    "https://bitbucket.org/crtcji/ubuntunecessaryapps/raw/895b7a005785d11f63843787799b6a8dadfe2894/dbeaver.deb"
                     );
 
                   # The list of 256 shasums of the eralier downloaded apps

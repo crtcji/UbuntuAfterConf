@@ -29,6 +29,7 @@ Wait for the Ubuntu asking to save the passphrase for the encrypted home directo
 ##### Desktop   
   * Look  
     * Choose time-changing-wallpapers  
+    * Launcher size icon: 40
   * Behavior  
     * Auto-hide the launcher
     * Enable workspaces
