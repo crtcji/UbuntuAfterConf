@@ -1028,6 +1028,23 @@ if [[ ! $? -eq 0 ]]; then
 
                   # END: Startup Applications (GUI)
 
+
+                  # Miscellaneous
+
+                  # Enabling powerline
+                  # Getting the names of the existed "human" users by looking at the names of the folders (full path) in the /home directory, as well as manually adds the root user to the extracted list
+                  gui_user=$(ls -d -1 /home/** && echo "/root");
+                  # Inserts the powerline commands in .bashrc of the each user found in the /home folder
+                  for d in $gui_user; do
+                  echo "if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+                      source /usr/share/powerline/bindings/bash/powerline.sh
+                  fi" >> $d/.bashrc;
+                  done
+
+
+                  # END: Miscellaneous
+
+
                   sctn_echo FINAL ADJUSTMENTS
                   echo "Autoremoving unused packages ...";
                   apt-get -yqq autoremove > $dn;
