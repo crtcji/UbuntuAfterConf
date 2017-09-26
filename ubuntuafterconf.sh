@@ -33,6 +33,7 @@ dn1=(/dev/null);
 
 # Updates/upgrades the system
 up () {
+  sctn_echo UPDATES;
   upvar="update upgrade dist-upgrade";
   for upup in $upvar; do
     echo -e "Executing \e[1m\e[34m$upup\e[0m";
@@ -71,22 +72,22 @@ notrun () {
 
 # Echoes that a specific application ($@) is being installed
 inst_echo () {
-  echo -e "Installing \e[1m\e[34m$@\e[0m application ...";
+  echo -e "Installing \e[1m\e[34m$@\e[0m";
 }
 
 # Echoes that a specific application ($@) is being downloaded
 dwnl_echo () {
-  echo -e "Downloading \e[1m\e[34m$@\e[0m application ...";
+  echo -e "Downloading \e[1m\e[34m$@\e[0m";
 }
 
 # Echoes that a specific application ($@) is being backed up
 cfg_echo () {
-  echo -e "Configuring \e[1m\e[34m$@\e[0m application ...";
+  echo -e "Configuring \e[1m\e[34m$@\e[0m";
 }
 
 # Echoes that a specific application ($@) is being purged with the reason
 rm_echo () {
-  echo -e "Removing \e[1m\e[34m$1\e[0m package because \e[1m\e[32m$2\e[0m ...";
+  echo -e "Removing \e[1m\e[34m$1\e[0m package because \e[1m\e[32m$2\e[0m";
 }
 
 # Echoes that a specific repository ($@) is being added
@@ -152,6 +153,15 @@ chg_unat10 () {
 blnk_echo () {
   echo ""
 }
+
+sctn_echo () {
+  echo -e "\e[1m\e[33m$@\e[0m\n==================================================================================================";
+}
+
+scn_echo () {
+  echo -e "\e[1m\e[34m$@\e[0m is scanning the OS ...";
+}
+
 # ------------------------------------------
 # END VARIABLES SECTION
 
@@ -161,7 +171,7 @@ blnk_echo () {
 # ----------------------------------
 
 # Disabling the Ubuntu Network Manager
-blnk_echo && echo -e "Switching \e[1m\e[31mOFF\e[0m the network connection ...";
+blnk_echo && echo -e "Network Connections are switched \e[1m\e[31mOFF\e[0m";
 nmcli networking off && blnk_echo;
 
 # Checking if there is NO internet connection
@@ -176,10 +186,13 @@ if [[ ! $? -eq 0 ]]; then
   if [ -f $srclst ]; then
 
     # Backing up the "/etc/apt/sources.list" file
+    sctn_echo REPOSITORIES;
     bckup $srclst;
 
     # Enabling the Multiverse, Universe and Partner repositories as well as switching to the main (UK) repository servers.
-    echo -e "Adding \e[1m\e[34mMultiverse\e[0m, \e[1m\e[34mUniverse\e[0m and \e[1m\e[34mPartner\e[0m repositories as well as switching to the main \e[1m\e[34m(UK)\e[0m repository server ... " && blnk_echo;
+    echo "Added the following repositories:" && echo -e "\e[1m\e[34mMultiverse\e[0m" && echo -e "\e[1m\e[34mUniverse\e[0m" && echo -e "\e[1m\e[34mPartner\e[0m";
+    echo -e "Switched to the following repository server: \e[1m\e[34m(UK)\e[0m" && blnk_echo;
+
     echo "
     deb http://archive.ubuntu.com/ubuntu xenial main restricted
     deb http://archive.ubuntu.com/ubuntu xenial-updates main restricted
@@ -205,6 +218,7 @@ if [[ ! $? -eq 0 ]]; then
       if [ -f $ufwc ]; then
 
         # Backing up the file
+        sctn_echo FIREWALL "(UFW)";
         bckup $ufwc;
 
         # Disabling IPV6 in UFW
@@ -212,7 +226,7 @@ if [[ ! $? -eq 0 ]]; then
         echo -e "Disabling \e[1m\e[34mIPV6\e[0m in \e[1m\e[34mUFW\e[0m ...";
 
         # Applying UFW policies
-        ufw default deny outgoing > $dn && echo -e "Applying \e[1m\e[31mDENY OUTGOING\e[0m policy in \e[1m\e[34mUFW\e[0m ..." && ufw default deny incoming > $dn && echo -e "Applying \e[1m\e[31mDENY INCOMING\e[0m policy in \e[1m\e[34mUFW\e[0m ..."&& ufw enable;
+        ufw default deny incoming > $dn && echo -e "Applied \e[1m\e[31mDENY INCOMING\e[0m policy" && ufw default deny outgoing > $dn && echo -e "Applied \e[1m\e[31mDENY OUTGOING\e[0m policy" && ufw enable > $dn && echo -e "UFW is \e[1m\e[32mENABLED\e[0m";
         # ufw status verbose; # for analyze only
 
         # Opening outgoing ports using UFW. Redirecting UFW output to /dev/null device
@@ -237,19 +251,20 @@ if [[ ! $? -eq 0 ]]; then
 
         ufw_ports="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413/tcp 8000:8054/tcp 8078/tcp 9128/tcp";
 
-        for a in $ufw_ports; do
+        echo "Opening the following outgoing ports:";
+	for a in $ufw_ports; do
           ufw allow out $a > $dn1;
-          echo -e "Opening outgoing port: \e[1m\e[34m$a\e[0m ...";
+          echo -e "\e[1m\e[34m$a\e[0m";
         done
 
-        ufw reload && blnk_echo;
+        ufw reload > $dn && echo -e "UFW is \e[1m\e[32mRELOADED\e[0m" && blnk_echo;
 
         # Checks if the firewall is running
         if ufw status verbose | grep -qw "active"; then
 
 
           # Enabling the Ubuntu Network Manager
-          echo -e "Switching \e[1m\e[32mON\e[0m the network connection ...";
+          echo -e "Network Connections are switched \e[1m\e[32mON\e[0m";
           nmcli networking on && blnk_echo;
 
           # For some reason after enabling the firewall there is no way to make outgoing connections. The workaround is to disable the firewall, make an outgoing connection and the reenable it.
@@ -267,10 +282,12 @@ if [[ ! $? -eq 0 ]]; then
           if [[ $? -eq 0 ]]; then
 
             # Updating repository lists
+            sctn_echo UPDATE;
             echo "Updating repository lists ...";
             apt-get -yqq update > $dn && blnk_echo;
 
             # Installing dnscrypt-proxy
+            sctn_echo INSTALLATION;
             inst_echo dnscrypt-proxy;
             apt-get -yqq install dnscrypt-proxy > $dn1;
 
@@ -603,7 +620,7 @@ if [[ ! $? -eq 0 ]]; then
 
 
                   # Updating Python PIP
-                  echo -e "Updating \e[1m\e[34mpip\e[0m ...";
+                  echo -e "Updating \e[1m\e[34mpip\e[0m";
                   pip install --upgrade pip > $dn;
 
                   # Installing Speedest-CLI
@@ -686,6 +703,7 @@ if [[ ! $? -eq 0 ]]; then
                   )
 
                   # The loop
+                  sctn_echo TELEMETRY;
                   for f in ${!telepack[*]}; do
                     rm_echo "${telepack[$f]}" "${telepack2[$f]}" ;
                     apt-get -yqq purge "${telepack[$f]}"  > $dn1;
@@ -702,6 +720,7 @@ if [[ ! $? -eq 0 ]]; then
                   clmcnf=(/etc/clamav/freshclam.conf);
                   rprtfldr=(/home/$usr/ClamAV-Reports);
 
+                  sctn_echo ANTIVIRUS "(Clam-AV)";
                   bckup $clmcnf;
                   mkdir -p $rprtfldr;
 
@@ -715,8 +734,9 @@ if [[ ! $? -eq 0 ]]; then
 
                   # Scanning the whole system and palcing all the infected files list on a particular file
                   # echo "ClamAV is scanning the OS ...";
-                  clamscan -r / | grep FOUND >> $rprtfldr/clamscan_first_scan.txt > $dn;
-
+                  scn_echo ClamAv
+                  # clamscan -r / | grep FOUND >> $rprtfldr/clamscan_first_scan.txt > $dn;
+                  clamscan -r / | grep FOUND >> $rprtfldr/clamscan_first_scan.txt > /dev/null 2>&1;
                   # Crontab: The daily scan
 
                   # The below cronjob will run a virus database definition update (so that the scan always has the most recent definitions) and afterwards run a full scan which will only report when there are infected files on the system. It also does not remove the infected files automatically, you have to do this manually. This way you make sure that it does not delete /bin/bash by accident.
@@ -740,7 +760,7 @@ if [[ ! $? -eq 0 ]]; then
 
 
                   # RKHunter configuration section
-
+                  sctn_echo ANTI-MALWARE "(RKHunter)"
                   # The first thing we should do is ensure that our rkhunter version is up-to-date.
                   rkhunter --versioncheck > $dn;
 
@@ -761,7 +781,7 @@ if [[ ! $? -eq 0 ]]; then
 
                       RESULT3=$?
                       if [ $RESULT3 -eq 0 ]; then
-                        echo -e "\e[1m\e[34mRKHunter\e[0m scanning the OS ...";
+                        scn_echo RKHunter
                         # Finally, we are ready to perform our initial run. This will produce some warnings. This is expected behavior, because rkhunter is configured to be generic and Ubuntu diverges from the expected defaults in some places. We will tell rkhunter about these afterwards:
                         # rkhunter -c --enable all --disable none
 
@@ -800,6 +820,7 @@ if [[ ! $? -eq 0 ]]; then
 
 
                   # Unattended-Upgrades configuration section
+                  sctn_echo AUTOUPDATES "(Unattended-Upgrades)";
 
                   unat20=(/etc/apt/apt.conf.d/20auto-upgrades);
                   unat50=(/etc/apt/apt.conf.d/50unattended-upgrades);
@@ -909,6 +930,7 @@ if [[ ! $? -eq 0 ]]; then
 
 
                   # Startup Applications (GUI)
+                  sctn_echo STARTUP APPLICATIONS
 
                   # The list of the shortcuts names
                   appshrt=(
@@ -1006,6 +1028,7 @@ if [[ ! $? -eq 0 ]]; then
 
                   # END: Startup Applications (GUI)
 
+                  sctn_echo FINAL ADJUSTMENTS
                   echo "Autoremoving unused packages ...";
                   apt-get -yqq autoremove > $dn;
                   blnk_echo;
