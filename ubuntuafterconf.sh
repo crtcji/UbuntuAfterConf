@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# enable some dns's
+
 # Copyright Profor Ion, contact@iprofor.it
 # 2017-08-26
 
@@ -19,7 +21,7 @@
 # VARIABLES SECTION
 # -----------------------------------
 # mypath=$PWD;
-usr=(vanea);
+usr=(crt);
 ipinf=(ipinfo.io/ip);
 bckp=(bckp);
 dns_provider=(dnscrypt.eu-nl);
@@ -210,7 +212,7 @@ if [[ ! $? -eq 0 ]]; then
         echo -e "Disabling \e[1m\e[34mIPV6\e[0m in \e[1m\e[34mUFW\e[0m ...";
 
         # Applying UFW policies
-        ufw default deny outgoing > $dn && ufw default deny incoming > $dn && ufw enable;
+        ufw default deny outgoing > $dn && echo -e "Applying \e[1m\e[31mDENY OUTGOING\e[0m policy in \e[1m\e[34mUFW\e[0m ..." && ufw default deny incoming > $dn && echo -e "Applying \e[1m\e[31mDENY INCOMING\e[0m policy in \e[1m\e[34mUFW\e[0m ..."&& ufw enable;
         # ufw status verbose; # for analyze only
 
         # Opening outgoing ports using UFW. Redirecting UFW output to /dev/null device
@@ -231,7 +233,6 @@ if [[ ! $? -eq 0 ]]; then
         # 8000:8054/tcp - for audio feed of the Romanian Radio Broadcasting Society
         # 8078/tcp - for eTeatru audio feed of the Romanian Radio Broadcasting Society
         # 9128/tcp - for MagicFM and RockFM from Romania
-
 
 
         ufw_ports="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413/tcp 8000:8054/tcp 8078/tcp 9128/tcp";
@@ -266,7 +267,7 @@ if [[ ! $? -eq 0 ]]; then
           if [[ $? -eq 0 ]]; then
 
             # Updating repository lists
-            "Updating repository lists ...";
+            echo "Updating repository lists ...";
             apt-get -yqq update > $dn && blnk_echo;
 
             # Installing dnscrypt-proxy
@@ -296,8 +297,10 @@ if [[ ! $? -eq 0 ]]; then
                 # if ! /etc/init.d/dnscrypt-proxy status -l | grep -w "Stopped DNSCrypt proxy." && /etc/init.d/dnscrypt-proxy status -l | grep  -w "resolver-name=$dns_provider";
                 then
 
-                  # Updating repository lists as well as updating/upgrading the system
                   blnk_echo;
+                  echo -e "The configured DNSCrypt provider is \e[1m\e[32m$dns_provider\e[0m" && blnk_echo;
+
+                  # Updating repository lists as well as updating/upgrading the system
                   up;
 
                   # Installing applications
@@ -332,22 +335,18 @@ if [[ ! $? -eq 0 ]]; then
                   # libc6:i386 - for ESET Antivirus for Linux
                   # (python2.7 - this package is already installed) python-gtk2 glade python-gtk-vnc python-glade2 python-configobj: for openxenmanager
                   # transcode - for K3B to rip DVDs
-                  # applib="software-properties-common libpng16-16 libqt5core5a libqt5widgets5 libsdl1.2debian libqt5x11extras5 libsdl-ttf2.0-0 python-gtk2 glade python-gtk-vnc python-glade2 python-configobj libgtk2-appindicator-perl libc6:i386 gedit-plugins transcode folder-color rhythmbox-plugin-alternative-toolbar gnome-color-manager";
                   applib="folder-color gedit-plugins glade gnome-color-manager libc6:i386 libgtk2-appindicator-perl libpng16-16 libqt5core5a libqt5widgets5 libqt5x11extras5 libsdl1.2debian libsdl-ttf2.0-0 python-configobj python-glade2 python-gtk2 python-gtk-vnc rhythmbox-plugin-alternative-toolbar software-properties-common transcode";
 
                   # CLI Applications
-                  # appcli="screen mc htop iptraf ntp ntpdate tmux unattended-upgrades sysbench git curl whois arp-scan rig rcconf sysv-rc-conf python-pip exfat-fuse exfat-utils lm-sensors autoconf tig cmus wavemon testdisk glances xclip powerline default-jre default-jdk tasksel ffmpeg dtrx apt-listchanges clamav clamav-daemon clamav-freshclam debconf-utils p7zip redshift fail2ban shellcheck";
                   appcli="apt-listchanges arp-scan autoconf clamav clamav-daemon clamav-freshclam cmus curl debconf-utils default-jdk default-jre dtrx exfat-fuse exfat-utils fail2ban ffmpeg git glances htop iptraf lm-sensors mc ntp ntpdate p7zip powerline python-pip rcconf redshift rig screen shellcheck sysbench sysv-rc-conf tasksel testdisk tig tmux unattended-upgrades wavemon whois xclip";
 
                   # GUI Applications
-                  # appgui="virtualbox-5.1 kodi keepassx gimp gimp-gmic gmic gimp-plugin-registry inkscape krita digikam5 darktable rawtherapee filezilla gramps kate amarok k3b ktorrent gnucash homebank kmymoney audacity gnome-sushi vlc handbrake bleachbit soundconverter easytag sound-juicer gwenview nautilus-actions yakuake terminator aptoncd gresolver uget gpodder virt-viewer clamtk redshift-gtk mysql-workbench gpick workrave brasero unity-tweak-tool indicator-multiload shutter openttd gnome-control-center gnome-online-accounts sublime-text";
-                  appgui="0ad amarok aptoncd audacity bleachbit brasero clamtk darktable digikam5 easytag filezilla gimp gimp-gmic gimp-plugin-registry gmic gnome-control-center gnome-online-accounts gnome-sushi gnucash gpick gpodder gramps gresolver gwenview handbrake homebank indicator-multiload inkscape k3b kate keepassx kmymoney kodi krita ktorrent mysql-workbench nautilus-actions openttd rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave yakuake";
-
+                  # amarok gpodder gwenview kate krita ktorrent yakuake
+                  appgui="0ad aptoncd audacity bleachbit brasero clamtk darktable digikam5 easytag filezilla gimp gimp-gmic gimp-plugin-registry gmic gnome-control-center gnome-online-accounts gnome-sushi gnucash gpick gramps gresolver handbrake homebank indicator-multiload inkscape k3b keepassx kmymoney kodi mysql-workbench nautilus-actions openttd rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave";
 
                   # The main multi-loop for installing apps/libs
                   for d in $applib $appcli $appgui; do
                     inst_echo $d;
-                    #apt-get -yqq install $d > $dn;
                     apt-get -yqq install $d > /dev/null 2>&1;
                   done
 
@@ -532,8 +531,36 @@ if [[ ! $? -eq 0 ]]; then
                   # Separate installation subsection (4th)
 
                   # Calibre
-                  inst_echo Calibre;
-                  sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()" > $dn;
+                  # inst_echo Calibre;
+                  # sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()" > $dn;
+                  # curl -LO https://download.calibre-ebook.com/linux-installer.py
+                  # python linux-installer.py > /dev/null
+
+                  ca_lnk=(https://download.calibre-ebook.com/linux-installer.py);
+                  ca=(calibre.py);
+
+                  # Checking if there is any internet connection by getting ones public IP
+                  if [[ $(curl --silent $ipinf) ]]; then
+
+                    # Checking if the required link is valid
+                    if curl -L --output /dev/null --silent --fail -r 0-0 $ca_lnk; then
+
+                      # Getting the actual installation package
+                      dwnl_echo $ca;
+                      curl -L --silent $ca_lnk > $ca;
+
+                          inst_echo $ca;
+                          # Installing
+                          python $ca > /dev/null;
+                    else
+                        nolnk_echo $ca_lnk;
+                    fi;
+
+                  else
+                      nonet_echo;
+                      std_echo;
+                  fi
+
 
                   # Netbeans
                   nb_lnk=(http://download.netbeans.org/netbeans/8.2/final/bundles/netbeans-8.2-linux.sh);
@@ -547,6 +574,7 @@ if [[ ! $? -eq 0 ]]; then
                     if curl -L --output /dev/null --silent --fail -r 0-0 $nb_lnk; then
 
                       # Getting the actual installation package
+                      dwnl_echo $nb;
                       curl -L --silent $nb_lnk > $nb;
 
                       # Verifying the SHA256SUM of the archive
@@ -560,12 +588,12 @@ if [[ ! $? -eq 0 ]]; then
                           su -c "./$nb --silent" -s /bin/sh $usr
 
                       else
-                          rm -rf $tmpth/"${app3[$f]}";
-                          shaserr_echo "${app3[$f]}";
+                          rm -rf $tmpth/$nb;
+                          shaserr_echo $nb;
                       fi;
 
                     else
-                        nolnk_echo "${app[$f]}";
+                        nolnk_echo $nb;
                     fi;
 
                   else
@@ -687,7 +715,7 @@ if [[ ! $? -eq 0 ]]; then
 
                   # Scanning the whole system and palcing all the infected files list on a particular file
                   # echo "ClamAV is scanning the OS ...";
-                  # clamscan -r / | grep FOUND >> $rprtfldr/clamscan_first_scan.txt > $dn;
+                  clamscan -r / | grep FOUND >> $rprtfldr/clamscan_first_scan.txt > $dn;
 
                   # Crontab: The daily scan
 
@@ -742,7 +770,7 @@ if [[ ! $? -eq 0 ]]; then
                         rkhunter -c --enable all --disable none --rwo > $dn;
 
                       else
-                        echo "\e[1m\e[34mRKHunter\e[0m scanning the OS \e[1m\e[31mFAILED\e[0m.";
+                        echo "\e[1m\e[34mRKHunter\e[0m is scanning the OS \e[1m\e[31mFAILED\e[0m.";
                         std_echo;
                       fi
 
@@ -985,6 +1013,10 @@ if [[ ! $? -eq 0 ]]; then
                   echo "Deleting temporary directory created at the beginning of this script ...";
                   cd / && rm -rf $tmpth;
                   blnk_echo;
+
+                  echo -e "\e[1m\e[32mThe post installation finished.\e[0m";
+                  echo -e "\e[1m\e[34mIt is better to restart the system.\e[0m";
+                  echo -e "\e[1m\e[32mThank you.\e[0m";
 
 
 
