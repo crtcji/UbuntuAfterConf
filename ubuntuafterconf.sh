@@ -137,7 +137,7 @@ bckup () {
 }
 
 # Quiet installation
-  quietinst () {
+quietinst () {
   DEBIAN_FRONTEND=noninteractive apt-get -yqqf install $@ < /dev/null > /dev/null;
 }
 
@@ -252,7 +252,7 @@ if [[ ! $? -eq 0 ]]; then
         ufw_ports="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413/tcp 8000:8054/tcp 8078/tcp 9128/tcp";
 
         echo "Opening the following outgoing ports:";
-	for a in $ufw_ports; do
+        for a in $ufw_ports; do
           ufw allow out $a > $dn1;
           echo -e "\e[1m\e[34m$a\e[0m";
         done
@@ -287,7 +287,7 @@ if [[ ! $? -eq 0 ]]; then
             apt-get -yqq update > $dn && blnk_echo;
 
             # Installing dnscrypt-proxy
-            sctn_echo INSTALLATION;
+            sctn_echo INSTALLATION "#1";
             inst_echo dnscrypt-proxy;
             apt-get -yqq install dnscrypt-proxy > $dn1;
 
@@ -321,10 +321,12 @@ if [[ ! $? -eq 0 ]]; then
                   up;
 
                   # Installing applications
+                  sctn_echo INSTALLATION "#2";
 
                   # Adding external repositories
 
-                  apprepo=("ppa:team-xbmc/ppa" "ppa:wfg/0ad" "ppa:libreoffice/ppa" "ppa:otto-kesselgulasch/gimp" "ppa:inkscape.dev/stable" "ppa:philip5/extra" "ppa:pmjdebruijn/darktable-release" "deb https://deb.opera.com/opera-stable/ stable non-free" "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" "deb https://download.sublimetext.com/ apt/stable/");
+                  # "ppa:team-xbmc/ppa"
+                  apprepo=("ppa:wfg/0ad" "ppa:libreoffice/ppa" "ppa:otto-kesselgulasch/gimp" "ppa:inkscape.dev/stable" "ppa:philip5/extra" "ppa:pmjdebruijn/darktable-release" "deb https://deb.opera.com/opera-stable/ stable non-free" "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" "deb https://download.sublimetext.com/ apt/stable/");
                   # "deb http://download.opensuse.org/repositories/home:/rawtherapee/xUbuntu_16.04/ /"
 
                   for b in "${apprepo[@]}"; do
@@ -348,6 +350,8 @@ if [[ ! $? -eq 0 ]]; then
                   blnk_echo;
                   up;
 
+                  sctn_echo INSTALLATION "#3";
+
                   # Libraries for the CLI/GUI Applications
                   # libc6:i386 - for ESET Antivirus for Linux
                   # (python2.7 - this package is already installed) python-gtk2 glade python-gtk-vnc python-glade2 python-configobj: for openxenmanager
@@ -358,8 +362,9 @@ if [[ ! $? -eq 0 ]]; then
                   appcli="apt-listchanges arp-scan autoconf clamav clamav-daemon clamav-freshclam cmus curl debconf-utils default-jdk default-jre dtrx exfat-fuse exfat-utils fail2ban ffmpeg git glances htop iptraf lm-sensors mc ntp ntpdate p7zip powerline python-pip rcconf redshift rig screen shellcheck sysbench sysv-rc-conf tasksel testdisk tig tmux unattended-upgrades wavemon whois xclip";
 
                   # GUI Applications
-                  # amarok gpodder gwenview kate krita ktorrent yakuake
-                  appgui="0ad aptoncd audacity bleachbit brasero clamtk darktable digikam5 easytag filezilla gimp gimp-gmic gimp-plugin-registry gmic gnome-control-center gnome-online-accounts gnome-sushi gnucash gpick gramps gresolver handbrake homebank indicator-multiload inkscape k3b keepassx kmymoney kodi mysql-workbench nautilus-actions openttd rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave";
+                  # unity-tweaktool, shutter ?????
+                  # amarok gpodder gwenview kate krita ktorrent yakuake kodi brasero clamtk
+                  appgui="0ad aptoncd audacity bleachbit darktable digikam5 easytag filezilla gimp gimp-gmic gimp-plugin-registry gmic gnome-control-center gnome-online-accounts gnome-sushi gnucash gpick gramps gresolver handbrake homebank indicator-multiload inkscape k3b keepassx kmymoney mysql-workbench nautilus-actions openttd rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave";
 
                   # The main multi-loop for installing apps/libs
                   for d in $applib $appcli $appgui; do
@@ -371,6 +376,8 @@ if [[ ! $? -eq 0 ]]; then
                   up;
 
                   # Separate installation subsection (1st)
+
+                  sctn_echo INSTALLATION "#4";
 
                   # The installation of the following applications requires user interaction. It is installed separately in order to separate the installation lines and automation lines from the installation loop of the standard utilites that do not require user interaction at the instllation step.
 
@@ -411,6 +418,8 @@ if [[ ! $? -eq 0 ]]; then
                   # END: Separate installation subsection (1st)
 
                   # Separate installation subsection (2nd)
+
+                  sctn_echo INSTALLATION "#5";
 
                   # The loop
                   tmpth=/tmp/inst_session;
@@ -483,6 +492,8 @@ if [[ ! $? -eq 0 ]]; then
 
 
                   # Separate installation subsection (3rd)
+
+                  sctn_echo INSTALLATION "#6";
 
                   # The loop
                   applctn=/usr/bin;
@@ -642,6 +653,8 @@ if [[ ! $? -eq 0 ]]; then
                   # Telemetry
                   # Removing packages that send statisrics and usage data to Canonical and third-parties
 
+                  sctn_echo TELEMETRY;
+
                   # Guest session disable
                   sudo sh -c 'printf "[SeatDefaults]\nallow-guest=false\ngreeter-show-remote-login=false\n" > /etc/lightdm/lightdm.conf.d/50-no-guest.conf'
 
@@ -703,7 +716,6 @@ if [[ ! $? -eq 0 ]]; then
                   )
 
                   # The loop
-                  sctn_echo TELEMETRY;
                   for f in ${!telepack[*]}; do
                     rm_echo "${telepack[$f]}" "${telepack2[$f]}" ;
                     apt-get -yqq purge "${telepack[$f]}"  > $dn1;
@@ -735,8 +747,8 @@ if [[ ! $? -eq 0 ]]; then
                   # Scanning the whole system and palcing all the infected files list on a particular file
                   # echo "ClamAV is scanning the OS ...";
                   scn_echo ClamAv
-                  # clamscan -r / | grep FOUND >> $rprtfldr/clamscan_first_scan.txt > $dn;
-                  clamscan -r / | grep FOUND >> $rprtfldr/clamscan_first_scan.txt > /dev/null 2>&1;
+                  # This one throws any kind of warnings and errors: clamscan -r / | grep FOUND >> $rprtfldr/clamscan_first_scan.txt > $dn;
+                  clamscan --recursive --no-summary --infected / 2>/dev/null | grep FOUND >> $rprtfldr/clamscan_first_scan.txt;
                   # Crontab: The daily scan
 
                   # The below cronjob will run a virus database definition update (so that the scan always has the most recent definitions) and afterwards run a full scan which will only report when there are infected files on the system. It also does not remove the infected files automatically, you have to do this manually. This way you make sure that it does not delete /bin/bash by accident.
@@ -1030,6 +1042,7 @@ if [[ ! $? -eq 0 ]]; then
 
 
                   # Miscellaneous
+                  sctn_echo MISCELLANEOUS;
 
                   # Enabling powerline
                   # Getting the names of the existed "human" users by looking at the names of the folders (full path) in the /home directory, as well as manually adds the root user to the extracted list
@@ -1041,6 +1054,8 @@ if [[ ! $? -eq 0 ]]; then
                   fi" >> $d/.bashrc;
                   done
 
+                  blnk_echo;
+
 
                   # END: Miscellaneous
 
@@ -1050,13 +1065,30 @@ if [[ ! $? -eq 0 ]]; then
                   apt-get -yqq autoremove > $dn;
                   blnk_echo;
 
-                  echo "Deleting temporary directory created at the beginning of this script ...";
+                  "Deleting temporary directory created at the beginning of this script ...";
                   cd / && rm -rf $tmpth;
                   blnk_echo;
 
                   echo -e "\e[1m\e[32mThe post installation finished.\e[0m";
                   echo -e "\e[1m\e[34mIt is better to restart the system.\e[0m";
-                  echo -e "\e[1m\e[32mThank you.\e[0m";
+
+                  sctn_echo REBOOT
+                  echo -e "\n\e[1m\e[32mDo you wish to restart the system right now?\e[0m" && PS3='
+                  Choose the answer: '
+                  options=("Yes" "No")
+                  select opt in "${options[@]}"
+                  do
+                      case $opt in
+                          "Yes")
+                              reboot;
+                              exit
+                              ;;
+                          "No")
+                              break
+                              ;;
+                          *) echo -e "\e[1m\e[31mYou have chosen an unexisted option.\e[0m";;
+                      esac
+                  done && echo -e "\e[1m\e[32mThank you.\e[0m";
 
 
 
