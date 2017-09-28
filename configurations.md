@@ -121,3 +121,11 @@ https://www.youtube.com/watch?v=4Vk1kjDFqig
                                   - magic mouse configuration
                                   - mac keyboard configuration
                                   - any other manual settings/configurations
+
+
+# // TODO execution time per script and per separate sections. should also look in FotoMotor
+    start=`date +%s`
+    stuff
+    end=`date +%s`
+
+    runtime=$((end-start))
