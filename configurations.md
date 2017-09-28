@@ -21,13 +21,7 @@
 # // TODO Verify postfix conf file if it has the inserted content
 # // TODO Verify ubuntu-restricted-extras if it were installed
 # // TODO Snippet for verifying if clamscan restarted
-
-
-
-veracrypt?
-
-care softuri sunt really necessary
-  yakuake terminator gnucash homebank kmymoney
+# // TODO gedit configuratin file???
 
 shortcut icon
   pycharm
@@ -39,11 +33,6 @@ audacity audio plug-ins
     digikam
     krita
     gwenview
-
-
-comentat
-  clamscan - scanarea propriu-zisa
-  toate nullurile
 
 
 
@@ -67,8 +56,14 @@ Windows manager
 # // TODO dbeaver connectors
 # // TODO atom plugins
 # // TODO netbeans plugins
-# // TODO keepassx config
+
+
+
 # // TODO config of kodi
+# // TODO config of netbeans
+# // TODO config of opera
+# // TODO config of vbox
+# // TODO config of rhythmbox
 # // TODO config of gimp
 # // TODO config of inkscape
 # // TODO config of digikam5
@@ -76,12 +71,53 @@ Windows manager
 # // TODO config of rawtherapee
 # // TODO config of filezilla
 # // TODO config of gramps
-# // TODO config of kate
-# // TODO config of amarok
-# // TODO config of ktorrent
 # // TODO config of gnucash homebank kmymonay
 # // TODO plugins of audacity
 # // TODO config of vlc
 # // TODO config of soundconverter
-# // TODO config of gedit and gedit plugins
-# // TODO config of install xsara
+# // TODO config of workrave
+# // TODO config of mysql-workbench
+# // TODO config of dbeaver
+# // TODO config of sublime-text
+# // TODO config of thunderbird
+# // TODO config of gnome-terminal
+
+https://www.youtube.com/watch?v=4Vk1kjDFqig
+
+
+# NOTE Firefox config folder
+`~/mozilla/firefox`
+
+# NOTE KeepassX config folder
+`~/.config/keepassx`
+
+# NOTE PAC config folder
+`~/.config/pac`
+
+# NOTE Transmission config folder
+`~/.config/transmission`
+
+# NOTE Atom config folder
+`~/.atom`
+
+# NOTE LibreOffice config folder
+`.config/libreoffice`
+
+# NOTE Nautilus config folders  
+`~/.config/nautilus`  
+`~/.gconf/apps/nautilus`
+
+# NOTE Mdinight Commander config folders  
+`~/.config/mc`
+`/root/.config/mc`
+
+
+# // TODO installation section titles
+# // TODO deb opera without "0yfqq"
+# // TODO Startup Applications - if installed then add shortcut
+# // TODO The second config file:
+                                  - scanner drivers
+                                  - automate config of the Ubuntu Settings App
+                                  - magic mouse configuration
+                                  - mac keyboard configuration
+                                  - any other manual settings/configurations
