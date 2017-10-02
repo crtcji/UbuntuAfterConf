@@ -210,6 +210,7 @@ _This section should be automated._
 ##### Addons
   * HttpsEverywhere  
   * uBlock Origin
+  * Container by Mozilla https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/
 ##### General
   * Show tabs from the last time  
 ##### Search
@@ -231,6 +232,8 @@ _This section should be automated._
   * Check:  
    * General: Search for text when typing  
    * Network: Limit cache to 350 MB  
+##### Customize the interface
+##### Add Bookmark bar
 
 ### Unity-tweak-tool
 ##### Unity
