@@ -364,7 +364,7 @@ if [[ ! $? -eq 0 ]]; then
                   # GUI Applications
                   # unity-tweaktool, shutter ?????
                   # amarok gpodder gwenview kate krita ktorrent yakuake kodi brasero clamtk
-                  appgui="0ad aptoncd audacity bleachbit darktable digikam5 easytag filezilla gimp gimp-gmic gimp-plugin-registry gmic gnome-control-center gnome-online-accounts gnome-sushi gnucash gpick gramps gresolver handbrake homebank indicator-multiload inkscape k3b keepassx kmymoney mysql-workbench nautilus-actions openttd rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave";
+                  appgui="0ad aptoncd audacity bleachbit darktable digikam5 easytag filezilla gimp gimp-gmic gimp-plugin-registry gmic gnome-control-center gnome-online-accounts gnome-sushi gnucash gparted gpick gramps gresolver handbrake homebank indicator-multiload inkscape k3b keepassx kmymoney mysql-workbench nautilus-actions openttd pidgin rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave";
 
                   # The main multi-loop for installing apps/libs
                   for d in $applib $appcli $appgui; do
