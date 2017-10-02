@@ -131,6 +131,15 @@ _This section should be automated._
     * 24-hour time  
     * Seconds   
 
+### Nautilus Preferences (Files)
+##### Behavior
+  * Single click to open items  
+  * Uncheck: Ask before enptying the Trash or deleting files  
+##### Display
+  * Check: Navigate folders in a tree  
+##### Preview
+  * Thumbnails size: 4 GB  
+  * Count number of items: Always  
 
 ### Unity-tweak-tool
 ##### Unity
