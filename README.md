@@ -141,6 +141,47 @@ _This section should be automated._
   * Thumbnails size: 4 GB  
   * Count number of items: Always  
 
+### gEdit Preferences
+##### View
+  * Check the following:  
+   * Display line numbers  
+   * Display overview map  
+   * Highlight current line  
+   * Highlight matcjing brackets  
+##### View
+  * Check the following:  
+   * Tab width: 2  
+   * Insert spaces instead of tabs  
+   * Enable automatic indentation  
+  * Autosave every 1 minutes  
+##### Fonts&Colors
+  * Uncheck: Use the system fixed width font  
+  * Color Scheme: Oblivion  
+##### Plugins
+  * Enable the following:  
+   * Bookmarks  
+   * Bracket completion  
+   * Character map  
+   * Code comment  
+   * Color Picker  
+   * Color scheme editor  
+   * Commander  
+   * Dashboard  
+   * Devhelp support  
+   * Draw spaces  
+   * Embedded Terminal  
+   * External Tools  
+   * Find in Files  
+   * Git  
+   * Join/Split Lines  
+   * Multi Edit  
+   * Quick open  
+   * Smart Spaces  
+   * Snippets  
+   * Sort  
+   * Text size  
+   * Word completion  
+
 ### Unity-tweak-tool
 ##### Unity
   * Launcher
