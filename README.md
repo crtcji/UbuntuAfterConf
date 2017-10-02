@@ -182,6 +182,29 @@ _This section should be automated._
    * Text size  
    * Word completion  
 
+### Rhythmbox Preferences
+##### General
+  * Uncheck: Track number  
+  * Check: Last played, Rating  
+##### Playback
+  * Check: Crossfade  
+  * Crossfade duration: 1.0  
+##### Music
+  * Preferred format: FLAC  
+##### View Menu
+  * Check: View Queue as Sied Panel  
+##### Control Menu
+  * Check: Shuffle  
+##### Tools Menu (Plugins)
+  * Check the following plugins:  
+   * Alternative Toolbar  
+   * Song Lyrics:  
+    * set the folder to /home/$usr/Lyrics  
+    * Enable lyrics providers  
+   * Soundlcoud  
+  * Uncheck: Cover art search  
+  
+
 ### Unity-tweak-tool
 ##### Unity
   * Launcher
