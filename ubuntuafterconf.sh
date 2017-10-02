@@ -1054,9 +1054,11 @@ if [[ ! $? -eq 0 ]]; then
                   fi" >> $d/.bashrc;
                   done
 
-		  
-
-                  blnk_echo;
+		  tstdr=(/home/$usr/Tests);
+		  echo -e "Created folder: \e[1m\e[32m"$tstdr"\e[0m.";
+		  mkdir $tstdr && chown $usr:$usr $tstdr;
+                  
+		  blnk_echo;
 
 
                   # END: Miscellaneous
