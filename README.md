@@ -51,7 +51,7 @@ _libc6:i386_ library is needed for the ESET AV to start installation pocess. It 
 _This section should be automated._  
 
 ##### Desktop   
-  * Look  
+  * Appearance  
     * Choose time-changing-wallpapers  
     * Launcher size icon: 40
   * Behavior  
@@ -64,13 +64,16 @@ _This section should be automated._
     * 10 minutes
     * Require password
 
+##### Language Support (already automated)
+  * Accept the installation of the english language aid packages  
+
 ##### Security and privacy
   * Security
     * Waking from suspend  
     * Returning from blank screen  
     * 10 minutes
   * Search  
-    * OFF  
+    * OFF   (default)  
   * Diagnostics  
     * Uncheck both options   
 
@@ -79,7 +82,8 @@ _This section should be automated._
   * Russian  
 
 ##### Bluetooth
-  * OFF  
+  * OFF or ON if the Apple keayboard and mouse are required  
+  * Visibility OFF   (default)  
 
 ##### Keyboard
   * Shortcuts
@@ -91,8 +95,39 @@ _This section should be automated._
       * Suspend _(Shift+AltS)_  
         `systemctl suspend`  
 
+##### Backups  
+  * The backup partition should be formatted as encrypted  
+  * 
+  * Folders to save: crt (the home folder)  
+  * Folders to ignore:  
+   * Trash (default)  
+   * ~/Downloads (default)  
+  * Storage location
+   * Storage location: the encrypted backup partition  
+   * Folder: nothing  
+  * Scheduling  
+   * Automatic backup: ON  
+   * Every: Day  
+   * Keep: At least six months  
+
+##### Software & Updates  
+  * Updates  
+   * Check all boxes (default)  
+   * Daily (default)  
+   * Download and install automatically (default)  
+   * Display immediately  
+   * For LTS versions (default)  
+  * Additional Drivers  
+   * Check all the necessary options in order to install the latest drivers
+
+
 ##### Time and Date  
-  * Clock
+  * Time&Date  
+   * Automatically from the Internet (default)  
+  * Clock  
+    * Weekday  
+    * Date and month  
+    * Year  
     * 24-hour time  
     * Seconds   
 
