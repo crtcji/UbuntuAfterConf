@@ -203,7 +203,34 @@ _This section should be automated._
     * Enable lyrics providers  
    * Soundlcoud  
   * Uncheck: Cover art search  
-  
+
+### Firefox Preferences
+##### Advanced
+  * Data choices: uncheck everything  
+##### Addons
+  * HttpsEverywhere  
+  * uBlock Origin
+##### General
+  * Show tabs from the last time  
+##### Search
+  * Make StarPage the main search engine  
+  * Add the following search engines to the address bar submenu:  
+   * YouTube  
+   * Gandi.net  
+   * Namecheap.com  
+   * Yandex.com  
+##### Content
+  * Check: DRM  
+  * Preferences languages: Delete everything except English [en]  
+##### Privacy
+  * Tracking-Change Block Lists: Choose Disconnect.me strict protection  
+  * Do Not Track: Always  
+##### Security
+  * Set a maser password  
+##### Advanced
+  * Check:  
+   * General: Search for text when typing  
+   * Network: Limit cache to 350 MB  
 
 ### Unity-tweak-tool
 ##### Unity
