@@ -267,6 +267,12 @@ _This section should be automated._
       * Soft Wrap
     * Markdown Package: GitHub Like Preview Style
 
+### VirtualBox
+##### Settings
+  * Set Default Machine Folder to a separate partition  
+  * Set the commander Key
+  * Install Oracle VM VirtualBox Extension Pack
+
 ### Unity-tweak-tool
 ##### Unity
   * Launcher
