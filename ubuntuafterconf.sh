@@ -21,6 +21,7 @@
 # VARIABLES SECTION
 # -----------------------------------
 # mypath=$PWD;
+hm=(/home);
 usr=(crt);
 ipinf=(ipinfo.io/ip);
 bckp=(bckp);
@@ -525,29 +526,29 @@ if [[ ! $? -eq 0 ]]; then
                   # Checking if there is any internet connection by getting ones public IP
                   if [[ $(curl --silent $ipinf) ]]; then
 
-                    for f in ${!app[*]}; do
+                    for g in ${!app[*]}; do
 
                       # Checking if the required link is valid
-                      if curl -L --output /dev/null --silent --fail -r 0-0 "${app[$f]}"; then
+                      if curl -L --output /dev/null --silent --fail -r 0-0 "${app[$g]}"; then
 
                         # Getting the actual installation package
-                         dwnl_echo "${app3[$f]}";
-                         curl -L --silent "${app[$f]}" > "${app3[$f]}";
+                         dwnl_echo "${app3[$g]}";
+                         curl -L --silent "${app[$g]}" > "${app3[$g]}";
 
                         # Verifying the SHA256SUM of the package
-                        if [[ $(shasum -a 256 "${app3[$f]}" | grep "${app2[$f]}") ]]; then
+                        if [[ $(shasum -a 256 "${app3[$g]}" | grep "${app2[$g]}") ]]; then
 
                           # Unarchiving the application into $applctn
-                          inst_echo "${app3[$f]}";
-                          tar -xf $tmpth/"${app3[$f]}" -C $applctn;
+                          inst_echo "${app3[$g]}";
+                          tar -xf $tmpth/"${app3[$g]}" -C $applctn;
 
                         else
-                          rm -rf $tmpth/"${app3[$f]}";
-                          shaserr_echo "${app3[$f]}";
+                          rm -rf $tmpth/"${app3[$g]}";
+                          shaserr_echo "${app3[$g]}";
                         fi;
 
                       else
-                          nolnk_echo "${app[$f]}";
+                          nolnk_echo "${app[$g]}";
                       fi;
 
                     done
@@ -720,9 +721,9 @@ if [[ ! $? -eq 0 ]]; then
                   )
 
                   # The loop
-                  for f in ${!telepack[*]}; do
-                    rm_echo "${telepack[$f]}" "${telepack2[$f]}" ;
-                    apt-get -yqq purge "${telepack[$f]}"  > $dn1;
+                  for h in ${!telepack[*]}; do
+                    rm_echo "${telepack[$h]}" "${telepack2[$h]}" ;
+                    apt-get -yqq purge "${telepack[$h]}"  > $dn1;
                   done
 
                   blnk_echo;
@@ -845,8 +846,8 @@ if [[ ! $? -eq 0 ]]; then
                   # Cheking the existence of the $unat20, $unat50, $unat10 configuration files
                   if [[ -f $unat20 ]] && [[ -f $unat50 ]] && [[ -f $unat10 ]]; then
 
-                    for k in $unat20 $unat50 $unat10; do
-                      bckup $k && mv $k*."$bckp" /root;
+                    for i in $unat20 $unat50 $unat10; do
+                      bckup $i && mv $i*."$bckp" /root;
                     done
 
 
@@ -1035,9 +1036,9 @@ if [[ ! $? -eq 0 ]]; then
 
                   # The loop
                   echo -e "Setting Startup GUI Applications: ";
-                  for f in ${!appshrt[*]}; do
-                    echo -e "\e[1m\e[32m"${appshrt[$f]}"\e[0m";
-                    echo "${appshrt2[$f]}" > /home/$usr/.config/autostart/"${appshrt[$f]}";
+                  for j in ${!appshrt[*]}; do
+                    echo -e "\e[1m\e[32m"${appshrt[$j]}"\e[0m";
+                    echo "${appshrt2[$j]}" > /home/$usr/.config/autostart/"${appshrt[$j]}";
                   done
 
                   blnk_echo;
@@ -1052,15 +1053,22 @@ if [[ ! $? -eq 0 ]]; then
                   # Getting the names of the existed "human" users by looking at the names of the folders (full path) in the /home directory, as well as manually adds the root user to the extracted list
                   gui_user=$(ls -d -1 /home/** && echo "/root");
                   # Inserts the powerline commands in .bashrc of the each user found in the /home folder
-                  for d in $gui_user; do
+                  for k in $gui_user; do
                   echo "if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
                       source /usr/share/powerline/bindings/bash/powerline.sh
-                  fi" >> $d/.bashrc;
+                  fi" >> $k/.bashrc;
                   done
 
                   tstdr=(/home/$usr/Tests);
                   echo -e "Created folder: \e[1m\e[32m"$tstdr"\e[0m.";
                   mkdir $tstdr && chown $usr:$usr $tstdr;
+
+                  
+
+
+                  # Atom modules
+                  # apm install platformio-ide-terminal
+                  # Installing platformio-ide-terminal to /home/crt/.atom/packages
 
                   blnk_echo;
 
