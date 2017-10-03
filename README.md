@@ -261,7 +261,7 @@ _This section should be automated._
   * Telemetry consent - No  
   * Welcome Guide - No  
   * Check:
-    * Editor:  
+    * Editor:   
       * Show Indent Guide
       * Show Invisibles
       * Soft Wrap
