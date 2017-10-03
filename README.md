@@ -97,7 +97,6 @@ _This section should be automated._
 
 ##### Backups  
   * The backup partition should be formatted as encrypted  
-  *
   * Folders to save: crt (the home folder)  
   * Folders to ignore:  
    * Trash (default)  
@@ -120,7 +119,6 @@ _This section should be automated._
   * Additional Drivers  
    * Check all the necessary options in order to install the latest drivers
 
-
 ##### Time and Date  
   * Time&Date  
    * Automatically from the Internet (default)  
@@ -135,28 +133,34 @@ _This section should be automated._
 ##### Behavior
   * Single click to open items  
   * Uncheck: Ask before enptying the Trash or deleting files  
+
 ##### Display
   * Check: Navigate folders in a tree  
+
 ##### Preview
   * Thumbnails size: 4 GB  
   * Count number of items: Always  
 
 ### gEdit Preferences
+
 ##### View
   * Check the following:  
    * Display line numbers  
    * Display overview map  
    * Highlight current line  
    * Highlight matcjing brackets  
+
 ##### View
   * Check the following:  
    * Tab width: 2  
    * Insert spaces instead of tabs  
    * Enable automatic indentation  
   * Autosave every 1 minutes  
+
 ##### Fonts&Colors
   * Uncheck: Use the system fixed width font  
   * Color Scheme: Oblivion  
+
 ##### Plugins
   * Enable the following:  
    * Bookmarks  
@@ -183,18 +187,24 @@ _This section should be automated._
    * Word completion  
 
 ### Rhythmbox Preferences
+
 ##### General
   * Uncheck: Track number  
   * Check: Last played, Rating  
+
 ##### Playback
   * Check: Crossfade  
   * Crossfade duration: 1.0  
+
 ##### Music
   * Preferred format: FLAC  
+
 ##### View Menu
   * Check: View Queue as Sied Panel  
+
 ##### Control Menu
   * Check: Shuffle  
+
 ##### Tools Menu (Plugins)
   * Check the following plugins:  
    * Alternative Toolbar  
@@ -205,14 +215,18 @@ _This section should be automated._
   * Uncheck: Cover art search  
 
 ### Firefox Preferences
+
 ##### Advanced
   * Data choices: uncheck everything  
+
 ##### Addons
   * HttpsEverywhere  
   * uBlock Origin
   * Container by Mozilla https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/
+
 ##### General
   * Show tabs from the last time  
+
 ##### Search
   * Make StarPage the main search engine  
   * Add the following search engines to the address bar submenu:  
@@ -220,20 +234,37 @@ _This section should be automated._
    * Gandi.net  
    * Namecheap.com  
    * Yandex.com  
+
 ##### Content
   * Check: DRM  
   * Preferences languages: Delete everything except English [en]  
+
 ##### Privacy
   * Tracking-Change Block Lists: Choose Disconnect.me strict protection  
   * Do Not Track: Always  
+
 ##### Security
   * Set a maser password  
+
 ##### Advanced
   * Check:  
    * General: Search for text when typing  
    * Network: Limit cache to 350 MB  
+
 ##### Customize the interface
+
 ##### Add Bookmark bar
+
+### Atom Editor
+##### Settings
+  * Telemetry consent - No  
+  * Welcome Guide - No  
+  * Check:
+    * Editor:  
+      * Show Indent Guide
+      * Show Invisibles
+      * Soft Wrap
+    * Markdown Package: GitHub Like Preview Style
 
 ### Unity-tweak-tool
 ##### Unity
