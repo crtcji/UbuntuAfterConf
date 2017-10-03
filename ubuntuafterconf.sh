@@ -1063,12 +1063,18 @@ if [[ ! $? -eq 0 ]]; then
                   echo -e "Created folder: \e[1m\e[32m"$tstdr"\e[0m.";
                   mkdir $tstdr && chown $usr:$usr $tstdr;
 
-                  
+                  # Creating necessary folders
+                  # fldrs="$hm/$usr/Drives/VirtualBox $hm/$usr/Public/GIT/{GitHub,GitLab,BitBucket}"
+                  # fldrs="Drives/VirtualBox Public/GIT/{GitHub,GitLab,BitBucket}"
+                  # for l in $fldrs; do
+                  #  mkdir -p $l;
+                  #done
 
 
                   # Atom modules
                   # apm install platformio-ide-terminal
                   # Installing platformio-ide-terminal to /home/crt/.atom/packages
+
 
                   blnk_echo;
 
