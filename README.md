@@ -18,7 +18,7 @@ _This section should be automated._
   - _Encrypt the new Ubuntu installation for security_
   - _Use LVM with the new Ubuntu installation_
 - __Where are you?__
-    - _Chisinau_
+    - _Your Location_
 - __Keyboard layout__
   - _English (US) - English (US)_
 - __Who are you?__
@@ -83,7 +83,7 @@ _This section should be automated._
   * Russian  
 
 ##### Bluetooth
-  * OFF or ON if the Apple keayboard and mouse are required  
+  * OFF or ON if the Apple keyboard and mouse are required  
   * Visibility OFF   (default)  
 
 ##### Keyboard
