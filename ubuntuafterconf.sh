@@ -328,7 +328,7 @@ if [[ ! $? -eq 0 ]]; then
                   # Adding external repositories
 
                   # "ppa:team-xbmc/ppa"
-                  apprepo=("ppa:wfg/0ad" "ppa:libreoffice/ppa" "ppa:otto-kesselgulasch/gimp" "ppa:inkscape.dev/stable" "ppa:philip5/extra" "ppa:pmjdebruijn/darktable-release" "deb https://deb.opera.com/opera-stable/ stable non-free" "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" "deb https://download.sublimetext.com/ apt/stable/");
+                  apprepo=("ppa:wfg/0ad" "ppa:libreoffice/ppa" "ppa:otto-kesselgulasch/gimp" "ppa:inkscape.dev/stable" "ppa:philip5/extra" "ppa:pmjdebruijn/darktable-release" "deb https://deb.opera.com/opera-stable/ stable non-free" "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" "deb https://download.sublimetext.com/ apt/stable/" "ppa:nextcloud-devs/client");
                   # "deb http://download.opensuse.org/repositories/home:/rawtherapee/xUbuntu_16.04/ /"
 
                   for b in "${apprepo[@]}"; do
@@ -368,7 +368,7 @@ if [[ ! $? -eq 0 ]]; then
                   # unity-tweaktool, shutter ?????
                   # amarok gpodder gwenview kate krita ktorrent yakuake kodi brasero clamtk
                   # gnome-control-center gnome-online-accounts
-                  appgui="0ad aptoncd audacity bleachbit caffeine darktable digikam5 easytag filezilla gimp gimp-gmic gimp-plugin-registry gmic gnome-sushi glipper gnucash gparted gpick gramps gresolver handbrake homebank indicator-multiload inkscape k3b keepassx kmymoney mysql-workbench nautilus-actions openttd pdfchain pdfshuffler pidgin rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave winff";
+                  appgui="0ad aptoncd audacity bleachbit caffeine darktable digikam5 easytag filezilla gimp gimp-gmic gimp-plugin-registry gmic gnome-sushi glipper gnucash gparted gpick gramps gresolver handbrake homebank indicator-multiload inkscape k3b keepassx kmymoney mysql-workbench nautilus-actions nextcloud-client openttd pdfchain pdfshuffler pidgin rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave winff";
 
                   # The main multi-loop for installing apps/libs
                   for d in $applib $appcli $appgui; do
