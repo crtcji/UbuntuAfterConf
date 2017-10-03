@@ -1,4 +1,4 @@
-![alt text](badge.png "UbuntuAfterConf Project")
+![alt text](badge.png "UbuntuAfterConf Project")  
 # UbuntuAfterConf
 A set of bash scripts to automate the configuration of the freshly installed Ubuntu 16.04 LTS
 
