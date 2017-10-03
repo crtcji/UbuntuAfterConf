@@ -1,5 +1,5 @@
 # UbuntuAfterConf
-A set of bash scripts to automate the configuration of the freshly installed Ubuntu 16.04 LTS
+A set of bash scripts to automate the configuration of the freshly installed Ubuntu 16.04 LTS.
 
 #### Work in progress for the next version can be foun [here](https://github.com/crtcji/UbuntuAfterConf/projects/1).
 
@@ -97,7 +97,7 @@ _This section should be automated._
 
 ##### Backups  
   * The backup partition should be formatted as encrypted  
-  * 
+  *
   * Folders to save: crt (the home folder)  
   * Folders to ignore:  
    * Trash (default)  
