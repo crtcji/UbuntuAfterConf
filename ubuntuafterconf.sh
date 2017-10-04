@@ -230,7 +230,7 @@ if [[ ! $? -eq 0 ]]; then
         ufw default deny incoming > $dn && echo -e "Applied \e[1m\e[31mDENY INCOMING\e[0m policy" && ufw default deny outgoing > $dn && echo -e "Applied \e[1m\e[31mDENY OUTGOING\e[0m policy" && ufw enable > $dn && echo -e "UFW is \e[1m\e[32mENABLED\e[0m";
         # ufw status verbose; # for analyze only
 
-        # TODO:0 Replace the follwoing two for loops with a case like it is shown here https://stackoverflow.com/questions/43686878/pass-multiple-arrays-as-arguments-to-a-bash-script id:0
+        # TODO: Replace the follwoing two for loops with a case like it is shown here https://stackoverflow.com/questions/43686878/pass-multiple-arrays-as-arguments-to-a-bash-script id:0 gh:2
 
         # Opening outgoing ports using UFW. Redirecting UFW output to /dev/null device
         # 80/tcp - for Web
