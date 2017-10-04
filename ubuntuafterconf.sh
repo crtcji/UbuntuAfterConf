@@ -1072,10 +1072,12 @@ if [[ ! $? -eq 0 ]]; then
 
 
                   # Atom modules
-                  # apm install platformio-ide-terminal
-                  # Installing platformio-ide-terminal to /home/crt/.atom/packages
+                  # Installing Atom addons to /home/crt/.atom/packages
+                  # Installing dependency for "atom-beautify" plugin
+                  pip install beautysh
                   # !!!! RUN AS A SIMPLE USER, OTHERWISE THE ADDONS WILL GOING TO BE INSTALLED in /root/.atom folder
-                  apms="platformio-ide-terminal todo-show file-icons atom-beautify ask-stack git-blame git-time-machine highlight-selected minimap auto-update-packages autocomplete-paths busy-signal merge-conflicts linter linter-shellcheck symbols-tree-view linter-ui-default intentions ";
+                  # all the addons are installed in $hm/$usr/.atom directory
+                  apms="platformio-ide-terminal todo-show file-icons atom-beautify ask-stack git-blame git-time-machine highlight-selected minimap autocomplete-paths busy-signal merge-conflicts linter linter-shellcheck symbols-tree-view linter-ui-default intentions ";
                   for k in $apms; do
                     inst_echo $k;
                     apm install $k > $dn;
