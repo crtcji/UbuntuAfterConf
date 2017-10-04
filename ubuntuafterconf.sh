@@ -1063,6 +1063,16 @@ if [[ ! $? -eq 0 ]]; then
                   # Miscellaneous
                   sctn_echo MISCELLANEOUS;
 
+                  # Enabling powerline
+                  # Getting the names of the existed "human" users by looking at the names of the folders (full path) in the /home directory, as well as manually adds the root user to the extracted list
+                  gui_user=$(ls -d -1 /home/** && echo "/root");
+                  # Inserts the powerline commands in .bashrc of the each user found in the /home folder
+                  for l in $gui_user; do
+                  echo "if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+                      source /usr/share/powerline/bindings/bash/powerline.sh
+                  fi" >> $l/.bashrc;
+                  done
+
                   # Removing unnecessary apps
                   # list of the packages that are going to be removed
                   remapp="shotwell";
@@ -1076,21 +1086,13 @@ if [[ ! $? -eq 0 ]]; then
 
                   blnk_echo;
 
-                  # Enabling powerline
-                  # Getting the names of the existed "human" users by looking at the names of the folders (full path) in the /home directory, as well as manually adds the root user to the extracted list
-                  gui_user=$(ls -d -1 /home/** && echo "/root");
-                  # Inserts the powerline commands in .bashrc of the each user found in the /home folder
-                  for l in $gui_user; do
-                  echo "if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
-                      source /usr/share/powerline/bindings/bash/powerline.sh
-                  fi" >> $l/.bashrc;
-                  done
 
+                  # Creating necessary folders
+                  
                   tstdr=(/home/$usr/Tests);
                   echo -e "Created folder: \e[1m\e[32m"$tstdr"\e[0m.";
                   mkdir $tstdr && chown $usr:$usr $tstdr;
 
-                  # Creating necessary folders
                   # fldrs="$hm/$usr/Drives/VirtualBox $hm/$usr/Public/GIT/{GitHub,GitLab,BitBucket}"
                   # fldrs="Drives/VirtualBox Public/GIT/{GitHub,GitLab,BitBucket}"
                   # for l in $fldrs; do
