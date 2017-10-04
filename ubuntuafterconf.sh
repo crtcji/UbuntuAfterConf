@@ -1063,14 +1063,27 @@ if [[ ! $? -eq 0 ]]; then
                   # Miscellaneous
                   sctn_echo MISCELLANEOUS;
 
+                  # Removing unnecessary apps
+                  # list of the packages that are going to be removed
+                  remapp="shotwell";
+
+                  echo "Removing package(s):";
+                  # The main multi-loop for installing apps/libs
+                  for k in $remapp; do
+                    echo -e "\e[1m\e[34m$k\e[0m";
+                    apt-get -yqq remove $k > /dev/null 2>&1;
+                  done
+
+                  blnk_echo;
+
                   # Enabling powerline
                   # Getting the names of the existed "human" users by looking at the names of the folders (full path) in the /home directory, as well as manually adds the root user to the extracted list
                   gui_user=$(ls -d -1 /home/** && echo "/root");
                   # Inserts the powerline commands in .bashrc of the each user found in the /home folder
-                  for k in $gui_user; do
+                  for l in $gui_user; do
                   echo "if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
                       source /usr/share/powerline/bindings/bash/powerline.sh
-                  fi" >> $k/.bashrc;
+                  fi" >> $l/.bashrc;
                   done
 
                   tstdr=(/home/$usr/Tests);
@@ -1092,9 +1105,10 @@ if [[ ! $? -eq 0 ]]; then
                   # !!!! RUN AS A SIMPLE USER, OTHERWISE THE ADDONS WILL GOING TO BE INSTALLED in /root/.atom folder
                   # all the addons are installed in $hm/$usr/.atom directory
                   apms="platformio-ide-terminal todo-show file-icons atom-beautify ask-stack git-blame git-time-machine highlight-selected minimap autocomplete-paths busy-signal merge-conflicts linter linter-shellcheck symbols-tree-view linter-ui-default intentions git-control fold-navigator tree-view-git-status tool-bar tool-bar-main build chronometer updater-notify tomato-timer auto-update-plus wakatime imdone-atom imdone-atom-github atom-mysql-snippets ";
-                  for k in $apms; do
-                    inst_echo $k;
-                    apm install $k > $dn;
+
+                  for m in $apms; do
+                    inst_echo $m;
+                    apm install $m > $dn;
                   done
 
                   blnk_echo;
