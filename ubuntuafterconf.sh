@@ -230,7 +230,7 @@ if [[ ! $? -eq 0 ]]; then
         ufw default deny incoming > $dn && echo -e "Applied \e[1m\e[31mDENY INCOMING\e[0m policy" && ufw default deny outgoing > $dn && echo -e "Applied \e[1m\e[31mDENY OUTGOING\e[0m policy" && ufw enable > $dn && echo -e "UFW is \e[1m\e[32mENABLED\e[0m";
         # ufw status verbose; # for analyze only
 
-        # TODO Replace the follwoing two for loops with a case like it is shown here https://stackoverflow.com/questions/43686878/pass-multiple-arrays-as-arguments-to-a-bash-script
+        # TODO:0 Replace the follwoing two for loops with a case like it is shown here https://stackoverflow.com/questions/43686878/pass-multiple-arrays-as-arguments-to-a-bash-script id:0
 
         # Opening outgoing ports using UFW. Redirecting UFW output to /dev/null device
         # 80/tcp - for Web
@@ -800,7 +800,7 @@ if [[ ! $? -eq 0 ]]; then
                   if [ $RESULT -eq 0 ]; then
                     upd_echo rkhunter;
                     # Updating our data files.
-                    # // FIXME: The following two commands are a temporary workaround because for the first time of running it gives eq=1, so there is a need to tun it for the second time in order to get eq=0 so that the rest of the statements are executed.
+                    # // FIXME:0 The following two commands are a temporary workaround because for the first time of running it gives eq=1, so there is a need to tun it for the second time in order to get eq=0 so that the rest of the statements are executed. id:1
                     rkhunter --update > $dn;
                     rkhunter --update > $dn;
 
@@ -1091,7 +1091,7 @@ if [[ ! $? -eq 0 ]]; then
                   pip install beautysh
                   # !!!! RUN AS A SIMPLE USER, OTHERWISE THE ADDONS WILL GOING TO BE INSTALLED in /root/.atom folder
                   # all the addons are installed in $hm/$usr/.atom directory
-                  apms="platformio-ide-terminal todo-show file-icons atom-beautify ask-stack git-blame git-time-machine highlight-selected minimap autocomplete-paths busy-signal merge-conflicts linter linter-shellcheck symbols-tree-view linter-ui-default intentions git-control fold-navigator tree-view-git-status ";
+                  apms="platformio-ide-terminal todo-show file-icons atom-beautify ask-stack git-blame git-time-machine highlight-selected minimap autocomplete-paths busy-signal merge-conflicts linter linter-shellcheck symbols-tree-view linter-ui-default intentions git-control fold-navigator tree-view-git-status tool-bar tool-bar-main build chronometer updater-notify tomato-timer auto-update-plus wakatime imdone-atom imdone-atom-github ";
                   for k in $apms; do
                     inst_echo $k;
                     apm install $k > $dn;
