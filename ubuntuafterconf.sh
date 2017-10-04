@@ -243,6 +243,8 @@ if [[ ! $? -eq 0 ]]; then
         # 22170/tcp - for IJC Office's SSH
         # 2083/tcp - for cPanel SSL TCP
         # 2096/tcp - for cPanel Webmail SSL TCP
+        # 465/tcp - for SMTP SSL
+        # 993/tcp - for IMAP SSL
 
         # 51413/tcp - for Transmission
         # 8000:8054/tcp - for audio feed of the Romanian Radio Broadcasting Society
@@ -252,7 +254,7 @@ if [[ ! $? -eq 0 ]]; then
         # 60309/tcp - BL
 
 
-        ufw_ports="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413/tcp 8000:8054/tcp 8078/tcp 9128/tcp 48231/tcp 60309/tcp";
+        ufw_ports="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413/tcp 8000:8054/tcp 8078/tcp 9128/tcp 48231/tcp 60309/tcp 465/tcp 993/tcp ";
 
         echo "Opening the following outgoing ports:";
         for a in $ufw_ports; do
