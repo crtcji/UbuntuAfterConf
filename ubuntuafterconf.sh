@@ -1088,7 +1088,7 @@ if [[ ! $? -eq 0 ]]; then
 
 
                   # Creating necessary folders
-                  
+
                   tstdr=(/home/$usr/Tests);
                   echo -e "Created folder: \e[1m\e[32m"$tstdr"\e[0m.";
                   mkdir $tstdr && chown $usr:$usr $tstdr;
