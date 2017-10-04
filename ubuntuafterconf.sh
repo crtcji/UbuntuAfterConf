@@ -1091,7 +1091,7 @@ if [[ ! $? -eq 0 ]]; then
                   pip install beautysh
                   # !!!! RUN AS A SIMPLE USER, OTHERWISE THE ADDONS WILL GOING TO BE INSTALLED in /root/.atom folder
                   # all the addons are installed in $hm/$usr/.atom directory
-                  apms="platformio-ide-terminal todo-show file-icons atom-beautify ask-stack git-blame git-time-machine highlight-selected minimap autocomplete-paths busy-signal merge-conflicts linter linter-shellcheck symbols-tree-view linter-ui-default intentions git-control";
+                  apms="platformio-ide-terminal todo-show file-icons atom-beautify ask-stack git-blame git-time-machine highlight-selected minimap autocomplete-paths busy-signal merge-conflicts linter linter-shellcheck symbols-tree-view linter-ui-default intentions git-control fold-navigator tree-view-git-status ";
                   for k in $apms; do
                     inst_echo $k;
                     apm install $k > $dn;
