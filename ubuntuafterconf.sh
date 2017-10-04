@@ -1100,6 +1100,7 @@ if [[ ! $? -eq 0 ]]; then
                   #done
 
 
+                  # NOTE Move the installing Atom Addons loop to the appropriate place in this file id:5 gh:9
                   # Atom modules
                   # Installing Atom addons to /home/crt/.atom/packages
                   # Installing dependency for "atom-beautify" plugin
@@ -1149,6 +1150,24 @@ if [[ ! $? -eq 0 ]]; then
                       esac
                   done && echo -e "\e[1m\e[32mThank you.\e[0m";
 
+                  # TODO Assing global credentials for GIT id:4 gh:5
+                  # backup $user ~/.gitconfig
+                  # echo "
+                  # # This is Git's per-user configuration file.
+                  # [user]
+                  # # Please adapt and uncomment the following lines:
+                  # 	name = Coordonator Resurse Tehnice
+                  # 	email = crt.cji@gmail.com" > ~/.gitconfig
+
+                  # TODO Disable nautilus autoopening folders when sth is mounted id:6 gh:6
+                  # run as a simple user
+                  # gsettings set org.gnome.desktop.media-handling automount-open false
+
+                  # TODO Archive/chcksum and then paste the profiles of the apps id:7 gh:4
+
+                  # TODO Make startup launchers for the apps id:8 gh:8
+
+                  # TODO Install and configure openxenmanager id:9 gh:7
 
 
 
