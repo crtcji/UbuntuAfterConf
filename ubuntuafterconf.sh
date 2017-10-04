@@ -1165,7 +1165,7 @@ if [[ ! $? -eq 0 ]]; then
 
                   # TODO Archive/chcksum and then paste the profiles of the apps id:7 gh:4
 
-                  # TODO Make startup launchers for the apps id:8 gh:8
+                  # TODO Make startup launchers for the apps sa adaug zoho docs, zoho cliq, hipchat, caffeine indicatir, dropbox (dropbox autostart y), mega, nextcloud, tresorit id:12 gh:10
 
                   # TODO Install and configure openxenmanager id:9 gh:7
 
