@@ -974,7 +974,7 @@ if [[ ! $? -eq 0 ]]; then
                    # Running the following commands as $usr so that the created files are going to have it's owner's rights
                   su $usr
                   hm=(/home);
-                  usr=(vanea);
+                  usr=(crt);
 
                   # The list of the shortcuts names
                   appshrt=(
