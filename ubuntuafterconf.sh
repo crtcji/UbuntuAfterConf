@@ -672,6 +672,30 @@ if [[ ! $? -eq 0 ]]; then
 
                   # END: Separate installation subsection (4th)
 
+                  # Atom addons installation section
+                  # Default location $hm/$usr/.atom/packages
+
+                  # Installing dependency for "atom-beautify" plugin
+                  inst_echo beautysh;
+                  pip install beautysh > $dn;
+
+                  su $usr;
+
+                  apms="platformio-ide-terminal todo-show file-icons atom-beautify ask-stack git-blame git-time-machine highlight-selected minimap autocomplete-paths busy-signal merge-conflicts linter linter-shellcheck symbols-tree-view linter-ui-default intentions git-control fold-navigator tree-view-git-status tool-bar tool-bar-main build chronometer updater-notify tomato-timer auto-update-plus wakatime imdone-atom imdone-atom-github atom-mysql-snippets";
+
+                  echo "Installing Atom plugins:";
+
+                  for m in $apms; do
+                    echo -e "\e[1m\e[34m$m\e[0m";
+                    apm install $m > /dev/null 2>&1;
+                  done
+
+                  exit
+
+                  blnk_echo;
+
+                  # END: Atom addons installation section
+
                   # END: Installing CLI utilities
 
 
@@ -743,7 +767,7 @@ if [[ ! $? -eq 0 ]]; then
                   # The loop
                   for h in ${!telepack[*]}; do
                     rm_echo "${telepack[$h]}" "${telepack2[$h]}" ;
-                    apt-get -yqq purge "${telepack[$h]}"  > $dn1;
+                    apt-get -yqq purge "${telepack[$h]}" > $dn1;
                   done
 
                   blnk_echo;
@@ -1237,7 +1261,7 @@ if [[ ! $? -eq 0 ]]; then
 
                   for j in ${!appshrt[*]}; do
                     echo -e "\e[1m\e[32m"${appshrt[$j]}"\e[0m";
-                    echo "${appshrt2[$j]}" > /home/$usr/.config/autostart/"${appshrt[$j]}";
+                    echo "${appshrt2[$j]}" > $hm/$usr/.config/autostart/"${appshrt[$j]}";
                   done
 
                   exit
@@ -1285,24 +1309,6 @@ if [[ ! $? -eq 0 ]]; then
                   # for l in $fldrs; do
                   #  mkdir -p $l;
                   #done
-
-
-                  # NOTE Move the installing Atom Addons loop to the appropriate place in this file id:5 gh:9
-                  # Atom modules
-                  # Installing Atom addons to /home/crt/.atom/packages
-                  # Installing dependency for "atom-beautify" plugin
-                  pip install beautysh
-                  # !!!! RUN AS A SIMPLE USER, OTHERWISE THE ADDONS WILL GOING TO BE INSTALLED in /root/.atom folder
-                  # all the addons are installed in $hm/$usr/.atom directory
-                  apms="platformio-ide-terminal todo-show file-icons atom-beautify ask-stack git-blame git-time-machine highlight-selected minimap autocomplete-paths busy-signal merge-conflicts linter linter-shellcheck symbols-tree-view linter-ui-default intentions git-control fold-navigator tree-view-git-status tool-bar tool-bar-main build chronometer updater-notify tomato-timer auto-update-plus wakatime imdone-atom imdone-atom-github atom-mysql-snippets ";
-
-                  for m in $apms; do
-                    inst_echo $m;
-                    apm install $m > $dn;
-                  done
-
-                  blnk_echo;
-
 
                   # END: Miscellaneous
 
