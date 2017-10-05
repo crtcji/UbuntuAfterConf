@@ -164,7 +164,7 @@ scn_echo () {
 }
 
 usrmkdir () {
-  mkdir "$@" && chown $usr:$usr "$@";
+  mkdir "$@" && chown -R $usr:$usr "$@";
 }
 
 # ------------------------------------------
@@ -1216,7 +1216,7 @@ if [[ ! $? -eq 0 ]]; then
 
                   tstdr=(/home/$usr/Tests);
                   echo -e "Created folder: \e[1m\e[32m"$tstdr"\e[0m.";
-                  mkdir $tstdr && chown $usr:$usr $tstdr;
+                  usrmkdir $tstdr
 
                   # fldrs="$hm/$usr/Drives/VirtualBox $hm/$usr/Public/GIT/{GitHub,GitLab,BitBucket}"
                   # fldrs="Drives/VirtualBox Public/GIT/{GitHub,GitLab,BitBucket}"
