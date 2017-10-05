@@ -260,7 +260,8 @@ if [[ ! $? -eq 0 ]]; then
 
         ufw_out="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413/tcp 8000:8054/tcp 8078/tcp 9128/tcp 48231/tcp 60309/tcp 465/tcp 993/tcp";
 
-        echo "Opening the following outgoing ports:";
+        blnk_echo;
+        "Opening the following outgoing ports:";
         for a in $ufw_out; do
           ufw allow out $a > $dn1;
           echo -e "\e[1m\e[34m$a\e[0m";
@@ -272,6 +273,7 @@ if [[ ! $? -eq 0 ]]; then
 
         ufw_in="465/tcp 993/tcp";
 
+        blnk_echo;
         echo "Opening the following incoming ports:";
         for a2 in $ufw_in; do
           ufw allow in $a2 > $dn1;
@@ -804,7 +806,7 @@ if [[ ! $? -eq 0 ]]; then
                   if [ $RESULT -eq 0 ]; then
                     upd_echo rkhunter;
                     # Updating our data files.
-                    
+
                     # // FIXME: The following two commands are a temporary workaround because for the first time of running it gives eq=1, so there is a need to tun it for the second time in order to get eq=0 so that the rest of the statements are executed. id:1 gh:3
                     rkhunter --update > $dn;
                     rkhunter --update > $dn;
