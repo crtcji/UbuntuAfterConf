@@ -967,6 +967,11 @@ if [[ ! $? -eq 0 ]]; then
                   # Startup Applications (GUI)
                   sctn_echo STARTUP APPLICATIONS
 
+                   # Running the following commands as $usr so that the created files are going to have it's owner's rights
+                  su $usr
+                  hm=(/home);
+                  usr=(vanea);
+
                   # The list of the shortcuts names
                   appshrt=(
                     "firefox.desktop"
@@ -1171,14 +1176,17 @@ if [[ ! $? -eq 0 ]]; then
                   );
 
                   # There is no autostart directory, so we are going to make it
-                  mkdir /home/$usr/.config/autostart;
+                  usrmkdir $hm/$usr/.config/autostart;
 
                   # The loop
                   echo -e "Setting Startup GUI Applications: ";
+
                   for j in ${!appshrt[*]}; do
                     echo -e "\e[1m\e[32m"${appshrt[$j]}"\e[0m";
                     echo "${appshrt2[$j]}" > /home/$usr/.config/autostart/"${appshrt[$j]}";
                   done
+
+                  exit
 
                   blnk_echo;
 
