@@ -1079,7 +1079,7 @@ if [[ ! $? -eq 0 ]]; then
 
                     "[Desktop Entry]
                     Type=Application
-                    Exec=rhythmbox-client --play-uri=http://89.238.227.6:8004/
+                    Exec=rhythmbox-client --play-uri=http://astreaming.vibefm.ro:8000/vibefm_aacp48k
                     Hidden=false
                     NoDisplay=false
                     X-GNOME-Autostart-enabled=true
