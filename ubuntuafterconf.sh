@@ -527,13 +527,13 @@ if [[ ! $? -eq 0 ]]; then
 
                   # The list of direct links to the downloaded apps
                   app=(
-                    "https://github.com/cjimd/moldovaazi/raw/gh-pages/vcrypt.tar"
+                    "https://bitbucket.org/crtcji/ubuntunecessaryapps/raw/4fb37e36006838b913cae644ef497d8787ca67b1/vcrypt.tar"
                     "https://download.jetbrains.com/python/pycharm-edu-4.0.tar.gz"
                     );
 
                   # The list of 256 shasums of the eralier downloaded apps
                   app2=(
-                    "c645aa8b2669688cdbceb643e5b437e3435a7dead59355420a481de79df399e9"
+                    "b6a1c8000e9d1bb707e7276e24b8777bea435ec28aa549cfb552b94194a48088"
                     "ff057e9ad76e58f7441698aec3d0200d7808a9a113e0db7030f432d5289ee30b"
                     );
 
