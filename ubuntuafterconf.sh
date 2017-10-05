@@ -804,7 +804,11 @@ if [[ ! $? -eq 0 ]]; then
                   if [ $RESULT -eq 0 ]; then
                     upd_echo rkhunter;
                     # Updating our data files.
+<<<<<<< current
                     # // FIXME: The following two commands are a temporary workaround because for the first time of running it gives eq=1, so there is a need to tun it for the second time in order to get eq=0 so that the rest of the statements are executed. id:1 gh:3
+=======
+                    # // FIXME: The following two commands are a temporary workaround because for the first time of running it gives eq=1, so there is a need to tun it for the second time in order to get eq=0 so that the rest of the statements are executed. id:16
+>>>>>>> before discard
                     rkhunter --update > $dn;
                     rkhunter --update > $dn;
 
@@ -1358,6 +1362,8 @@ if [[ ! $? -eq 0 ]]; then
                   # TODO verify installed apps - loop
 
                   # TODO unity-tweak: make and document all the necessary adjustments
+
+                  # TODO Set applications to startup at boot minimized
 
 
 
