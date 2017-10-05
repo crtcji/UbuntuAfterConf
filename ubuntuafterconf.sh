@@ -984,9 +984,9 @@ if [[ ! $? -eq 0 ]]; then
                     "redshift-gtk.desktop"
                     "rhythmbox.desktop"
                     "virtualbox.desktop"
-                    "zoho-docs.desktop"
+                    "zohodocs.desktop"
                     "skype.desktop"
-                    "nextcloud.desktop"
+                    "Nextcloud.desktop"
                     "megasync.desktop"
                     "dropbox.desktop"
                     "caffeine-indicator.desktop"
@@ -995,6 +995,8 @@ if [[ ! $? -eq 0 ]]; then
                     "hipchat.desktop"
                     "keepassx.desktop"
                     "thunderbird.desktop"
+                    "pac_start.desktop"
+                    "Launch TeamDrive.desktop"
                   );
 
                   # The list of the shortcuts names content
@@ -1019,7 +1021,8 @@ if [[ ! $? -eq 0 ]]; then
                     Name[en_US]=VeraCrypt
                     Name=VeraCrypt
                     Comment[en_US]=Autostarting VeraCrypt with the OS
-                    Comment=Autostarting VeraCrypt with the OS"
+                    Comment=Autostarting VeraCrypt with the OS
+                    X-GNOME-Autostart-Delay=3"
 
                     "[Desktop Entry]
                     Type=Application
@@ -1030,7 +1033,8 @@ if [[ ! $? -eq 0 ]]; then
                     Name[en_US]=Atom Editor
                     Name=Atom Editor
                     Comment[en_US]=Autostarting at OS boot
-                    Comment=Autostarting at OS boot"
+                    Comment=Autostarting at OS boot
+                    X-GNOME-Autostart-Delay=10"
 
                     "[Desktop Entry]
                     StartupNotify=true
@@ -1066,7 +1070,8 @@ if [[ ! $? -eq 0 ]]; then
                     Name[en_US]=VirtualBox
                     Name=VirtualBox
                     Comment[en_US]=VirtualBox
-                    Comment=VirtualBox"
+                    Comment=VirtualBox
+                    X-GNOME-Autostart-Delay=30"
 
                     "[Desktop Entry]
                     Name=Zoho Docs
@@ -1077,7 +1082,8 @@ if [[ ! $? -eq 0 ]]; then
                     Icon=/home/crt/.zohodocs/bin/images//r1.png
                     Categories=Network;FileTransfer;
                     MimeType=application/x-zwriter-link;application/x-zsheet-link;application/x-zshow-link;
-                    StartupNotify=false"
+                    StartupNotify=false
+                    X-GNOME-Autostart-Delay=15"
 
                     "[Desktop Entry]
                     Type=Application
@@ -1088,7 +1094,8 @@ if [[ ! $? -eq 0 ]]; then
                     Name[en_US]=Skype for linux
                     Name=Skype for linux
                     Comment[en_US]=Auto launching Skype for linux
-                    Comment=Auto launching Skype for linux"
+                    Comment=Auto launching Skype for linux
+                    X-GNOME-Autostart-Delay=17"
 
                     "[Desktop Entry]
                     Name=Nextcloud
@@ -1099,7 +1106,8 @@ if [[ ! $? -eq 0 ]]; then
                     Categories=Network
                     Type=Application
                     StartupNotify=false
-                    X-GNOME-Autostart-enabled=true"
+                    X-GNOME-Autostart-enabled=true
+                    X-GNOME-Autostart-Delay=30"
 
                     "[Desktop Entry]
                     Type=Application
@@ -1113,7 +1121,7 @@ if [[ ! $? -eq 0 ]]; then
                     Terminal=false
                     Categories=Network;System;
                     StartupNotify=false
-                    X-GNOME-Autostart-Delay=60"
+                    X-GNOME-Autostart-Delay=45"
 
                     "[Desktop Entry]
                     Name=Dropbox
@@ -1124,7 +1132,8 @@ if [[ ! $? -eq 0 ]]; then
                     Type=Application
                     Icon=dropbox
                     Categories=Network;FileTransfer;
-                    StartupNotify=false"
+                    StartupNotify=false
+                    X-GNOME-Autostart-Delay=40"
 
                     "[Desktop Entry]
                     Type=Application
@@ -1146,7 +1155,8 @@ if [[ ! $? -eq 0 ]]; then
                     Name[en_US]=Tresorit
                     Name=Tresorit
                     Comment[en_US]=Auto launching Tresorit
-                    Comment=Auto launching Tresorit"
+                    Comment=Auto launching Tresorit
+                    X-GNOME-Autostart-Delay=42"
 
                     "[Desktop Entry]
                     Type=Application
@@ -1157,7 +1167,8 @@ if [[ ! $? -eq 0 ]]; then
                     Name[en_US]=Zoho Cliq
                     Name=Zoho Cliq
                     Comment[en_US]=Auto launching Zoho Cliq
-                    Comment=Auto launching Zoho Cliq"
+                    Comment=Auto launching Zoho Cliq
+                    X-GNOME-Autostart-Delay=38"
 
                     "[Desktop Entry]
                     Type=Application
@@ -1168,7 +1179,8 @@ if [[ ! $? -eq 0 ]]; then
                     Name[en_US]=HipChat
                     Name=HipChat
                     Comment[en_US]=Auto launching HipChat
-                    Comment=Auto launching HipChat"
+                    Comment=Auto launching HipChat
+                    X-GNOME-Autostart-Delay=34"
 
                     "[Desktop Entry]
                     Type=Application
@@ -1179,7 +1191,8 @@ if [[ ! $? -eq 0 ]]; then
                     Name[en_US]=KeePassX
                     Name=KeePassX
                     Comment[en_US]=Auto launching KeePassX
-                    Comment=Auto launching KeePassX"
+                    Comment=Auto launching KeePassX
+                    X-GNOME-Autostart-Delay=5"
 
                     "[Desktop Entry]
                     Type=Application
@@ -1190,7 +1203,30 @@ if [[ ! $? -eq 0 ]]; then
                     Name[en_US]=Mozilla Thunderbird
                     Name=Mozilla Thunderbird
                     Comment[en_US]=Auto launching Mozilla Thunderbird
-                    Comment=Auto launching Mozilla Thunderbird"
+                    Comment=Auto launching Mozilla Thunderbird
+                    X-GNOME-Autostart-Delay=15"
+
+                    "[Desktop Entry]
+                    Name=PAC
+                    Comment=Perl Auto Connector (auto start)
+                    Terminal=false
+                    Icon=pac
+                    Type=Application
+                    Exec=/usr/bin/pac --no-splash --iconified
+                    StartupNotify=false
+                    Name[en_US]=PAC
+                    Comment[en_US]=Perl Auto Connector (auto start)
+                    Categories=Applications;Network;
+                    X-GNOME-Autostart-enabled=true"
+
+                    "[Desktop Entry]
+                    Comment=Launches TeamDrive
+                    Encoding=UTF-8
+                    Exec='/opt/teamdrive/TeamDrive' 'autostart'
+                    Name=Launch TeamDrive
+                    Type=Application
+                    Version=1.0
+                    X-GNOME-Autostart-enabled=true"
                   );
 
                   # There is no autostart directory, so we are going to make it
@@ -1332,7 +1368,10 @@ if [[ ! $? -eq 0 ]]; then
                   # https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb
                   # mega  apt -yf install /home/crt/Downloads/megasync-xUbuntu_16.04_amd64.deb
                   #
-                  #
+                  # curl -LO https://s3-eu-west-1.amazonaws.com/s3download.teamdrive.net/4.5.1774/TMDR/linux-x86_64/teamdrive-4.5.2_amd64.deb
+                  # dpkg -i teamdrive-4.5.2_amd64.deb
+
+
                   # zoho docs
                   # https://www.zoho.eu/docs/36925/ZohoDocs_x64.tar.gz
                   # tar -xvf ZohoDocs_x64.tar.gz zohodocs/
