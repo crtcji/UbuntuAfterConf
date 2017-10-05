@@ -973,6 +973,7 @@ if [[ ! $? -eq 0 ]]; then
 
                    # Running the following commands as $usr so that the created files are going to have it's owner's rights
                   su $usr
+                  # IDEA Somehow make the script to acces the following variables stored at the beginning of this file
                   hm=(/home);
                   usr=(crt);
 
