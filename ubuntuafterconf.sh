@@ -163,6 +163,10 @@ scn_echo () {
   echo -e "\e[1m\e[34m$@\e[0m is scanning the OS ...";
 }
 
+usrmkdir () {
+  mkdir "$@" && chown $usr:$usr "$@";
+}
+
 # ------------------------------------------
 # END VARIABLES SECTION
 
