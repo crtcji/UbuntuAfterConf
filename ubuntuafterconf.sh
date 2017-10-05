@@ -1318,6 +1318,47 @@ if [[ ! $? -eq 0 ]]; then
 
                   # TODO Automount password partition at boot.
 
+                  # TODO autopdate atom
+
+                  # TODO install the folowing apps
+                  # mail.ru cloud, yande disk, onedrive, smartgit, deepgit, gitahead, gitkraken, thunderbird ubuntu template, goole drive (gnome account or codeweavers)
+                  # curl -LO
+                  # http://repo.yandex.ru/yandex-disk/yandex-disk_latest_amd64.deb
+                  # http://r.mail.ru/n183758967
+                  # https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb
+                  # mega  apt -yf install /home/crt/Downloads/megasync-xUbuntu_16.04_amd64.deb
+                  #
+                  #
+                  # zoho docs
+                  # https://www.zoho.eu/docs/36925/ZohoDocs_x64.tar.gz
+                  # tar -xvf ZohoDocs_x64.tar.gz zohodocs/
+                  # chmod -R 755 zohodocs/
+                  # run Zoho Docs Installer in GUI
+                  #
+                  # zogo cliq
+                  # https://www.zoho.com/cliq/downloads/nativeapps/Cliq_1.1.0_amd64.deb
+                  # dpkg -i Cliq_1.1.0_amd64.deb
+                  #
+                  #
+                  # hipchat
+                  # sudo sh -c 'echo "deb https://atlassian.artifactoryonline.com/atlassian/hipchat-apt-client $(lsb_release -c -s) main" > /etc/apt/sources.list.d/atlassian-hipchat4.list'
+                  # wget -O - https://atlassian.artifactoryonline.com/atlassian/api/gpg/key/public | sudo apt-key add -
+                  # sudo apt-get update
+                  # sudo apt-get install hipchat4
+                  #
+                  #
+                  # Tresorit will be installed to: /home/crt/.local/share/tresorit. Would you like to change it? [y/N]
+                  #
+                  # peazip
+                  # curl -LO https://osdn.net/dl/peazip/peazip_6.4.1.LINUX.GTK2-2_i386.deb
+                  # sudo apt -yf install /home/crt/Downloads/peazip_6.4.1.LINUX.GTK2-2_i386.deb
+                  #
+                  # vscode
+
+                  # TODO verify installed apps - loop
+
+                  # TODO unity-tweak: make and document all the necessary adjustments
+
 
 
                 else
