@@ -1098,6 +1098,20 @@ if [[ ! $? -eq 0 ]]; then
                     X-GNOME-Autostart-enabled=true"
 
                     "[Desktop Entry]
+                    Type=Application
+                    Version=1.0
+                    GenericName=File Synchronizer
+                    Name=MEGASync
+                    Comment=Easy automated syncing between your computers and your MEGA cloud drive.
+                    TryExec=megasync
+                    Exec=megasync
+                    Icon=mega
+                    Terminal=false
+                    Categories=Network;System;
+                    StartupNotify=false
+                    X-GNOME-Autostart-Delay=60"
+
+                    "[Desktop Entry]
                     Name=Dropbox
                     GenericName=File Synchronizer
                     Comment=Sync your files across computers and to the web
@@ -1301,6 +1315,8 @@ if [[ ! $? -eq 0 ]]; then
                   # TODO Make startup launchers for the apps sa adaug zoho docs, zoho cliq, hipchat, caffeine indicatir, dropbox (dropbox autostart y), mega, nextcloud, tresorit id:12 gh:10
 
                   # TODO Install and configure openxenmanager id:9 gh:7
+
+                  # TODO Automount password partition at boot.
 
 
 
