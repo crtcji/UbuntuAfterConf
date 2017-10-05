@@ -971,6 +971,17 @@ if [[ ! $? -eq 0 ]]; then
                     "redshift-gtk.desktop"
                     "rhythmbox.desktop"
                     "virtualbox.desktop"
+                    "zoho-docs.desktop"
+                    "skype.desktop"
+                    "nextcloud.desktop"
+                    "megasync.desktop"
+                    "dropbox.desktop"
+                    "caffeine-indicator.desktop"
+                    "tresorit.desktop"
+                    "zoho-cliq.desktop"
+                    "hipchat.desktop"
+                    "keepassx.desktop"
+                    "thunderbird.desktop"
                   );
 
                   # The list of the shortcuts names content
@@ -1043,6 +1054,116 @@ if [[ ! $? -eq 0 ]]; then
                     Name=VirtualBox
                     Comment[en_US]=VirtualBox
                     Comment=VirtualBox"
+
+                    "[Desktop Entry]
+                    Name=Zoho Docs
+                    Comment=Sync documents to Zoho Docs
+                    Exec=/home/crt/.zohodocs/bin/zohodocs -sstart
+                    Terminal=false
+                    Type=Application
+                    Icon=/home/crt/.zohodocs/bin/images//r1.png
+                    Categories=Network;FileTransfer;
+                    MimeType=application/x-zwriter-link;application/x-zsheet-link;application/x-zshow-link;
+                    StartupNotify=false"
+
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=skypeforlinux
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Skype for linux
+                    Name=Skype for linux
+                    Comment[en_US]=Auto launching Skype for linux
+                    Comment=Auto launching Skype for linux"
+
+                    "[Desktop Entry]
+                    Name=Nextcloud
+                    GenericName=File Synchronizer
+                    Exec=/usr/bin/nextcloud
+                    Terminal=false
+                    Icon=nextcloud
+                    Categories=Network
+                    Type=Application
+                    StartupNotify=false
+                    X-GNOME-Autostart-enabled=true"
+
+                    "[Desktop Entry]
+                    Name=Dropbox
+                    GenericName=File Synchronizer
+                    Comment=Sync your files across computers and to the web
+                    Exec=dropbox start -i
+                    Terminal=false
+                    Type=Application
+                    Icon=dropbox
+                    Categories=Network;FileTransfer;
+                    StartupNotify=false"
+
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=caffeine-indicator
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Caffeine Indicator
+                    Name=Caffeine Indicator
+                    Comment[en_US]=Auto launching Caffeine Indicator
+                    Comment=Auto launching Caffeine Indicator"
+
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=tresorit
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Tresorit
+                    Name=Tresorit
+                    Comment[en_US]=Auto launching Tresorit
+                    Comment=Auto launching Tresorit"
+
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=cliq
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Zoho Cliq
+                    Name=Zoho Cliq
+                    Comment[en_US]=Auto launching Zoho Cliq
+                    Comment=Auto launching Zoho Cliq"
+
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=hipchat4
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=HipChat
+                    Name=HipChat
+                    Comment[en_US]=Auto launching HipChat
+                    Comment=Auto launching HipChat"
+
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=keepassx
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=KeePassX
+                    Name=KeePassX
+                    Comment[en_US]=Auto launching KeePassX
+                    Comment=Auto launching KeePassX"
+
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=thunderbird
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Mozilla Thunderbird
+                    Name=Mozilla Thunderbird
+                    Comment[en_US]=Auto launching Mozilla Thunderbird
+                    Comment=Auto launching Mozilla Thunderbird"
                   );
 
                   # There is no autostart directory, so we are going to make it
