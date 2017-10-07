@@ -283,6 +283,8 @@ _This section should be automated._
 * Webapps
   * Integartion prompts: OFF  
   * Uncheck the following options fomr the Preauthorised domains scetion: amazon, ubuntuone  
+* Switcher
+  * Switch between windows on all workspaces
 
 #### Windows manager
   * Workspace switcher
