@@ -273,17 +273,28 @@ _This section should be automated._
   * Set the commander Key
   * Install Oracle VM VirtualBox Extension Pack
 
+### Unity Settings
+* Unlock from Launcher the following shortcuts: LibreOffice Writer, LibreOffice Calc, LibreOffice Impress, Ubuntu Software, System Settings
+
 ### Unity-tweak-tool
 ##### Unity
-  * Launcher
-    * Minimize single windows applications on click
-  * Webapps
-      * preauthorised domains: untickle amazon and ubuntuone
+* Launcher
+  * Minimize single windows applications on click
+* Webapps
+  * Integartion prompts: OFF  
+  * Uncheck the following options fomr the Preauthorised domains scetion: amazon, ubuntuone  
 
 #### Windows manager
   * Workspace switcher
     * horizontal 4
     * vertical 1
-  * Window snapping
+  * Window snapping: for each halfs and corners
   * Hot corners
+   * Bottom: Show workspaces
   * Additional
+   * Auto-raise: ON
+   * Focus mode: Sloppy
+
+  * System
+   * Scrolling
+    * Scrollbars: Legacy
