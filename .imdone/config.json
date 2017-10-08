@@ -36,6 +36,10 @@
     {
       "name": "NOTE",
       "hidden": false
+    },
+    {
+      "name": "IDEA",
+      "hidden": false
     }
   ],
   "marked": {

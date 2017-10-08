@@ -1371,6 +1371,7 @@ if [[ ! $? -eq 0 ]]; then
 
                   # TODO install the folowing apps
                   # mail.ru cloud, yande disk, onedrive, smartgit, deepgit, gitahead, gitkraken, thunderbird ubuntu template, goole drive (gnome account or codeweavers)
+                  # dpkg -i Downloads/gitkraken-amd64.deb
                   # curl -LO
                   # http://repo.yandex.ru/yandex-disk/yandex-disk_latest_amd64.deb
                   # http://r.mail.ru/n183758967
