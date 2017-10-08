@@ -1436,11 +1436,21 @@ if [[ ! $? -eq 0 ]]; then
                   # curl -LO https://osdn.net/dl/peazip/peazip_6.4.1.LINUX.GTK2-2_i386.deb
                   # sudo apt -yf install /home/crt/Downloads/peazip_6.4.1.LINUX.GTK2-2_i386.deb
                   #
+                  #Ubuntu Indicators
+                    # sudo apt-add-repository ppa:fixnix/netspeed
+                    # sudo apt-get update
+                    # sudo apt-get install indicator-netspeed-unity
+                    #
+                    #
+                    # sudo apt-get install indicator-multiload
+                    #
+                    #
+                    # sudo add-apt-repository ppa:atareao/atareao
+                    # sudo apt-get update
+                    # sudo apt-get install my-weather-indicator
                   # vscode
 
                   # TODO verify installed apps - loop
-
-                  # TODO unity-tweak: make and document all the necessary adjustments
 
                   # TODO Set applications to startup at boot minimized
 
