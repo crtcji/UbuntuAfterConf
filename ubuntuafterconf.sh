@@ -1370,14 +1370,44 @@ if [[ ! $? -eq 0 ]]; then
                   # TODO autopdate atom
 
                   # TODO install the folowing apps
-                  # mail.ru cloud, yande disk, onedrive, smartgit, deepgit, gitahead, gitkraken, thunderbird ubuntu template, goole drive (gnome account or codeweavers)
+                  # onedrive, smartgit, deepgit, gitahead, goole drive (gnome account or codeweavers)
                   # dpkg -i Downloads/gitkraken-amd64.deb
-                  # curl -LO
-                  # http://repo.yandex.ru/yandex-disk/yandex-disk_latest_amd64.deb
-                  # http://r.mail.ru/n183758967
-                  # https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb
-                  # mega  apt -yf install /home/crt/Downloads/megasync-xUbuntu_16.04_amd64.deb
+                  # Yandex Disk (WebDAV and/or cli client)
+                  # Instructions: http://yandex.com/support/disk/cli-clients.html#cli-install
+                  # Package: http://repo.yandex.ru/yandex-disk/yandex-disk_latest_amd64.deb
+
+                  # WebDAV Instructions
+                  # In nautilus - Connect to Server
+                  # davs://login@webdav.yandex.com:443
                   #
+                  # # CLI client instructions
+                  # echo "deb http://repo.yandex.ru/yandex-disk/deb/ stable main" | sudo tee -a /etc/apt/sources.list.d/yandex.list > /dev/null && wget http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG -O- | sudo apt-key add - && sudo apt-get update && sudo apt-get install -y yandex-disk
+                  #
+                  # # Then run as a simple user
+                  # yandex-disk setup
+                  #
+                  #
+                  #
+                  #
+                  # # Cloud.Mail.Ru (WebDAV and/or GUI client)
+                  # # WebDAV Instructions
+                  # # In nautilus - Connect to Server (did not worked)
+                  # davs://login@mail.ru@webdav.cloud.mail.ru:443
+                  #
+                  #
+                  # # GUI client
+                  # # First variant (the righ-one)
+                  # # GPG-Public key
+                  # wget -O mail.ru-cloud.gpg https://linuxdesktopcloud.mail.ru/mail.ru-cloud.gpg
+                  # apt-key add mail.ru-cloud.gpg
+                  # echo "deb https://linuxdesktopcloud.mail.ru/deb default free" > /etc/apt/sources.list.d/mail.ru-cloud.list
+                  # apt-get update
+                  # apt-get install mail.ru-cloud
+                  #
+                  # # Second variant
+                  # curl -LO http://r.mail.ru/n183758967
+                  # dpkg -i n183758967
+
                   # curl -LO https://s3-eu-west-1.amazonaws.com/s3download.teamdrive.net/4.5.1774/TMDR/linux-x86_64/teamdrive-4.5.2_amd64.deb
                   # dpkg -i teamdrive-4.5.2_amd64.deb
 
