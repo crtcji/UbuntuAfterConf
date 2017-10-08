@@ -294,8 +294,12 @@ _This section should be automated._
   * Hot corners
    * Bottom: Show workspaces
   * Additional
-   * Auto-raise: ON
-   * Focus mode: Sloppy
+   * Auto-raise: OFF
+   * Focus mode: Click
+   * Titlebar actions:
+    * Double click: Maximize
+    * Middle click: Minimize
+    * Right click: Menu
 
   * System
    * Scrolling
