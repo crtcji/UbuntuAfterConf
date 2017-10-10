@@ -340,6 +340,49 @@ if [[ ! $? -eq 0 ]]; then
                   blnk_echo;
                   echo -e "The configured DNSCrypt provider is \e[1m\e[32m$dns_provider\e[0m" && blnk_echo;
 
+                  # Fixing DNSCrypt not starting up at boot
+                  dnser=(/etc/systemd/system/dnscrypt-proxy.service);
+                  dnsock=(/etc/systemd/system/dnscrypt-proxy.socket);
+
+                  bckup $dnser && mv $_*."$bckp" /root;
+                  bckup $dnsock && mv $_*."$bckp" /root;
+
+                  # Pasting the new values
+                  echo "[Unit]
+                  Description=DNSCrypt proxy
+                  Documentation=man:dnscrypt-proxy(8)
+                  After=network.target iptables.service firewalld.service
+                  Before=nss-lookup.target
+                  Requires=dnscrypt-proxy.socket
+
+                  [Service]
+                  Type=notify
+                  NonBlocking=true
+                  User=_dnscrypt-proxy
+                  Environment=DNSCRYPT_PROXY_RESOLVER_NAME=cisco "DNSCRYPT_PROXY_OPTIONS="
+                  EnvironmentFile=-/etc/default/dnscrypt-proxy
+                  ExecStart=/usr/sbin/dnscrypt-proxy \
+                      --resolver-name=${DNSCRYPT_PROXY_RESOLVER_NAME} \
+                      $DNSCRYPT_PROXY_OPTIONS
+                  Restart=always
+
+                  [Install]
+                  WantedBy=multi-user.target
+                  Also=dnscrypt-proxy.socket" > /etc/systemd/system/dnscrypt-proxy.service;
+
+                  # Pasting the new values
+                  echo "[Unit]
+                  Description=dnscrypt-proxy listening socket
+                  Documentation=man:dnscrypt-proxy(8)
+                  Wants=dnscrypt-proxy-resolvconf.service
+
+                  [Socket]
+                  ListenStream=127.0.2.1:53
+                  ListenDatagram=127.0.2.1:53
+
+                  [Install]
+                  WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
+
                   # Updating repository lists as well as updating/upgrading the system
                   up;
 
