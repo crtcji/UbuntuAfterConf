@@ -139,7 +139,9 @@ bckup () {
 
 # Quiet installation
 quietinst () {
-  DEBIAN_FRONTEND=noninteractive apt-get -yqqf install $@ < /dev/null > /dev/null >> /root/installation.log;
+  # DEBIAN_FRONTEND=noninteractive apt-get -yqq install $@ < null > /dev/null;
+  DEBIAN_FRONTEND=noninteractive apt-get -yqqf install $@ > /dev/null >> /root/installation.log;
+#  DEBIAN_FRONTEND=noninteractive apt-get -yqqf install $@ < /dev/null > /dev/null >> /root/installation.log;
 }
 
 chg_unat10 () {
