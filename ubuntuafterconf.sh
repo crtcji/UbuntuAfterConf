@@ -257,8 +257,9 @@ if [[ ! $? -eq 0 ]]; then
         # 60309/tcp - BL
         # 465/tcp - for SMTP SSL
         # 993/tcp - for IMAP SSL
+        # 6697,7000,7070/tcp - Secure ports for irc.freenode.net (aka chat.freenode.net)
 
-        ufw_out="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413/tcp 8000:8054/tcp 8078/tcp 9128/tcp 48231/tcp 60309/tcp 465/tcp 993/tcp";
+        ufw_out="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413/tcp 8000:8054/tcp 8078/tcp 9128/tcp 48231/tcp 60309/tcp 465/tcp 993/tcp 6697,7000,7070/tcp";
 
         blnk_echo;
         echo "Opening the following outgoing ports:";
