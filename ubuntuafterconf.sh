@@ -355,23 +355,22 @@ if [[ ! $? -eq 0 ]]; then
                   Description=DNSCrypt proxy
                   Documentation=man:dnscrypt-proxy(8)
                   After=network.target iptables.service firewalld.service
-                  Before=nss-lookup.target
                   Requires=dnscrypt-proxy.socket
 
                   [Service]
                   Type=notify
                   NonBlocking=true
                   User=_dnscrypt-proxy
-                  Environment=DNSCRYPT_PROXY_RESOLVER_NAME=cisco "DNSCRYPT_PROXY_OPTIONS="
+                  Environment=DNSCRYPT_PROXY_RESOLVER_NAME=cisco \"DNSCRYPT_PROXY_OPTIONS=\"
                   EnvironmentFile=-/etc/default/dnscrypt-proxy
-                  ExecStart=/usr/sbin/dnscrypt-proxy \
-                      --resolver-name=${DNSCRYPT_PROXY_RESOLVER_NAME} \
-                      $DNSCRYPT_PROXY_OPTIONS
+                  ExecStart=/usr/sbin/dnscrypt-proxy
+                      --resolver-name=\${DNSCRYPT_PROXY_RESOLVER_NAME}
+                      \$DNSCRYPT_PROXY_OPTIONS
                   Restart=always
 
                   [Install]
                   WantedBy=multi-user.target
-                  Also=dnscrypt-proxy.socket" > /etc/systemd/system/dnscrypt-proxy.service;
+                  Also=dnscrypt-proxy.socket" > /etc/systemd/system/dnscrypt-proxy.service
 
                   # Pasting the new values
                   echo "[Unit]
