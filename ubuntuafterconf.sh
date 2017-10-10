@@ -53,7 +53,7 @@ nofile_echo () {
 # Echoes a standard message
 std_echo () {
   echo -e "\e[32mPlease check it manually.\e[0m";
-  echo -e "\e[1m\e[31mThe script stops here.\e[0m";
+  echo -e "\e[1m\e[31mThis step stops here.\e[0m";
 }
 
 # Echoes that the internet connection was not switched off
@@ -341,11 +341,11 @@ if [[ ! $? -eq 0 ]]; then
                   echo -e "The configured DNSCrypt provider is \e[1m\e[32m$dns_provider\e[0m" && blnk_echo;
 
                   # Fixing DNSCrypt not starting up at boot
-                  dnser=(/etc/systemd/system/dnscrypt-proxy.service);
-                  dnsock=(/etc/systemd/system/dnscrypt-proxy.socket);
-
-                  bckup $dnser && mv $_*."$bckp" /root;
-                  bckup $dnsock && mv $_*."$bckp" /root;
+                  # dnser=(/etc/systemd/system/dnscrypt-proxy.service);
+                  # dnsock=(/etc/systemd/system/dnscrypt-proxy.socket);
+                  #
+                  # bckup $dnser && mv $_*."$bckp" /root;
+                  # bckup $dnsock && mv $_*."$bckp" /root;
 
                   # Pasting the new values
                   echo "[Unit]
@@ -382,6 +382,8 @@ if [[ ! $? -eq 0 ]]; then
 
                   [Install]
                   WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
+
+                  blnk_echo;
 
                   # Updating repository lists as well as updating/upgrading the system
                   up;
