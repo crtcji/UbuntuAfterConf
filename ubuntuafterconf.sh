@@ -1389,28 +1389,6 @@ if [[ ! $? -eq 0 ]]; then
                       esac
                   done && echo -e "\e[1m\e[32mThank you.\e[0m";
 
-                  # TODO Assing global credentials for GIT id:4 gh:5
-                  # backup $user ~/.gitconfig
-                  # echo "
-                  # # This is Git's per-user configuration file.
-                  # [user]
-                  # # Please adapt and uncomment the following lines:
-                  # 	name = Coordonator Resurse Tehnice
-                  # 	email = crt.cji@gmail.com" > ~/.gitconfig
-
-                  # TODO Disable nautilus autoopening folders when sth is mounted id:6 gh:6
-                  # run as a simple user
-                  # gsettings set org.gnome.desktop.media-handling automount-open false
-
-                  # TODO Archive/chcksum and then paste the profiles of the apps id:7 gh:4
-
-                  # TODO Make startup launchers for the apps sa adaug zoho docs, zoho cliq, hipchat, caffeine indicatir, dropbox (dropbox autostart y), mega, nextcloud, tresorit id:12 gh:10
-
-                  # TODO Install and configure openxenmanager id:9 gh:7
-
-                  # TODO Automount password partition at boot.
-
-                  # TODO autopdate atom
 
                   # TODO install the folowing apps
                   # onedrive, smartgit, deepgit, gitahead, goole drive (gnome account or codeweavers)
