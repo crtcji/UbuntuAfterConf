@@ -405,13 +405,16 @@ if [[ ! $? -eq 0 ]]; then
 
                   # Adding external repositories keys
 
-                  apprepokey=("https://deb.opera.com/archive.key" "https://www.virtualbox.org/download/oracle_vbox_2016.asc" "https://www.virtualbox.org/download/oracle_vbox.asc" "https://download.sublimetext.com/sublimehq-pub.gpg");
+                  apprepokey=("https://deb.opera.com/archive.key" "https://www.virtualbox.org/download/oracle_vbox_2016.asc" "https://www.virtualbox.org/download/oracle_vbox.asc" "https://download.sublimetext.com/sublimehq-pub.gpg" "https://packages.microsoft.com/keys/microsoft.asc");
                   # "http://download.opensuse.org/repositories/home:/rawtherapee/xUbuntu_16.04/Release.key"
 
                   for c in "${apprepokey[@]}"; do
                     addrepokey_echo "${c[@]}";
                     wget -qO- "${c[@]}" | sudo apt-key add - > $dn;
                   done
+
+                  # @TODO This is a manual approach because right now I have no idea how to make the following line "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" inserted into sources.list file to throw no errors at the update stage.
+                  echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list;
 
                   blnk_echo;
                   up;
@@ -432,7 +435,7 @@ if [[ ! $? -eq 0 ]]; then
                   # unity-tweaktool, shutter ?????
                   # amarok gpodder gwenview kate krita ktorrent yakuake kodi brasero clamtk
                   # gnome-control-center gnome-online-accounts
-                  appgui="0ad aptoncd audacity bleachbit caffeine compizconfig-settings-manager darktable digikam5 easytag filezilla gimp gimp-gmic gimp-plugin-registry gmic gnome-sushi glipper gnucash gparted gpick gramps gresolver handbrake homebank indicator-multiload inkscape k3b keepassx kmymoney mysql-workbench nautilus-actions nextcloud-client openttd pdfchain pdfshuffler pidgin rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave winff";
+                  appgui="0ad aptoncd audacity bleachbit caffeine code compizconfig-settings-manager darktable digikam5 easytag filezilla gimp gimp-gmic gimp-plugin-registry gmic gnome-sushi glipper gnucash gparted gpick gramps gresolver handbrake homebank indicator-multiload inkscape k3b keepassx kmymoney mysql-workbench nautilus-actions nextcloud-client openttd pdfchain pdfshuffler pidgin rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave winff";
 
                   # The main multi-loop for installing apps/libs
                   for d in $applib $appcli $appgui; do
@@ -1389,87 +1392,6 @@ if [[ ! $? -eq 0 ]]; then
                       esac
                   done && echo -e "\e[1m\e[32mThank you.\e[0m";
 
-
-                  # TODO install the folowing apps
-                  # onedrive, smartgit, deepgit, gitahead, goole drive (gnome account or codeweavers)
-                  # dpkg -i Downloads/gitkraken-amd64.deb
-                  # Yandex Disk (WebDAV and/or cli client)
-                  # Instructions: http://yandex.com/support/disk/cli-clients.html#cli-install
-                  # Package: http://repo.yandex.ru/yandex-disk/yandex-disk_latest_amd64.deb
-
-                  # WebDAV Instructions
-                  # In nautilus - Connect to Server
-                  # davs://login@webdav.yandex.com:443
-                  #
-                  # # CLI client instructions
-                  # echo "deb http://repo.yandex.ru/yandex-disk/deb/ stable main" | sudo tee -a /etc/apt/sources.list.d/yandex.list > /dev/null && wget http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG -O- | sudo apt-key add - && sudo apt-get update && sudo apt-get install -y yandex-disk
-                  #
-                  # # Then run as a simple user
-                  # yandex-disk setup
-                  #
-                  #
-                  #
-                  #
-                  # # Cloud.Mail.Ru (WebDAV and/or GUI client)
-                  # # WebDAV Instructions
-                  # # In nautilus - Connect to Server (did not worked)
-                  # davs://login@mail.ru@webdav.cloud.mail.ru:443
-                  #
-                  #
-                  # # GUI client
-                  # # First variant (the righ-one)
-                  # # GPG-Public key
-                  # wget -O mail.ru-cloud.gpg https://linuxdesktopcloud.mail.ru/mail.ru-cloud.gpg
-                  # apt-key add mail.ru-cloud.gpg
-                  # echo "deb https://linuxdesktopcloud.mail.ru/deb default free" > /etc/apt/sources.list.d/mail.ru-cloud.list
-                  # apt-get update
-                  # apt-get install mail.ru-cloud
-                  #
-                  # # Second variant
-                  # curl -LO http://r.mail.ru/n183758967
-                  # dpkg -i n183758967
-
-                  # curl -LO https://s3-eu-west-1.amazonaws.com/s3download.teamdrive.net/4.5.1774/TMDR/linux-x86_64/teamdrive-4.5.2_amd64.deb
-                  # dpkg -i teamdrive-4.5.2_amd64.deb
-
-
-                  # zoho docs
-                  # https://www.zoho.eu/docs/36925/ZohoDocs_x64.tar.gz
-                  # tar -xvf ZohoDocs_x64.tar.gz zohodocs/
-                  # chmod -R 755 zohodocs/
-                  # run Zoho Docs Installer in GUI
-                  #
-                  # zogo cliq
-                  # https://www.zoho.com/cliq/downloads/nativeapps/Cliq_1.1.0_amd64.deb
-                  # dpkg -i Cliq_1.1.0_amd64.deb
-                  #
-                  #
-                  # hipchat
-                  # sudo sh -c 'echo "deb https://atlassian.artifactoryonline.com/atlassian/hipchat-apt-client $(lsb_release -c -s) main" > /etc/apt/sources.list.d/atlassian-hipchat4.list'
-                  # wget -O - https://atlassian.artifactoryonline.com/atlassian/api/gpg/key/public | sudo apt-key add -
-                  # sudo apt-get update
-                  # sudo apt-get install hipchat4
-                  #
-                  #
-                  # Tresorit will be installed to: /home/crt/.local/share/tresorit. Would you like to change it? [y/N]
-                  #
-                  # peazip
-                  # curl -LO https://osdn.net/dl/peazip/peazip_6.4.1.LINUX.GTK2-2_i386.deb
-                  # sudo apt -yf install /home/crt/Downloads/peazip_6.4.1.LINUX.GTK2-2_i386.deb
-                  #
-                  #Ubuntu Indicators
-                    # sudo apt-add-repository ppa:fixnix/netspeed
-                    # sudo apt-get update
-                    # sudo apt-get install indicator-netspeed-unity
-                    #
-                    #
-                    # sudo apt-get install indicator-multiload
-                    #
-                    #
-                    # sudo add-apt-repository ppa:atareao/atareao
-                    # sudo apt-get update
-                    # sudo apt-get install my-weather-indicator
-                  # vscode
 
                   # TODO verify installed apps - loop
 
