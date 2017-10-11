@@ -199,7 +199,7 @@ if [[ ! $? -eq 0 ]]; then
 
     # Enabling the Multiverse, Universe and Partner repositories as well as switching to the main (UK) repository servers.
     echo "Added the following repositories:" && echo -e "\e[1m\e[34mMultiverse\e[0m" && echo -e "\e[1m\e[34mUniverse\e[0m" && echo -e "\e[1m\e[34mPartner\e[0m";
-    echo -e "Switched to the following repository server: \e[1m\e[34m(UK)\e[0m" && blnk_echo;
+    echo -e "Repository server: \e[1m\e[34marchive.ubuntu.com (UK)\e[0m" && blnk_echo;
 
     echo "
     deb http://archive.ubuntu.com/ubuntu xenial main restricted
@@ -371,7 +371,7 @@ Restart=always
 
 [Install]
 WantedBy=multi-user.target
-Also=dnscrypt-proxy.socket" > /etc/systemd/system/dnscrypt-proxy.service
+Also=dnscrypt-proxy.socket" > /etc/systemd/system/dnscrypt-proxy.service;
 
                   # Pasting the new values
                   echo "[Unit]
@@ -397,7 +397,8 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   # Adding external repositories
 
                   # "ppa:team-xbmc/ppa"
-                  apprepo=("ppa:wfg/0ad" "ppa:libreoffice/ppa" "ppa:otto-kesselgulasch/gimp" "ppa:inkscape.dev/stable" "ppa:philip5/extra" "ppa:pmjdebruijn/darktable-release" "deb https://deb.opera.com/opera-stable/ stable non-free" "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" "deb https://download.sublimetext.com/ apt/stable/" "ppa:nextcloud-devs/client");
+                  # "ppa:libreoffice/ppa"
+                  apprepo=("ppa:wfg/0ad" "ppa:otto-kesselgulasch/gimp" "ppa:inkscape.dev/stable" "ppa:philip5/extra" "ppa:pmjdebruijn/darktable-release" "deb https://deb.opera.com/opera-stable/ stable non-free" "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" "deb https://download.sublimetext.com/ apt/stable/" "ppa:nextcloud-devs/client");
                   # "deb http://download.opensuse.org/repositories/home:/rawtherapee/xUbuntu_16.04/ /"
 
                   for b in "${apprepo[@]}"; do
@@ -1338,6 +1339,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   # Getting the names of the existed "human" users by looking at the names of the folders (full path) in the /home directory, as well as manually adds the root user to the extracted list
                   gui_user=$(ls -d -1 /home/** && echo "/root");
                   # Inserts the powerline commands in .bashrc of the each user found in the /home folder
+                  # @NOTE verify onwer of the .bashrc file
                   for l in $gui_user; do
                   echo "if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
                       source /usr/share/powerline/bindings/bash/powerline.sh
@@ -1359,6 +1361,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
 
                   # Creating necessary folders
+                  # @TODO execute as simple user
 
                   tstdr=(/home/$usr/Tests);
                   echo -e "Created folder: \e[1m\e[32m"$tstdr"\e[0m.";
