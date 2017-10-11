@@ -29,6 +29,7 @@ dns_provider=(dnscrypt.eu-nl);
 hstnm=(bear.hostname.local);
 dn=/dev/null 2>&1
 den1=(/dev/null);
+rlog=(/root/installation.log);
 
 # FUNCTIONS
 
@@ -38,8 +39,8 @@ up () {
   upvar="update upgrade dist-upgrade";
   for upup in $upvar; do
     echo -e "Executing \e[1m\e[34m$upup\e[0m";
-    #apt-get -yqq -o=Dpkg::Use-Pty=0 $upup > $dn >> /root/installation.log;
-    apt-get -yqq $upup > /dev/null 2>&1 >> /root/installation.log;
+    #apt-get -yqq -o=Dpkg::Use-Pty=0 $upup > $dn >> $rlog;
+    apt-get -yqq $upup > /dev/null 2>&1 >> $rlog;
   done
   blnk_echo;
 }
@@ -140,8 +141,8 @@ bckup () {
 # Quiet installation
 quietinst () {
   # DEBIAN_FRONTEND=noninteractive apt-get -yqq install $@ < null > /dev/null;
-  DEBIAN_FRONTEND=noninteractive apt-get -yqqf install $@ > /dev/null >> /root/installation.log;
-#  DEBIAN_FRONTEND=noninteractive apt-get -yqqf install $@ < /dev/null > /dev/null >> /root/installation.log;
+  DEBIAN_FRONTEND=noninteractive apt-get -yqqf install $@ > /dev/null >> $rlog;
+#  DEBIAN_FRONTEND=noninteractive apt-get -yqqf install $@ < /dev/null > /dev/null >> $rlog;
 }
 
 chg_unat10 () {
@@ -233,10 +234,10 @@ if [[ ! $? -eq 0 ]]; then
         echo -e "Disabling \e[1m\e[34mIPV6\e[0m in \e[1m\e[34mUFW\e[0m ...";
 
         # Applying UFW policies
-        ufw default deny incoming > $dn >> /root/installation.log && echo -e "Applied \e[1m\e[31mDENY INCOMING\e[0m policy" && ufw default deny outgoing > $dn >> /root/installation.log && echo -e "Applied \e[1m\e[31mDENY OUTGOING\e[0m policy" && ufw enable > $dn >> /root/installation.log && echo -e "UFW is \e[1m\e[32mENABLED\e[0m";
+        ufw default deny incoming > $dn >> $rlog && echo -e "Applied \e[1m\e[31mDENY INCOMING\e[0m policy" && ufw default deny outgoing > $dn >> $rlog && echo -e "Applied \e[1m\e[31mDENY OUTGOING\e[0m policy" && ufw enable > $dn >> $rlog && echo -e "UFW is \e[1m\e[32mENABLED\e[0m";
         # ufw status verbose; # for analyze only
 
-        # TODO: Replace the follwoing two for loops with a case like it is shown here + testing +testing https://stackoverflow.com/questions/43686878/pass-multiple-arrays-as-arguments-to-a-bash-script id:0 gh:2
+        # TODO: Replace the following two for loops with a case like it is shown here + testing +testing https://stackoverflow.com/questions/43686878/pass-multiple-arrays-as-arguments-to-a-bash-script id:0 gh:2
 
         # Opening outgoing ports using UFW. Redirecting UFW output to /dev/null device
         # 80/tcp - for Web
@@ -283,7 +284,7 @@ if [[ ! $? -eq 0 ]]; then
           echo -e "\e[1m\e[34m$a2\e[0m";
         done
 
-        ufw reload > $dn >> /root/installation.log && echo -e "UFW is \e[1m\e[32mRELOADED\e[0m" && blnk_echo;
+        ufw reload > $dn >> $rlog && echo -e "UFW is \e[1m\e[32mRELOADED\e[0m" && blnk_echo;
 
         # Checks if the firewall is running
         if ufw status verbose | grep -qw "active"; then
@@ -294,7 +295,7 @@ if [[ ! $? -eq 0 ]]; then
           nmcli networking on && blnk_echo;
 
           # For some reason after enabling the firewall there is no way to make outgoing connections. The workaround is to disable the firewall, make an outgoing connection and the reenable it.
-          ufw disable > $dn >> /root/installation.log && wget -q --tries=10 --timeout=20 --spider http://google.com && ufw enable > $dn >> /root/installation.log;
+          ufw disable > $dn >> $rlog && wget -q --tries=10 --timeout=20 --spider http://google.com && ufw enable > $dn >> $rlog;
           # && ufw reload;
         	#/etc/init.d/ufw stop;
         	#/etc/init.d/ufw start;
@@ -310,7 +311,7 @@ if [[ ! $? -eq 0 ]]; then
             # Updating repository lists
             sctn_echo UPDATE;
             echo "Updating repository lists ...";
-            apt-get -yqq update > $dn >> /root/installation.log && blnk_echo;
+            apt-get -yqq update > $dn >> $rlog && blnk_echo;
 
             # Installing dnscrypt-proxy
             sctn_echo INSTALLATION "#1";
@@ -401,7 +402,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
                   for b in "${apprepo[@]}"; do
                     addrepo_echo "${b[@]}";
-                    add-apt-repository -y "${b[@]}" > /dev/null 2>&1 >> /root/installation.log;
+                    add-apt-repository -y "${b[@]}" > /dev/null 2>&1 >> $rlog;
                   done
 
                   blnk_echo;
@@ -414,7 +415,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
                   for c in "${apprepokey[@]}"; do
                     addrepokey_echo "${c[@]}";
-                    wget -qO- "${c[@]}" | sudo apt-key add - > $dn >> /root/installation.log;
+                    wget -qO- "${c[@]}" | sudo apt-key add - > $dn >> $rlog;
                   done
 
                   # @TODO This is a manual approach because right now I have no idea how to make the following line "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" inserted into sources.list file to throw no errors at the update stage.
@@ -444,7 +445,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   # The main multi-loop for installing apps/libs
                   for d in $applib $appcli $appgui; do
                     inst_echo $d;
-                    apt-get -yqq install $d > /dev/null 2>&1 >> /root/installation.log;
+                    apt-get -yqq install $d > /dev/null 2>&1 >> $rlog;
                   done
 
                   blnk_echo;
@@ -635,7 +636,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
                   # Calibre
                   # inst_echo Calibre;
-                  # sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()" > $dn >> /root/installation.log;
+                  # sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()" > $dn >> $rlog;
                   # curl -LO https://download.calibre-ebook.com/linux-installer.py
                   # python linux-installer.py > /dev/null
 
@@ -654,7 +655,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
                           inst_echo $ca;
                           # Installing
-                          python $ca > /dev/null >> /root/installation.log;
+                          python $ca > /dev/null >> $rlog;
                     else
                         nolnk_echo $ca_lnk;
                     fi;
@@ -707,11 +708,11 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
                   # Updating Python PIP
                   echo -e "Updating \e[1m\e[34mpip\e[0m";
-                  pip install --upgrade pip > $dn >> /root/installation.log;
+                  pip install --upgrade pip > $dn >> $rlog;
 
                   # Installing Speedest-CLI
                   inst_echo Speedtest;
-                  pip install speedtest-cli --upgrade > $dn >> /root/installation.log;
+                  pip install speedtest-cli --upgrade > $dn >> $rlog;
 
                   # Installing Micro Editor
                   #inst_echo Micro Editor;
@@ -727,7 +728,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
                   # Installing dependency for "atom-beautify" plugin
                   inst_echo beautysh;
-                  pip install beautysh > $dn >> /root/installation.log;
+                  pip install beautysh > $dn >> $rlog;
 
                   sudo -u $usr bash -c '
                   # IDEA Somehow make the script to acces the following variables stored at the beginning of this file
@@ -851,7 +852,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   # Scanning the whole system and palcing all the infected files list on a particular file
                   # echo "ClamAV is scanning the OS ...";
                   scn_echo ClamAv
-                  # This one throws any kind of warnings and errors: clamscan -r / | grep FOUND >> $rprtfldr/clamscan_first_scan.txt > $dn >> /root/installation.log;
+                  # This one throws any kind of warnings and errors: clamscan -r / | grep FOUND >> $rprtfldr/clamscan_first_scan.txt > $dn >> $rlog;
                   clamscan --recursive --no-summary --infected / 2>/dev/null | grep FOUND >> $rprtfldr/clamscan_first_scan.txt;
                   # Crontab: The daily scan
 
@@ -878,7 +879,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   # RKHunter configuration section
                   sctn_echo ANTI-MALWARE "(RKHunter)"
                   # The first thing we should do is ensure that our rkhunter version is up-to-date.
-                  rkhunter --versioncheck > $dn >> /root/installation.log;
+                  rkhunter --versioncheck > $dn >> $rlog;
 
                   # Verifying if the previous command run successfully (exit status 0) then it goes to the next step
                   RESULT=$?
@@ -887,14 +888,14 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                     # Updating our data files.
 
                     # // FIXME: The following two commands are a temporary workaround because for the first time of running it gives eq=1, so there is a need to tun it for the second time in order to get eq=0 so that the rest of the statements are executed. id:1 gh:3
-                    rkhunter --update > $dn >> /root/installation.log;
-                    rkhunter --update > $dn >> /root/installation.log;
+                    rkhunter --update > $dn >> $rlog;
+                    rkhunter --update > $dn >> $rlog;
 
                     RESULT2=$?
                     if [ $RESULT2 -eq 0 ]; then
                       upd_echo rkhunter signatures;
                       # With our database files refreshed, we can set our baseline file properties so that rkhunter can alert us if any of the essential configuration files it tracks are altered. We need to tell rkhunter to check the current values and store them as known-good values:
-                      rkhunter --propupd > $dn >> /root/installation.log;
+                      rkhunter --propupd > $dn >> $rlog;
 
                       RESULT3=$?
                       if [ $RESULT3 -eq 0 ]; then
@@ -904,7 +905,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
                         # Note: This will be executed only if the previous one was executed
                         # Another alternative to checking the log is to have rkhunter print out only warnings to the screen, instead of all checks:
-                        rkhunter -c --enable all --disable none --rwo > $dn >> /root/installation.log;
+                        rkhunter -c --enable all --disable none --rwo > $dn >> $rlog;
 
                       else
                         echo "\e[1m\e[34mRKHunter\e[0m is scanning the OS \e[1m\e[31mFAILED\e[0m.";
@@ -1376,7 +1377,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
                   sctn_echo FINAL ADJUSTMENTS
                   echo "Autoremoving unused packages ...";
-                  apt-get -yqq autoremove > $dn >> /root/installation.log;
+                  apt-get -yqq autoremove > $dn >> $rlog;
                   blnk_echo;
 
                   echo "Deleting temporary directory created at the beginning of this script ...";
