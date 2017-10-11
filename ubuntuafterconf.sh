@@ -1047,281 +1047,274 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   # Startup Applications (GUI)
                   sctn_echo STARTUP APPLICATIONS
 
-                   # Running the following commands as $usr so that the created files are going to have it's owner's rights
-                   sudo -u $usr bash -c '
-                   # IDEA Somehow make the script to acces the following variables stored at the beginning of this file
-                   hm=(/home);
-                   usr=(crt);
+                  # Running the following commands as $usr so that the created files are going to have it's owner's rights
+                  su $usr bash -c '
 
-                   usrmkdir () {
-                     mkdir "$@" && chown -R $usr:$usr "$@";
-                   }
+                  # The list of the shortcuts names
+                  appshrt=(
+                    "firefox.desktop"
+                    "veracrypt.desktop"
+                    "atom.desktop"
+                    "redshift-gtk.desktop"
+                    "rhythmbox.desktop"
+                    "virtualbox.desktop"
+                    "zohodocs.desktop"
+                    "skype.desktop"
+                    "Nextcloud.desktop"
+                    "megasync.desktop"
+                    "dropbox.desktop"
+                    "caffeine-indicator.desktop"
+                    "tresorit.desktop"
+                    "zoho-cliq.desktop"
+                    "hipchat.desktop"
+                    "keepassx.desktop"
+                    "thunderbird.desktop"
+                    "pac_start.desktop"
+                    "Launch TeamDrive.desktop"
+                  );
 
-                   # The list of the shortcuts names
-                   appshrt=(
-                     "firefox.desktop"
-                     "veracrypt.desktop"
-                     "atom.desktop"
-                     "redshift-gtk.desktop"
-                     "rhythmbox.desktop"
-                     "virtualbox.desktop"
-                     "zohodocs.desktop"
-                     "skype.desktop"
-                     "Nextcloud.desktop"
-                     "megasync.desktop"
-                     "dropbox.desktop"
-                     "caffeine-indicator.desktop"
-                     "tresorit.desktop"
-                     "zoho-cliq.desktop"
-                     "hipchat.desktop"
-                     "keepassx.desktop"
-                     "thunderbird.desktop"
-                     "pac_start.desktop"
-                     "Launch TeamDrive.desktop"
-                   );
+                  # The list of the shortcuts names content
+                  appshrt2=(
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=firefox
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Mozilla Firefox
+                    Name=Mozilla Firefox
+                    Comment[en_US]=Autostarting Firefox with the OS
+                    Comment=Autostarting Firefox with the OS"
 
-                   # The list of the shortcuts names content
-                   appshrt2=(
-                     "[Desktop Entry]
-                     Type=Application
-                     Exec=firefox
-                     Hidden=false
-                     NoDisplay=false
-                     X-GNOME-Autostart-enabled=true
-                     Name[en_US]=Mozilla Firefox
-                     Name=Mozilla Firefox
-                     Comment[en_US]=Autostarting Firefox with the OS
-                     Comment=Autostarting Firefox with the OS"
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=veracrypt
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=VeraCrypt
+                    Name=VeraCrypt
+                    Comment[en_US]=Autostarting VeraCrypt with the OS
+                    Comment=Autostarting VeraCrypt with the OS
+                    X-GNOME-Autostart-Delay=3"
 
-                     "[Desktop Entry]
-                     Type=Application
-                     Exec=veracrypt
-                     Hidden=false
-                     NoDisplay=false
-                     X-GNOME-Autostart-enabled=true
-                     Name[en_US]=VeraCrypt
-                     Name=VeraCrypt
-                     Comment[en_US]=Autostarting VeraCrypt with the OS
-                     Comment=Autostarting VeraCrypt with the OS
-                     X-GNOME-Autostart-Delay=3"
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=atom
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Atom Editor
+                    Name=Atom Editor
+                    Comment[en_US]=Autostarting at OS boot
+                    Comment=Autostarting at OS boot
+                    X-GNOME-Autostart-Delay=10"
 
-                     "[Desktop Entry]
-                     Type=Application
-                     Exec=atom
-                     Hidden=false
-                     NoDisplay=false
-                     X-GNOME-Autostart-enabled=true
-                     Name[en_US]=Atom Editor
-                     Name=Atom Editor
-                     Comment[en_US]=Autostarting at OS boot
-                     Comment=Autostarting at OS boot
-                     X-GNOME-Autostart-Delay=10"
+                    "[Desktop Entry]
+                    StartupNotify=true
+                    Categories=Utility;
+                    GenericName=Color temperature adjustment
+                    X-GNOME-Autostart-enabled=true
+                    Version=1.0
+                    Terminal=false
+                    Comment=Color temperature adjustment tool
+                    Name=Redshift
+                    Exec=redshift-gtk
+                    Icon=redshift
+                    Hidden=false
+                    Type=Application"
 
-                     "[Desktop Entry]
-                     StartupNotify=true
-                     Categories=Utility;
-                     GenericName=Color temperature adjustment
-                     X-GNOME-Autostart-enabled=true
-                     Version=1.0
-                     Terminal=false
-                     Comment=Color temperature adjustment tool
-                     Name=Redshift
-                     Exec=redshift-gtk
-                     Icon=redshift
-                     Hidden=false
-                     Type=Application"
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=rhythmbox-client --play-uri=http://astreaming.vibefm.ro:8000/vibefm_aacp48k
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Rhythmbox
+                    Name=Rhythmbox
+                    Comment[en_US]=Rhythmbox
+                    Comment=Rhythmbox"
 
-                     "[Desktop Entry]
-                     Type=Application
-                     Exec=rhythmbox-client --play-uri=http://astreaming.vibefm.ro:8000/vibefm_aacp48k
-                     Hidden=false
-                     NoDisplay=false
-                     X-GNOME-Autostart-enabled=true
-                     Name[en_US]=Rhythmbox
-                     Name=Rhythmbox
-                     Comment[en_US]=Rhythmbox
-                     Comment=Rhythmbox"
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=virtualbox
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=VirtualBox
+                    Name=VirtualBox
+                    Comment[en_US]=VirtualBox
+                    Comment=VirtualBox
+                    X-GNOME-Autostart-Delay=30"
 
-                     "[Desktop Entry]
-                     Type=Application
-                     Exec=virtualbox
-                     Hidden=false
-                     NoDisplay=false
-                     X-GNOME-Autostart-enabled=true
-                     Name[en_US]=VirtualBox
-                     Name=VirtualBox
-                     Comment[en_US]=VirtualBox
-                     Comment=VirtualBox
-                     X-GNOME-Autostart-Delay=30"
+                    "[Desktop Entry]
+                    Name=Zoho Docs
+                    Comment=Sync documents to Zoho Docs
+                    Exec=/home/crt/.zohodocs/bin/zohodocs -sstart
+                    Terminal=false
+                    Type=Application
+                    Icon=/home/crt/.zohodocs/bin/images//r1.png
+                    Categories=Network;FileTransfer;
+                    MimeType=application/x-zwriter-link;application/x-zsheet-link;application/x-zshow-link;
+                    StartupNotify=false
+                    X-GNOME-Autostart-Delay=15"
 
-                     "[Desktop Entry]
-                     Name=Zoho Docs
-                     Comment=Sync documents to Zoho Docs
-                     Exec=/home/crt/.zohodocs/bin/zohodocs -sstart
-                     Terminal=false
-                     Type=Application
-                     Icon=/home/crt/.zohodocs/bin/images//r1.png
-                     Categories=Network;FileTransfer;
-                     MimeType=application/x-zwriter-link;application/x-zsheet-link;application/x-zshow-link;
-                     StartupNotify=false
-                     X-GNOME-Autostart-Delay=15"
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=skypeforlinux
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Skype for linux
+                    Name=Skype for linux
+                    Comment[en_US]=Auto launching Skype for linux
+                    Comment=Auto launching Skype for linux
+                    X-GNOME-Autostart-Delay=17"
 
-                     "[Desktop Entry]
-                     Type=Application
-                     Exec=skypeforlinux
-                     Hidden=false
-                     NoDisplay=false
-                     X-GNOME-Autostart-enabled=true
-                     Name[en_US]=Skype for linux
-                     Name=Skype for linux
-                     Comment[en_US]=Auto launching Skype for linux
-                     Comment=Auto launching Skype for linux
-                     X-GNOME-Autostart-Delay=17"
+                    "[Desktop Entry]
+                    Name=Nextcloud
+                    GenericName=File Synchronizer
+                    Exec=/usr/bin/nextcloud
+                    Terminal=false
+                    Icon=nextcloud
+                    Categories=Network
+                    Type=Application
+                    StartupNotify=false
+                    X-GNOME-Autostart-enabled=true
+                    X-GNOME-Autostart-Delay=30"
 
-                     "[Desktop Entry]
-                     Name=Nextcloud
-                     GenericName=File Synchronizer
-                     Exec=/usr/bin/nextcloud
-                     Terminal=false
-                     Icon=nextcloud
-                     Categories=Network
-                     Type=Application
-                     StartupNotify=false
-                     X-GNOME-Autostart-enabled=true
-                     X-GNOME-Autostart-Delay=30"
+                    "[Desktop Entry]
+                    Type=Application
+                    Version=1.0
+                    GenericName=File Synchronizer
+                    Name=MEGASync
+                    Comment=Easy automated syncing between your computers and your MEGA cloud drive.
+                    TryExec=megasync
+                    Exec=megasync
+                    Icon=mega
+                    Terminal=false
+                    Categories=Network;System;
+                    StartupNotify=false
+                    X-GNOME-Autostart-Delay=45"
 
-                     "[Desktop Entry]
-                     Type=Application
-                     Version=1.0
-                     GenericName=File Synchronizer
-                     Name=MEGASync
-                     Comment=Easy automated syncing between your computers and your MEGA cloud drive.
-                     TryExec=megasync
-                     Exec=megasync
-                     Icon=mega
-                     Terminal=false
-                     Categories=Network;System;
-                     StartupNotify=false
-                     X-GNOME-Autostart-Delay=45"
+                    "[Desktop Entry]
+                    Name=Dropbox
+                    GenericName=File Synchronizer
+                    Comment=Sync your files across computers and to the web
+                    Exec=dropbox start -i
+                    Terminal=false
+                    Type=Application
+                    Icon=dropbox
+                    Categories=Network;FileTransfer;
+                    StartupNotify=false
+                    X-GNOME-Autostart-Delay=40"
 
-                     "[Desktop Entry]
-                     Name=Dropbox
-                     GenericName=File Synchronizer
-                     Comment=Sync your files across computers and to the web
-                     Exec=dropbox start -i
-                     Terminal=false
-                     Type=Application
-                     Icon=dropbox
-                     Categories=Network;FileTransfer;
-                     StartupNotify=false
-                     X-GNOME-Autostart-Delay=40"
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=caffeine-indicator
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Caffeine Indicator
+                    Name=Caffeine Indicator
+                    Comment[en_US]=Auto launching Caffeine Indicator
+                    Comment=Auto launching Caffeine Indicator"
 
-                     "[Desktop Entry]
-                     Type=Application
-                     Exec=caffeine-indicator
-                     Hidden=false
-                     NoDisplay=false
-                     X-GNOME-Autostart-enabled=true
-                     Name[en_US]=Caffeine Indicator
-                     Name=Caffeine Indicator
-                     Comment[en_US]=Auto launching Caffeine Indicator
-                     Comment=Auto launching Caffeine Indicator"
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=tresorit
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Tresorit
+                    Name=Tresorit
+                    Comment[en_US]=Auto launching Tresorit
+                    Comment=Auto launching Tresorit
+                    X-GNOME-Autostart-Delay=42"
 
-                     "[Desktop Entry]
-                     Type=Application
-                     Exec=tresorit
-                     Hidden=false
-                     NoDisplay=false
-                     X-GNOME-Autostart-enabled=true
-                     Name[en_US]=Tresorit
-                     Name=Tresorit
-                     Comment[en_US]=Auto launching Tresorit
-                     Comment=Auto launching Tresorit
-                     X-GNOME-Autostart-Delay=42"
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=cliq
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Zoho Cliq
+                    Name=Zoho Cliq
+                    Comment[en_US]=Auto launching Zoho Cliq
+                    Comment=Auto launching Zoho Cliq
+                    X-GNOME-Autostart-Delay=38"
 
-                     "[Desktop Entry]
-                     Type=Application
-                     Exec=cliq
-                     Hidden=false
-                     NoDisplay=false
-                     X-GNOME-Autostart-enabled=true
-                     Name[en_US]=Zoho Cliq
-                     Name=Zoho Cliq
-                     Comment[en_US]=Auto launching Zoho Cliq
-                     Comment=Auto launching Zoho Cliq
-                     X-GNOME-Autostart-Delay=38"
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=hipchat4
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=HipChat
+                    Name=HipChat
+                    Comment[en_US]=Auto launching HipChat
+                    Comment=Auto launching HipChat
+                    X-GNOME-Autostart-Delay=34"
 
-                     "[Desktop Entry]
-                     Type=Application
-                     Exec=hipchat4
-                     Hidden=false
-                     NoDisplay=false
-                     X-GNOME-Autostart-enabled=true
-                     Name[en_US]=HipChat
-                     Name=HipChat
-                     Comment[en_US]=Auto launching HipChat
-                     Comment=Auto launching HipChat
-                     X-GNOME-Autostart-Delay=34"
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=keepassx
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=KeePassX
+                    Name=KeePassX
+                    Comment[en_US]=Auto launching KeePassX
+                    Comment=Auto launching KeePassX
+                    X-GNOME-Autostart-Delay=5"
 
-                     "[Desktop Entry]
-                     Type=Application
-                     Exec=keepassx
-                     Hidden=false
-                     NoDisplay=false
-                     X-GNOME-Autostart-enabled=true
-                     Name[en_US]=KeePassX
-                     Name=KeePassX
-                     Comment[en_US]=Auto launching KeePassX
-                     Comment=Auto launching KeePassX
-                     X-GNOME-Autostart-Delay=5"
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=thunderbird
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Mozilla Thunderbird
+                    Name=Mozilla Thunderbird
+                    Comment[en_US]=Auto launching Mozilla Thunderbird
+                    Comment=Auto launching Mozilla Thunderbird
+                    X-GNOME-Autostart-Delay=15"
 
-                     "[Desktop Entry]
-                     Type=Application
-                     Exec=thunderbird
-                     Hidden=false
-                     NoDisplay=false
-                     X-GNOME-Autostart-enabled=true
-                     Name[en_US]=Mozilla Thunderbird
-                     Name=Mozilla Thunderbird
-                     Comment[en_US]=Auto launching Mozilla Thunderbird
-                     Comment=Auto launching Mozilla Thunderbird
-                     X-GNOME-Autostart-Delay=15"
+                    "[Desktop Entry]
+                    Name=PAC
+                    Comment=Perl Auto Connector (auto start)
+                    Terminal=false
+                    Icon=pac
+                    Type=Application
+                    Exec=/usr/bin/pac --no-splash --iconified
+                    StartupNotify=false
+                    Name[en_US]=PAC
+                    Comment[en_US]=Perl Auto Connector (auto start)
+                    Categories=Applications;Network;
+                    X-GNOME-Autostart-enabled=true"
 
-                     "[Desktop Entry]
-                     Name=PAC
-                     Comment=Perl Auto Connector (auto start)
-                     Terminal=false
-                     Icon=pac
-                     Type=Application
-                     Exec=/usr/bin/pac --no-splash --iconified
-                     StartupNotify=false
-                     Name[en_US]=PAC
-                     Comment[en_US]=Perl Auto Connector (auto start)
-                     Categories=Applications;Network;
-                     X-GNOME-Autostart-enabled=true"
+                    "[Desktop Entry]
+                    Comment=Launches TeamDrive
+                    Encoding=UTF-8
+                    Exec=\"/opt/teamdrive/TeamDrive\" \"autostart\"
+                    Name=Launch TeamDrive
+                    Type=Application
+                    Version=1.0
+                    X-GNOME-Autostart-enabled=true"
+                  );
 
-                     "[Desktop Entry]
-                     Comment=Launches TeamDrive
-                     Encoding=UTF-8
-                     Exec='/opt/teamdrive/TeamDrive' 'autostart'
-                     Name=Launch TeamDrive
-                     Type=Application
-                     Version=1.0
-                     X-GNOME-Autostart-enabled=true"
-                   );
+                  # There is no autostart directory, so we are going to make it
+                  mkdir '$hm'/'$usr'/.config/autostart;
 
-                   # There is no autostart directory, so we are going to make it
-                   usrmkdir $hm/$usr/.config/autostart;
+                  # The loop
+                  echo -e "Setting Startup GUI Applications: ";
 
-                   # The loop
-                   echo -e "Setting Startup GUI Applications: ";
+                  for j in ${!appshrt[*]}; do
+                    echo -e "\e[1m\e[32m"${appshrt[$j]}"\e[0m";
+                    echo "${appshrt2[$j]}" > '$hm'/'$usr'/.config/autostart/"${appshrt[$j]}";
+                  done
 
-                   for j in ${!appshrt[*]}; do
-                     echo -e "\e[1m\e[32m"${appshrt[$j]}"\e[0m";
-                     echo "${appshrt2[$j]}" > $hm/$usr/.config/autostart/"${appshrt[$j]}";
-                   done
-
-                   exit'
+                  exit'
 
                   blnk_echo;
 
