@@ -166,10 +166,6 @@ scn_echo () {
   echo -e "\e[1m\e[34m$@\e[0m is scanning the OS ...";
 }
 
-usrmkdir () {
-  mkdir "$@" && chown -R $usr:$usr "$@";
-}
-
 # ------------------------------------------
 # END VARIABLES SECTION
 
@@ -1349,20 +1345,16 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   blnk_echo;
 
 
-                  # Creating necessary folders
-                  # @TODO execute as simple user
-
-                  tstdr=(/home/$usr/Tests);
-                  echo -e "Created folder: \e[1m\e[32m"$tstdr"\e[0m.";
-                  usrmkdir $tstdr
+                  # Creating necessary folders as a simple user
+                  su $usr bash -c '
+                  fldrs=( "Tests Drives/VirtualBox Public/GIT"/{GitHub,GitLab,BitBucket} );
+                  for l in "${fldrs[@]}"; do
+                  mkdir -p '$hm'/'$usr'/$l;
+                  done
 
                   blnk_echo;
 
-                  # fldrs="$hm/$usr/Drives/VirtualBox $hm/$usr/Public/GIT/{GitHub,GitLab,BitBucket}"
-                  # fldrs="Drives/VirtualBox Public/GIT/{GitHub,GitLab,BitBucket}"
-                  # for l in $fldrs; do
-                  #  mkdir -p $l;
-                  #done
+                  exit'
 
                   # END: Miscellaneous
 
