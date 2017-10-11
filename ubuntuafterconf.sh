@@ -731,20 +731,16 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   inst_echo beautysh;
                   pip install beautysh > $dn >> $rlog;
 
-                  sudo -u $usr bash -c '
-                  # IDEA Somehow make the script to acces the following variables stored at the beginning of this file
-                  hm=(/home);
-                  usr=(crt);
-
+                  su $usr bash -c '
                   apms="platformio-ide-terminal todo-show file-icons atom-beautify ask-stack git-blame git-time-machine highlight-selected minimap autocomplete-paths busy-signal merge-conflicts linter linter-shellcheck symbols-tree-view linter-ui-default intentions git-control fold-navigator tree-view-git-status tool-bar tool-bar-main build chronometer updater-notify tomato-timer auto-update-plus wakatime imdone-atom imdone-atom-github atom-mysql-snippets";
 
                   echo "Installing Atom plugins:";
 
-                  mkdir -p $hm/$usr/.atom/packages;
+                  mkdir -p '$hm'/'$usr'/.atom/packages;
 
                   for m in $apms; do
                     echo -e "\e[1m\e[34m$m\e[0m";
-                    apm install $m > /dev/null 2>&1 >> /home/crt/installation.log;
+                    apm install $m > /home/crt/installation.log;
                   done
 
                   exit'
