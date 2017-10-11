@@ -30,6 +30,10 @@ hstnm=(bear.hostname.local);
 dn=/dev/null 2>&1
 den1=(/dev/null);
 rlog=(/root/installation.log);
+nme=(CoordonatorResurseTehnice);
+eml=(crt.cji@gmail.com);
+
+
 
 # FUNCTIONS
 
@@ -1345,16 +1349,29 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   blnk_echo;
 
 
-                  # Creating necessary folders as a simple user
+                  # Starting a $usr subshell
                   su $usr bash -c '
+
+                  # Creating necessary folders as a simple user
                   fldrs=( "Tests Drives/VirtualBox Public/GIT"/{GitHub,GitLab,BitBucket} );
                   for l in "${fldrs[@]}"; do
                   mkdir -p '$hm'/'$usr'/$l;
                   done
 
+                  # Disabling Nautilus feature of automatically opening folders when something is mounted
+                  gsettings set org.gnome.desktop.media-handling automount-open false
+
+                  echo "
+                  # This is Gits per-user configuration file.
+                  [user]
+                  # Please adapt and uncomment the following lines:
+                  name = '$nme'
+                  email = '$eml'" > ~/.gitconfig
+
                   blnk_echo;
 
                   exit'
+                  # The End of the $usr subshell
 
                   # END: Miscellaneous
 
