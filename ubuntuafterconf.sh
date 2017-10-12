@@ -1353,7 +1353,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   su $usr bash -c '
 
                   # Creating necessary folders as a simple user
-                  fldrs=( "Tests Drives/VirtualBox Public/GIT"/{GitHub,GitLab,BitBucket} );
+                  fldrs=( "Tests Drives/VirtualBox Projects/CJI Public/GIT"/{GitHub,GitLab,BitBucket} );
                   for l in "${fldrs[@]}"; do
                   mkdir -p '$hm'/'$usr'/$l;
                   done
