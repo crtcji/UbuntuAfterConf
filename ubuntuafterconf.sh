@@ -21,8 +21,8 @@
 # VARIABLES SECTION
 # -----------------------------------
 # mypath=$PWD;
-hm=(/home);
-usr=(crt);
+hm="/home"
+usr="crt"
 ipinf=(ipinfo.io/ip);
 bckp=(bckp);
 dns_provider=(dnscrypt.eu-nl);
@@ -30,9 +30,8 @@ hstnm=(bear.hostname.local);
 dn=/dev/null 2>&1
 den1=(/dev/null);
 rlog=(/root/installation.log);
-nme=(CoordonatorResurseTehnice);
-eml=(crt.cji@gmail.com);
-
+nme="Coordonator Resurse Tehnice"
+eml="crt.cji@gmail.com"
 
 
 # FUNCTIONS
