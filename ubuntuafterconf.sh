@@ -732,7 +732,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   pip install beautysh > $dn >> $rlog;
 
                   su $usr bash -c '
-                  apms="platformio-ide-terminal todo-show file-icons atom-beautify ask-stack git-blame git-time-machine highlight-selected minimap autocomplete-paths busy-signal merge-conflicts linter linter-shellcheck symbols-tree-view linter-ui-default intentions git-control fold-navigator tree-view-git-status tool-bar tool-bar-main build chronometer updater-notify tomato-timer auto-update-plus wakatime imdone-atom imdone-atom-github atom-mysql-snippets atom-reverser code-peek emmet fonts language-docker language-markdown sync-settings sort-lines";
+                  apms="ask-stack atom-beautify atom-mysql-snippets atom-reverser autocomplete-paths auto-update-plus build busy-signal chronometer code-peek emmet file-icons fold-navigator fonts git-blame git-control git-time-machine highlight-selected imdone-atom imdone-atom-github intentions language-docker language-markdown linter linter-shellcheck linter-ui-default merge-conflicts minimap platformio-ide-terminal sort-lines symbols-tree-view sync-settings todo-show tomato-timer tool-bar tool-bar-main tree-view-git-status updater-notify wakatime";
 
                   echo "Installing Atom plugins:";
 
