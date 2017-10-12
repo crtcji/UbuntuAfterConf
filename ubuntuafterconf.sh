@@ -1361,18 +1361,22 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   # Disabling Nautilus feature of automatically opening folders when something is mounted
                   gsettings set org.gnome.desktop.media-handling automount-open false
 
-                  echo "
-                  # This is Gits per-user configuration file.
-                  [user]
-                  # Please adapt and uncomment the following lines:
-                  name = '$nme'
-                  email = '$eml'" > ~/.gitconfig
-
                   blnk_echo;
 
                   exit'
                   # The End of the $usr subshell
 
+                  # Another subshell
+                  # @TODO Need to find a way to insert this subshell into the one above this one :)
+                  # @TODO Alos hvae to figure out how to format hits text with tabs so that the commands below this subshell are execute correctly
+                  sudo -Hu "$usr" bash -c 'cat > ~/.gitconfig' << EOF
+# This is Gits per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+name = $nme
+email = $eml
+EOF
+                  # The End of the another $usr subshell
                   # END: Miscellaneous
 
 
