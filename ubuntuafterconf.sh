@@ -1350,20 +1350,21 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
 
                   # Starting a $usr subshell
-                  su $usr bash -c '
+                  sudo -Hu "$usr" bash -c '
 
                   # Creating necessary folders as a simple user
                   fldrs=( "Tests Drives/VirtualBox Projects/CJI Public/GIT"/{GitHub,GitLab,BitBucket} );
-                  for l in "${fldrs[@]}"; do
+                  for l in ${fldrs[@]}; do
                   mkdir -p '$hm'/'$usr'/$l;
                   done
 
                   # Disabling Nautilus feature of automatically opening folders when something is mounted
                   gsettings set org.gnome.desktop.media-handling automount-open false
 
-                  blnk_echo;
-
                   exit'
+
+                  blnk_echo;
+                  
                   # The End of the $usr subshell
 
                   # Another subshell
