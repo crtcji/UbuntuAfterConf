@@ -33,6 +33,7 @@ rlog=(/root/installation.log);
 nme="Coordonator Resurse Tehnice"
 eml="crt.cji@gmail.com"
 apturl="http://10.0.2.2/ubuntu"
+apturl2="http://10.0.2.2/ubuntu-partner"
 
 
 # FUNCTIONS
@@ -217,7 +218,7 @@ if [[ ! $? -eq 0 ]]; then
     deb [arch=amd64] $apturl xenial-security universe
     deb [arch=amd64] $apturl xenial-security multiverse
 
-    deb [arch=amd64] $apturl xenial partner" > $srclst;
+    deb [arch=amd64] $apturl2 xenial partner" > $srclst;
 
       # UFW
       ufwc=(/etc/ufw/ufw.conf);
