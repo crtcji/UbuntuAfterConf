@@ -217,7 +217,7 @@ if [[ ! $? -eq 0 ]]; then
     deb [arch=amd64] $apturl xenial-security universe
     deb [arch=amd64] $apturl xenial-security multiverse
 
-    deb http://archive.canonical.com/ubuntu xenial partner" > $srclst;
+    deb [arch=amd64] $apturl xenial partner" > $srclst;
 
       # UFW
       ufwc=(/etc/ufw/ufw.conf);
