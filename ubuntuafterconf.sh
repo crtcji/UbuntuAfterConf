@@ -32,6 +32,7 @@ den1=(/dev/null);
 rlog=(/root/installation.log);
 nme="Coordonator Resurse Tehnice"
 eml="crt.cji@gmail.com"
+apturl="http://10.0.2.2/ubuntu"
 
 
 # FUNCTIONS
@@ -201,22 +202,22 @@ if [[ ! $? -eq 0 ]]; then
     echo -e "Repository server: \e[1m\e[34marchive.ubuntu.com (UK)\e[0m" && blnk_echo;
 
     echo "
-    deb http://archive.ubuntu.com/ubuntu xenial main restricted
-    deb http://archive.ubuntu.com/ubuntu xenial-updates main restricted
+    deb [arch=amd64] $apturl xenial main restricted
+    deb [arch=amd64] $apturl xenial-updates main restricted
 
-    deb http://archive.ubuntu.com/ubuntu xenial universe
-    deb http://archive.ubuntu.com/ubuntu xenial-updates universe
+    deb [arch=amd64] $apturl xenial universe
+    deb [arch=amd64] $apturl xenial-updates universe
 
-    deb http://archive.ubuntu.com/ubuntu xenial multiverse
-    deb http://archive.ubuntu.com/ubuntu xenial-updates multiverse
+    deb [arch=amd64] $apturl xenial multiverse
+    deb [arch=amd64] $apturl xenial-updates multiverse
 
-    deb http://archive.ubuntu.com/ubuntu xenial-backports main restricted universe multiverse
+    deb [arch=amd64] $apturl xenial-backports main restricted universe multiverse
 
-    deb http://archive.canonical.com/ubuntu xenial partner
+    deb [arch=amd64] $apturl xenial-security main restricted
+    deb [arch=amd64] $apturl xenial-security universe
+    deb [arch=amd64] $apturl xenial-security multiverse
 
-    deb http://archive.ubuntu.com/ubuntu xenial-security main restricted
-    deb http://archive.ubuntu.com/ubuntu xenial-security universe
-    deb http://archive.ubuntu.com/ubuntu xenial-security multiverse" > $srclst;
+    deb http://archive.canonical.com/ubuntu xenial partner" > $srclst;
 
       # UFW
       ufwc=(/etc/ufw/ufw.conf);
@@ -1364,7 +1365,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                   exit'
 
                   blnk_echo;
-                  
+
                   # The End of the $usr subshell
 
                   # Another subshell
