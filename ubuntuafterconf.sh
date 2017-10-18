@@ -437,7 +437,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
                   # CLI Applications
                   # dkms - for enabling USB devices inside guest OS for the VirtualBox's host OS
-                  appcli="apache2 apt-listchanges apt-mirror arp-scan autoconf clamav clamav-daemon clamav-freshclam cmus curl debconf-utils default-jdk default-jre dkms dtrx duplicity exfat-fuse exfat-utils fail2ban ffmpeg git glances htop iptraf lm-sensors mc ntp ntpdate p7zip powerline python-pip rcconf redshift rig screen shellcheck sysbench sysv-rc-conf tasksel testdisk tig tmux unattended-upgrades wavemon whois xclip";
+                  appcli="apache2 apt-listchanges apt-mirror arp-scan autoconf clamav clamav-daemon clamav-freshclam cmus curl debconf-utils default-jdk default-jre dkms dtrx duplicity exfat-fuse exfat-utils fail2ban ffmpeg git glances htop iptraf lm-sensors mc ntp ntpdate openssh-server p7zip powerline python-pip rcconf redshift rig screen shellcheck sysbench sysv-rc-conf tasksel testdisk tig tmux unattended-upgrades wavemon whois xclip";
 
                   # GUI Applications
                   # unity-tweaktool, shutter ?????
