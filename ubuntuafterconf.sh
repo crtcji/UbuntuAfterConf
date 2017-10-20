@@ -1073,6 +1073,8 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                     "thunderbird.desktop"
                     "pac_start.desktop"
                     "Launch TeamDrive.desktop"
+                    "evolution.desktop"
+                    "geary.desktop"
                   );
 
                   # The list of the shortcuts names content
@@ -1303,7 +1305,29 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                     Type=Application
                     Version=1.0
                     X-GNOME-Autostart-enabled=true"
-                  );
+
+                    "[Desktop Entry]
+                    Exec=evolution
+                    Type=Application
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Evolution
+                    Name=Evolution
+                    Comment[en_US]=Autostart Evolution Mail Client
+                    Comment=Autostart Evolution Mail Client"
+
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=geary
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Geary
+                    Name=Geary
+                    Comment[en_US]=Autostart Geary Mail Client
+                    Comment=Autostart Geary Mail Client"
+);
 
                   # There is no autostart directory, so we are going to make it
                   mkdir '$hm'/'$usr'/.config/autostart;
