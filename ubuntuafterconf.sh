@@ -1224,7 +1224,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
                     "[Desktop Entry]
                     Type=Application
-                    Exec=tresorit
+                    Exec=Exec='$hm'/'$usr'/.local/share/tresorit/tresorit
                     Hidden=false
                     NoDisplay=false
                     X-GNOME-Autostart-enabled=true
