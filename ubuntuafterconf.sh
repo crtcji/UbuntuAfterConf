@@ -1147,7 +1147,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                     Name=VirtualBox
                     Comment[en_US]=VirtualBox
                     Comment=VirtualBox
-                    X-GNOME-Autostart-Delay=30"
+                    X-GNOME-Autostart-Delay=120"
 
                     "[Desktop Entry]
                     Name=Zoho Docs
