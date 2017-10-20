@@ -438,13 +438,13 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
 
                   # CLI Applications
                   # dkms - for enabling USB devices inside guest OS for the VirtualBox's host OS
-                  appcli="apache2 apt-listchanges apt-mirror arp-scan autoconf clamav clamav-daemon clamav-freshclam cmus curl debconf-utils default-jdk default-jre dkms dtrx duplicity exfat-fuse exfat-utils fail2ban ffmpeg git glances htop iptraf lm-sensors mc ntp ntpdate openssh-server p7zip powerline python-pip rcconf redshift rig screen shellcheck sysbench sysv-rc-conf tasksel testdisk tig tmux unattended-upgrades wavemon whois xclip";
+                  appcli="apache2 apt-listchanges apt-mirror arp-scan autoconf clamav clamav-daemon clamav-freshclam cmus curl debconf-utils default-jdk default-jre dkms dtrx duplicity exfat-fuse exfat-utils fail2ban ffmpeg git glances htop iptraf lm-sensors mc ntp ntpdate openssh-server p7zip powerline python-pip rcconf redshift rig screen shellcheck sysbench sysv-rc-conf tasksel terminator testdisk tig tmux unattended-upgrades wavemon whois xclip";
 
                   # GUI Applications
                   # unity-tweaktool, shutter ?????
                   # amarok gpodder gwenview kate krita ktorrent yakuake kodi brasero clamtk
                   # gnome-control-center gnome-online-accounts
-                  appgui="0ad aptoncd audacity bleachbit caffeine code compizconfig-settings-manager darktable digikam5 easytag filezilla gimp gimp-gmic gimp-plugin-registry gmic gnome-sushi glipper gnucash gparted gpick gramps gresolver handbrake homebank indicator-multiload inkscape k3b keepassx kmymoney mysql-workbench nautilus-actions nextcloud-client openttd pdfchain pdfshuffler pidgin rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave winff";
+                  appgui="0ad aptoncd audacity bleachbit caffeine code compizconfig-settings-manager darktable digikam5 easytag evolution filezilla geary gimp gimp-gmic gimp-plugin-registry gmic gnome-sushi glipper gnucash gparted gpick gramps gresolver handbrake homebank indicator-multiload inkscape k3b keepassx kmymoney mysql-workbench nautilus-actions nextcloud-client openttd pdfchain pdfshuffler pidgin rawtherapee redshift-gtk shutter soundconverter sound-juicer sublime-text terminator uget unity-tweak-tool virtualbox-5.1 virt-viewer vlc workrave winff";
 
                   # The main multi-loop for installing apps/libs
                   for d in $applib $appcli $appgui; do
