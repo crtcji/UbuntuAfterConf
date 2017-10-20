@@ -1076,6 +1076,7 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                     "Launch TeamDrive.desktop"
                     "evolution.desktop"
                     "geary.desktop"
+                    "transmission-gtk.desktop"
                   );
 
                   # The list of the shortcuts names content
@@ -1328,6 +1329,17 @@ WantedBy=sockets.target" > /etc/systemd/system/dnscrypt-proxy.socket;
                     Name=Geary
                     Comment[en_US]=Autostart Geary Mail Client
                     Comment=Autostart Geary Mail Client"
+
+                    "[Desktop Entry]
+                    Type=Application
+                    Exec=transmission-gtk
+                    Hidden=false
+                    NoDisplay=false
+                    X-GNOME-Autostart-enabled=true
+                    Name[en_US]=Transmission
+                    Name=Transmission
+                    Comment[en_US]=Startup Transmission
+                    Comment=Startup Transmission"
 );
 
                   # There is no autostart directory, so we are going to make it
