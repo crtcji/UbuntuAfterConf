@@ -242,10 +242,8 @@ if [[ ! $? -eq 0 ]]; then
 
         # Opening outgoing ports using UFW. Redirecting UFW output to /dev/null device
         # 80/tcp - for Web
-        # 443/tcp - for secure Web (https) TCP
-        # 443/udp - for secure Web (https) UDP
-        # 53/tcp - for DNS TCP
-        # 53/udp - for DNS UDP
+        # 443/tcp - for secure Web (https) TCP&UDP
+        # 53/tcp - for DNS TCP&UDP
         # 123/udp - for NTP
         # 43/tcp - for whois app to work properly
         # 22/tcp - for general SSH connections
@@ -258,13 +256,14 @@ if [[ ! $? -eq 0 ]]; then
         # 8078/tcp - for eTeatru audio feed of the Romanian Radio Broadcasting Society
         # 9128/tcp - for MagicFM and RockFM from Romania
         # 48231/tcp - IJC
-        # 60309/tcp - BL
         # 465/tcp - for SMTP SSL
         # 993/tcp - for IMAP SSL
         # 6697,7000,7070/tcp - Secure ports for irc.freenode.net (aka chat.freenode.net)
         # 6969/tcp - for Transmission (auxiliary necessary port)
+        # 28893:28897/tcp - BL: SSH
+        # 60309:60312/tcp - BL: SSL
 
-        ufw_out="80/tcp 443/tcp 443/udp 53/tcp 53/udp 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413 8000:8054/tcp 8078/tcp 9128/tcp 48231/tcp 60309/tcp 465/tcp 993/tcp 6697,7000,7070/tcp 6969/tcp";
+        ufw_out="80/tcp 443 53 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413 8000:8054/tcp 8078/tcp 9128/tcp 48231/tcp 465/tcp 993/tcp 6697,7000,7070/tcp 6969/tcp 28893:28897/tcp 60309:60312/tcp";
 
         blnk_echo;
         echo "Opening the following outgoing ports:";
