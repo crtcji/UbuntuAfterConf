@@ -20,6 +20,7 @@
 
 # VARIABLES SECTION
 # -----------------------------------
+
 # mypath=$PWD;
 hm="/home"
 usr="crt"
