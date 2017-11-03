@@ -263,8 +263,14 @@ if [[ ! $? -eq 0 ]]; then
         # 6969/tcp - for Transmission (auxiliary necessary port)
         # 28893:28897/tcp - BL: SSH
         # 60309:60312/tcp - BL: SSL
+        # 1194/udp - for openVPN
+        # 3389/tcp - for RDP
+        # 4440/tcp - for RunDeck's unsecured web interface
+        # 4443/tcp - for RunDeck's secured web interface
+        # 2222/tcp - for vagrant's local SSH
 
-        ufw_out="80/tcp 443 53 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413 8000:8054/tcp 8078/tcp 9128/tcp 48231/tcp 465/tcp 993/tcp 6697,7000,7070/tcp 6969/tcp 28893:28897/tcp 60309:60312/tcp";
+
+        ufw_out="80/tcp 443 53 123/udp 43/tcp 22/tcp 7539/tcp 22170/tcp 2083/tcp 2096/tcp 51413 8000:8054/tcp 8078/tcp 9128/tcp 48231/tcp 465/tcp 993/tcp 6697,7000,7070/tcp 6969/tcp 28893:28897/tcp 60309:60312/tcp 1194/udp 3389/tcp 4440/tcp 4443/tcp 2222/tcp";
 
         blnk_echo;
         echo "Opening the following outgoing ports:";
@@ -276,8 +282,9 @@ if [[ ! $? -eq 0 ]]; then
         # Opening incoming ports using UFW. Redirecting UFW output to /dev/null device
         # 465/tcp - for SMTP SSL
         # 993/tcp - for IMAP SSL
+        # 1194/udp - for openVPN
 
-        ufw_in="465/tcp 993/tcp";
+        ufw_in="465/tcp 993/tcp 1194/udp";
 
         blnk_echo;
         echo "Opening the following incoming ports:";
